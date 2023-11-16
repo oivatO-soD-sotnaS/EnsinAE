@@ -1,0 +1,19 @@
+.backgroundColor{
+    -fx-backGround-color: linear-gradient(to left bottom, #000000, #0c0a0b, #141213, #1a181a, #201e20);
+}
+.button{
+    -fx-background-color: none;
+    -fx-border-color: #fff;
+    -fx-border-radius: 11;
+    -fx-cursor: hand;
+}
+.dateField{
+    -fx-background-color: none;
+}
+.text-field{
+    -fx-background-color: black;
+    -fx-opacity: 0.3;
+    -fx-text-fill: #fff;
+    -fx-border-color: white;
+    -fx-cursor: hand;
+}
