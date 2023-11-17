@@ -13,8 +13,6 @@ public class EnsinAEApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        Image icon = new Image("otaviosantos/ensinae/ifprLogo.png");
-        stage.getIcons().add(icon);
         stage.setTitle("Login Page");
         stage.setScene(scene);
         stage.show();
