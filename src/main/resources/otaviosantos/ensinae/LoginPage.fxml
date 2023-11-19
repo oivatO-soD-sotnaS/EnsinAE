@@ -6,25 +6,31 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" styleClass="backgroundColor" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.Controllers.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" styleClass="backgroundColor" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.LoginController">
       <Label layoutX="33.0" layoutY="128.0" text="Entrar" textFill="WHITE">
          <font>
             <Font name="Nunito Bold" size="48.0" />
          </font>
       </Label>
-      <Label layoutX="33.0" layoutY="254.0" text="CPF" textFill="#fcfcfc">
+      <Label layoutX="33.0" layoutY="254.0" text="EMAIL" textFill="#fcfcfc">
          <font>
-            <Font name="Nunito Bold" size="24.0" />
+            <Font name="Nunito Regular" size="24.0" />
          </font>
       </Label>
-      <TextField fx:id="loginCpfTextField" layoutX="33.0" layoutY="299.0" prefHeight="27.0" prefWidth="335.0" />
+      <TextField fx:id="loginEmailTextField" layoutX="33.0" layoutY="299.0" prefHeight="27.0" prefWidth="335.0" />
       <Label layoutX="33.0" layoutY="394.0" text="SENHA" textFill="#fcfcfc">
          <font>
-            <Font name="Nunito Bold" size="24.0" />
+            <Font name="Nunito Regular" size="24.0" />
          </font>
       </Label>
       <TextField fx:id="passwordLoginTextField" layoutX="33.0" layoutY="439.0" prefHeight="27.0" prefWidth="335.0" />
       <Button fx:id="loginButton" layoutX="33.0" layoutY="551.0" mnemonicParsing="false" onAction="#checkUserInfo" prefHeight="55.0" prefWidth="335.0" text="Entrar" textFill="WHITE" />
-      <Label fx:id="cpfError" layoutX="33.0" layoutY="344.0" text="Erro:" textFill="RED" />
-      <Label fx:id="passwordError" layoutX="33.0" layoutY="485.0" text="Erro:" textFill="RED" />
+      <Label fx:id="emailError" layoutX="33.0" layoutY="344.0" textFill="RED" />
+      <Label fx:id="passwordError" layoutX="33.0" layoutY="485.0" textFill="RED" />
+   <Label layoutX="32.0" layoutY="624.0" text="Voltar para o página de registro" textFill="WHITE">
+      <font>
+         <Font name="Nunito Regular" size="12.0" />
+      </font>
+   </Label>
+   <Button layoutX="229.0" layoutY="620.0" mnemonicParsing="false" onAction="#returnToRegisterPage" prefHeight="27.0" prefWidth="84.0" text="registrar-se" textFill="WHITE" />
 </AnchorPane>

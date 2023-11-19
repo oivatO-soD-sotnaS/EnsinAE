@@ -5,6 +5,4 @@ module otaviosantos.ensinae {
 
     opens otaviosantos.ensinae to javafx.fxml;
     exports otaviosantos.ensinae;
-    exports otaviosantos.ensinae.Controllers;
-    opens otaviosantos.ensinae.Controllers to javafx.fxml;
 }
