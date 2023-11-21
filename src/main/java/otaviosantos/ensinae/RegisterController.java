@@ -6,19 +6,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import modelos.Hashing;
+import modelos.User;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 public class RegisterController {
 
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
     //Text Fields
     @FXML
     private TextField nameField;
@@ -30,8 +29,6 @@ public class RegisterController {
     private TextField cpfField;
     @FXML
     private TextField passwordField;
-    @FXML
-    private DatePicker birthdayField;
     //Error labels
     @FXML
     private Label nameError;
@@ -53,7 +50,11 @@ public class RegisterController {
     }
     private boolean checkName() {
         if (this.nameField.getText().isEmpty()) {
-            generateError(this.nameError, "Error: nome não pode ser vazio.");
+            generateError(this.nameError, "Error: Nome não pode ser vazio.");
+            this.nameField.requestFocus();
+            return false;
+        }else if(this.nameField.getText().length() > 128){
+            generateError(this.nameError, "Error: nome excede o número máximo de caracteres.");
             this.nameField.requestFocus();
             return false;
         }
@@ -64,6 +65,10 @@ public class RegisterController {
         if(this.surnameField.getText().isEmpty()){
             generateError(this.surnameError, "Error: sobrenome não pode ser vazio.");
             this.surnameField.requestFocus();
+            return false;
+        }else if(this.nameField.getText().length() > 128){
+            generateError(this.nameError, "Error: Sobrenome excede o número máximo de caracteres.");
+            this.nameField.requestFocus();
             return false;
         }
         removeError(this.surnameError);
@@ -78,6 +83,10 @@ public class RegisterController {
             generateError(this.emailError, "Error: caixa de email vazia.");
             this.emailField.requestFocus();
             return false;
+        }else if(this.nameField.getText().length() > 256){
+            generateError(this.nameError, "Error: Email excede o número máximo de caracteres.");
+            this.nameField.requestFocus();
+            return false;
         }
         Pattern pattern = Pattern.compile(emailRegex);
         if(!pattern.matcher(email).matches()){
@@ -90,7 +99,7 @@ public class RegisterController {
     }
     private boolean checkCPF(){
         String cpf = this.cpfField.getText();
-        if(cpf.isEmpty() || cpf.length() != 11){
+        if(cpf.length() != 11){
             generateError(this.cpfError, "Error: caixa de cpf vazia ou incompleta.");
             return false;
         }
@@ -114,7 +123,7 @@ public class RegisterController {
             sum += (Integer.parseInt(String.valueOf(cpf.charAt(index))) * weight++);
         }
         int secondVerifierDigit = sum % 11;
-        if(secondVerifierDigit == 10) firstVerifierDigit = 0;
+        if(secondVerifierDigit == 10) secondVerifierDigit = 0;
         if(Integer.parseInt(String.valueOf(cpf.charAt(10))) != secondVerifierDigit){
             generateError(this.cpfError, "Error: cpf inválido");
             this.cpfError.requestFocus();
@@ -123,30 +132,43 @@ public class RegisterController {
         removeError(this.cpfError);
         return true;
     }
-    private boolean checkPassword(){
-        if(this.passwordField.getText().length() < 8 || this.passwordField.getText().length() > 12){
+    private boolean checkPassword() {
+        String password = this.passwordField.getText();
+        if (password.length() < 8 || password.length() > 24) {
             generateError(this.passwordError, "Error: senha deve ter entre 8 e 12 caracteres.");
             return false;
         }
-        String password = this.passwordField.getText();
         String passwordRegex = "[^a-zA-Z0-9]";
         Pattern pattern = Pattern.compile(passwordRegex);
-        if(!pattern.matcher(password).find()){
+        if (!pattern.matcher(password).find()) {
             generateError(this.passwordError, "Erro: senha deve contar no mínimo um caractere especial");
             return false;
         }
-        removeError(this.passwordError);
         return true;
+    }
+    private User createUser() throws NoSuchAlgorithmException {
+        User user =  new User();
+        user.setName(this.nameField.getText());
+        user.setSurname(this.surnameField.getText());
+        user.setEmail(this.emailField.getText());
+        user.setCpf(this.cpfField.getText());
+        user.setPassword(Hashing.hash256(this.passwordField.getText()));
+        return user;
     }
     public void checkInfo(){
         if(checkName() && checkSurname() && checkEmail() && checkCPF() && checkPassword()){
-            System.out.println("comprovado!");
+            try {
+                createUser();
+                System.out.println("comprovado!");
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public void switchToLoginPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
-        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Login page");
