@@ -1,5 +1,6 @@
 package otaviosantos.ensinae;
 
+import dao.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,7 @@ import modelos.User;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class RegisterController {
@@ -155,16 +157,17 @@ public class RegisterController {
         user.setPassword(Hashing.hash256(this.passwordField.getText()));
         return user;
     }
-    public void checkInfo(){
+    public void checkInfo() throws SQLException {
         if(checkName() && checkSurname() && checkEmail() && checkCPF() && checkPassword()){
             try {
-                createUser();
-                System.out.println("comprovado!");
+                UserDao.insertUser(createUser());
+                System.out.println("Usuário registrado!");
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }
         }
     }
+    @SuppressWarnings("all")
     public void switchToLoginPage(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -11,7 +11,7 @@ import java.io.IOException;
 public class EnsinAEApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("RegisterPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image(EnsinAEApp.class.getResourceAsStream("icon.jpg")));
         stage.setTitle("Login page");
