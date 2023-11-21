@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelos.Hashing;
@@ -24,7 +25,7 @@ public class LoginController {
     @FXML
     private TextField emailTextField;
     @FXML
-    private TextField passwordTextField;
+    private PasswordField passwordField;
     //Error labels
     @FXML
     private Label emailError;
@@ -59,7 +60,7 @@ public class LoginController {
     }
 
     private boolean checkPassword(User user) throws NoSuchAlgorithmException {
-        String password = Hashing.hash256(this.passwordTextField.getText());
+        String password = Hashing.hash256(this.passwordField.getText());
 
         if(password.isEmpty()){
             generateError(this.passwordError, "Error: caixa de senha vazia.");

@@ -7,7 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import modelos.Hashing;
@@ -30,7 +32,7 @@ public class RegisterController {
     @FXML
     private TextField cpfField;
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
     //Error labels
     @FXML
     private Label nameError;
@@ -146,6 +148,7 @@ public class RegisterController {
             generateError(this.passwordError, "Erro: senha deve contar no mínimo um caractere especial");
             return false;
         }
+        removeError(this.passwordError);
         return true;
     }
     private User createUser() throws NoSuchAlgorithmException {
