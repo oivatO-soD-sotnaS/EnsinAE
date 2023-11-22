@@ -15,14 +15,9 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="400.0" styleClass="backgroundColor" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.RegisterController">
       <QuadCurve controlX="140.8291015625" controlY="403.0" endX="842.1708984375" endY="-179.0" layoutX="-167.0" layoutY="157.0" startX="65.1708984375" startY="-169.0" stroke="TRANSPARENT" strokeType="INSIDE">
          <fill>
-            <LinearGradient startY="1.0">
+            <LinearGradient endX="1.0" endY="1.0" startY="1.0">
                <stops>
                   <Stop>
-                     <color>
-                        <Color red="0.019607843831181526" green="0.09803921729326248" blue="0.21568627655506134" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.006711409395973154">
                      <color>
                         <Color red="0.019607843831181526" green="0.09803921729326248" blue="0.21568627655506134" />
                      </color>
@@ -32,21 +27,21 @@
                         <Color green="0.3019607961177826" blue="0.47843137383461" />
                      </color>
                   </Stop>
-                  <Stop offset="0.5262727123915534">
-                     <color>
-                        <Color green="0.529411792755127" blue="0.5764706134796143" />
-                     </color>
-                  </Stop>
-                  <Stop offset="0.7549517105909314">
-                     <color>
-                        <Color green="0.7490196228027344" blue="0.4470588266849518" />
-                     </color>
-                  </Stop>
-                  <Stop offset="1.0">
-                     <color>
-                        <Color red="0.658823549747467" green="0.9215686321258545" blue="0.07058823853731155" />
-                     </color>
-                  </Stop>
+               <Stop offset="0.5262727123915534">
+                  <color>
+                     <Color green="0.529411792755127" blue="0.5764706134796143" />
+                  </color>
+               </Stop>
+               <Stop offset="0.7549517105909314">
+                  <color>
+                     <Color green="0.7490196228027344" blue="0.4470588266849518" />
+                  </color>
+               </Stop>
+               <Stop offset="1.0">
+                  <color>
+                     <Color red="0.658823549747467" green="0.9215686321258545" blue="0.07058823853731155" />
+                  </color>
+               </Stop>
                </stops>
             </LinearGradient>
          </fill>
@@ -56,7 +51,7 @@
             <Font name="Nunito Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="206.0" layoutY="115.0" mnemonicParsing="false" onAction="#switchToLoginPage" text="Faça o LOGIN" textFill="WHITE">
+      <Button layoutX="206.0" layoutY="115.0" mnemonicParsing="false" onAction="#switchToLoginPage" styleClass="normalButton" stylesheets="@styles.css" text="Faça o LOGIN" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -106,7 +101,7 @@
             <Font name="Nunito Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="89.0" layoutY="585.0" mnemonicParsing="false" onAction="#checkInfo" prefHeight="25.0" prefWidth="214.0" stylesheets="@styles.css" text="Criar conta" textFill="WHITE">
+      <Button layoutX="89.0" layoutY="585.0" mnemonicParsing="false" onAction="#checkInfo" prefHeight="25.0" prefWidth="214.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar conta" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
@@ -114,27 +109,27 @@
             <Cursor fx:constant="OPEN_HAND" />
          </cursor>
       </Button>
-      <Label fx:id="nameError" layoutX="21.0" layoutY="237.0" textFill="RED">
+      <Label fx:id="nameError" layoutX="21.0" layoutY="237.0" styleClass="errorLabel" stylesheets="@styles.css" textFill="#eb4242">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="surnameError" layoutX="208.0" layoutY="237.0" textFill="RED">
+      <Label fx:id="surnameError" layoutX="208.0" layoutY="237.0" styleClass="errorLabel" stylesheets="@styles.css" textFill="RED">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="emailError" layoutX="21.0" layoutY="336.0" textFill="RED">
+      <Label fx:id="emailError" layoutX="21.0" layoutY="336.0" styleClass="errorLabel" stylesheets="@styles.css" textFill="RED">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="cpfError" layoutX="21.0" layoutY="440.0" textFill="RED">
+      <Label fx:id="cpfError" layoutX="21.0" layoutY="440.0" styleClass="errorLabel" stylesheets="@styles.css" textFill="RED">
          <font>
             <Font size="10.0" />
          </font>
       </Label>
-      <Label fx:id="passwordError" layoutX="16.0" layoutY="539.0" textFill="RED">
+      <Label fx:id="passwordError" layoutX="16.0" layoutY="539.0" styleClass="errorLabel" stylesheets="@styles.css" textFill="RED">
          <font>
             <Font size="10.0" />
          </font>

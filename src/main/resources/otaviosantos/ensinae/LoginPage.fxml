@@ -65,17 +65,17 @@
          <Font name="Nunito Bold" size="18.0" />
       </font>
    </Label>
-   <Button fx:id="loginButton" layoutX="33.0" layoutY="530.0" mnemonicParsing="false" onAction="#checkUserInfo" prefHeight="55.0" prefWidth="335.0" text="Entrar" textFill="WHITE">
+   <Button fx:id="loginButton" layoutX="33.0" layoutY="530.0" mnemonicParsing="false" onAction="#checkUserInfo" prefHeight="55.0" prefWidth="335.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Entrar" textFill="WHITE">
       <font>
          <Font name="Nunito Bold" size="18.0" />
       </font>
    </Button>
-   <Label fx:id="emailError" layoutX="31.0" layoutY="356.0" textFill="#e44949">
+   <Label fx:id="emailError" layoutX="31.0" layoutY="356.0" styleClass="errorLabel" stylesheets="@styles.css" textFill="#e44949">
       <font>
          <Font name="Nunito Bold" size="11.0" />
       </font>
    </Label>
-   <Label fx:id="passwordError" layoutX="31.0" layoutY="478.0" textFill="#e44949">
+   <Label fx:id="passwordError" layoutX="31.0" layoutY="478.0" styleClass="errorLabel" stylesheets="@styles.css" textFill="#e44949">
       <font>
          <Font name="Nunito Bold" size="11.0" />
       </font>
@@ -85,7 +85,7 @@
          <Font name="Nunito Regular" size="13.0" />
       </font>
    </Label>
-   <Button layoutX="268.0" layoutY="599.0" mnemonicParsing="false" onAction="#returnToRegisterPage" prefHeight="30.0" prefWidth="100.0" text="registrar-se" textFill="WHITE">
+   <Button layoutX="268.0" layoutY="599.0" mnemonicParsing="false" onAction="#returnToRegisterPage" prefHeight="30.0" prefWidth="100.0" styleClass="normalButton" stylesheets="@styles.css" text="registrar-se" textFill="WHITE">
       <font>
          <Font name="Nunito Bold" size="13.0" />
       </font>

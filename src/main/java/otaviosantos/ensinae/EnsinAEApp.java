@@ -9,9 +9,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class EnsinAEApp extends Application {
+    @SuppressWarnings("all")
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("LoginPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("HomePage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image(EnsinAEApp.class.getResourceAsStream("icon.jpg")));
         stage.setTitle("Login page");
