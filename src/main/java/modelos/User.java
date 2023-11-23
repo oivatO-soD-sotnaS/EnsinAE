@@ -7,6 +7,8 @@ public class User {
     private String email;
     private String cpf;
     private String password;
+    private String access_level;
+    private boolean status;
 
 
     public Integer getId() {
@@ -55,5 +57,21 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAccess_level() {
+        return access_level;
+    }
+
+    public void setAccess_level(String access_level) {
+        this.access_level = access_level;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

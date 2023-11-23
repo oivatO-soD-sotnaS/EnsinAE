@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -42,21 +43,22 @@ public class LoginController {
         label.setText("");
     }
 
-    private boolean checkEmail() throws SQLException, NoSuchAlgorithmException {
+    private User checkEmail() throws SQLException, NoSuchAlgorithmException {
         String email = this.emailTextField.getText();
         if(email.isEmpty()){
             generateError(this.emailError, "Error: caixa de email vazia");
             this.emailTextField.requestFocus();
-            return false;
+            return null;
         }
         removeError(this.emailError);
         User user = UserDao.searchUser(email);
         if(user == null){
             generateError(this.emailError, "Error: Email não cadastrado.");
-            return false;
+            return null;
         }
         removeError(this.emailError);
-        return checkPassword(user);
+        if(checkPassword(user)) return user;
+        return null;
     }
 
     private boolean checkPassword(User user) throws NoSuchAlgorithmException {
@@ -73,9 +75,32 @@ public class LoginController {
         return true;
     }
 
-    public void checkUserInfo() throws SQLException, NoSuchAlgorithmException {
-        if(checkEmail())
-            System.out.println("Usuária encontrado.");
+    public void checkUserInfo(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
+        User user = checkEmail();
+        if(user != null && user.getStatus()) {
+            try {
+                switchToHomePage(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Error");
+            alert.setHeaderText("Conta de usuário não foi verificada");
+            alert.setContentText("Esta conta de usuário esta registrada porém ainda não foi confirmada, por favor espere até que um ADM autorize o acesso à sua conta.");
+            alert.show();
+        }
+
+    }
+    @SuppressWarnings("all")
+    private void switchToHomePage(ActionEvent event) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Home Page");
+        stage.show();
     }
 
     @SuppressWarnings("all")

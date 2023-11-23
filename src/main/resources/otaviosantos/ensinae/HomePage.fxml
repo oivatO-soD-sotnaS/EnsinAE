@@ -1,147 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.paint.LinearGradient?>
-<?import javafx.scene.paint.Stop?>
-<?import javafx.scene.shape.QuadCurve?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="900.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.HomePageController">
-  <tabs>
-    <Tab text="Página Inicial" />
-    <Tab text="Conta">
-      <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="608.0" prefWidth="891.0" styleClass="backgroundColor" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-              <opaqueInsets>
-                  <Insets top="10.0" />
-              </opaqueInsets>
-              <children>
-                  <AnchorPane layoutX="30.0" layoutY="23.0" prefHeight="255.0" prefWidth="831.0" styleClass="accountDiv" stylesheets="@styles.css">
-                      <padding>
-                          <Insets top="10.0" />
-                      </padding>
-                      <children>
-                          <Label layoutX="40.0" layoutY="135.0" text="Sobrenome:" textFill="WHITE">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <Label layoutX="40.0" layoutY="77.0" text="Nome:" textFill="WHITE">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="namePlaceholder" layoutX="224.0" layoutY="83.0" text="..." textFill="WHITE">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="surnamePlaceholder" layoutX="224.0" layoutY="135.0" text="..." textFill="WHITE">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <AnchorPane prefHeight="67.0" prefWidth="831.0" styleClass="accountDivHeader" stylesheets="@styles.css">
-                              <children>
-                                  <Label layoutX="14.0" layoutY="7.0" text="Informações Pessoais">
-                                      <font>
-                                          <Font name="System Bold" size="36.0" />
-                                      </font>
-                                  </Label>
-                                  <Button layoutX="725.0" layoutY="19.0" mnemonicParsing="false" onAction="#changePersonalInfo" styleClass="normalButton" stylesheets="@styles.css" text="Atualizar" />
-                              </children>
-                          </AnchorPane>
-                          <Label layoutX="42.0" layoutY="196.0" text="CPF:">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="cpfPlaceholder" layoutX="224.0" layoutY="196.0" text="..." textFill="WHITE">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                      </children>
-                  </AnchorPane>
-                  <QuadCurve controlX="-122.0" controlY="-393.0" endX="579.0" endY="116.0" layoutX="165.0" layoutY="560.0" startX="-165.0" startY="118.0" stroke="#ffffff00" strokeType="INSIDE">
-                      <fill>
-                          <LinearGradient cycleMethod="REPEAT" endX="1.0" startY="1.0">
-                              <stops>
-                                  <Stop>
-                                      <color>
-                                          <Color red="0.886274516582489" green="0.8196078538894653" blue="0.9764705896377563" />
-                                      </color>
-                                  </Stop>
-                                  <Stop offset="0.2680062203306597">
-                                      <color>
-                                          <Color red="0.6705882549285889" green="0.7372549176216125" blue="0.8941176533699036" />
-                                      </color>
-                                  </Stop>
-                                  <Stop offset="0.5219962350630217">
-                                      <color>
-                                          <Color red="0.4627451002597809" green="0.6509804129600525" blue="0.7764706015586853" />
-                                      </color>
-                                  </Stop>
-                                  <Stop offset="0.7939924701260435">
-                                      <color>
-                                          <Color red="0.29019609093666077" green="0.5647059082984924" blue="0.6235294342041016" />
-                                      </color>
-                                  </Stop>
-                                  <Stop offset="1.0">
-                                      <color>
-                                          <Color red="0.1921568661928177" green="0.46666666865348816" blue="0.45098039507865906" />
-                                      </color>
-                                  </Stop>
-                              </stops>
-                          </LinearGradient>
-                      </fill>
-                  </QuadCurve>
-                  <AnchorPane layoutX="30.0" layoutY="323.0" prefHeight="255.0" prefWidth="831.0" styleClass="accountDiv" stylesheets="@styles.css">
-                      <padding>
-                          <Insets top="10.0" />
-                      </padding>
-                      <children>
-                          <Label layoutX="42.0" layoutY="110.0" text="Email" textFill="#e1c4c4">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="emailPlaceholder" layoutX="226.0" layoutY="110.0" text="..." textFill="#e1c4c4">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <AnchorPane prefHeight="67.0" prefWidth="831.0" styleClass="accountDivHeader" stylesheets="@styles.css">
-                              <children>
-                                  <Label layoutX="14.0" layoutY="7.0" text="Segurança">
-                                      <font>
-                                          <Font name="System Bold" size="36.0" />
-                                      </font>
-                                  </Label>
-                                  <Button layoutX="727.0" layoutY="18.0" mnemonicParsing="false" onAction="#changeSecurityInfo" styleClass="normalButton" stylesheets="@styles.css" text="Atualizar" />
-                              </children>
-                          </AnchorPane>
-                          <Label layoutX="42.0" layoutY="178.0" text="Senha" textFill="#e1c4c4">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                          <Label fx:id="passwordPlaceholder" layoutX="224.0" layoutY="178.0" text="..." textFill="#e1c4c4">
-                              <font>
-                                  <Font size="24.0" />
-                              </font>
-                          </Label>
-                      </children>
-                  </AnchorPane>
-              </children>
-          </AnchorPane>
-      </content>
-    </Tab>
-  </tabs>
-</TabPane>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="128.0" prefWidth="900.0" stylesheets="@styles.css">
+         <children>
+            <ImageView fitHeight="37.0" fitWidth="148.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@logo2.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="601.0" prefWidth="901.0">
+         <children>
+            <AnchorPane prefHeight="632.0" prefWidth="200.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+               <children>
+                  <Button layoutX="14.0" layoutY="581.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="78.0" styleClass="buttonGradient2" stylesheets="@styles.css" text="Conta" />
+                  <Button layoutX="14.0" layoutY="341.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="159.0" styleClass="normalButton" stylesheets="@styles.css" text="Participar de uma turma" />
+                  <Label layoutX="14.0" layoutY="14.0" text="Disciplina:">
+                     <font>
+                        <Font name="Nunito Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="disciplineNameLabel" alignment="TOP_LEFT" layoutX="14.0" layoutY="49.0" prefHeight="54.0" prefWidth="159.0" text="..." textAlignment="JUSTIFY" wrapText="true" />
+                  <Label layoutX="13.0" layoutY="103.0" text="Descrição:">
+                     <font>
+                        <Font name="Nunito Bold" size="24.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="disciplineDescreptionLabel" alignment="TOP_LEFT" layoutX="13.0" layoutY="138.0" prefHeight="185.0" prefWidth="159.0" text="..." textAlignment="JUSTIFY" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="200.0" prefHeight="632.0" prefWidth="701.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+               <children>
+                  <ListView prefHeight="632.0" prefWidth="703.0" styleClass="backgroundColor2" stylesheets="@styles.css" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

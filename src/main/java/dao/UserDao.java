@@ -12,17 +12,19 @@ import java.util.List;
 public class UserDao {
 
     public static void insertUser(User user) throws SQLException {
-        String sql = "INSERT INTO " +
-                "user (cpf, email, password, name, surname)" +
-                "VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO user " +
+                "(name, surname, email, cpf, password, access_level, status)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
-        ps.setString(1, user.getCpf());
-        ps.setString(2, user.getEmail());
-        ps.setString(3, user.getPassword());
-        ps.setString(4, user.getName());
-        ps.setString(5, user.getSurname());
+        ps.setString(1, user.getName());
+        ps.setString(2, user.getSurname());
+        ps.setString(3, user.getEmail());
+        ps.setString(4, user.getCpf());
+        ps.setString(5, user.getPassword());
+        ps.setString(6, user.getAccess_level());
+        ps.setBoolean(7, user.getStatus());
         ps.execute();
     }
     public static User searchUser(String email) throws SQLException{
@@ -41,6 +43,8 @@ public class UserDao {
             user.setEmail(rs.getString("email"));
             user.setCpf(rs.getString("cpf"));
             user.setPassword(rs.getString("password"));
+            user.setAccess_level(rs.getString("access_level"));
+            user.setStatus(rs.getBoolean("status"));
         }
         return user;
     }

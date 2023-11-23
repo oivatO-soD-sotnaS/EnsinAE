@@ -2,8 +2,9 @@
     -fx-backGround-color: linear-gradient(to left bottom, #000000, #0c0a0b, #141213, #1a181a, #201e20);
 }
 .backgroundColor2{
-    -fx-backGround-color: #000000cc;
-
+    -fx-backGround-color: #201E20;
+    -fx-border-color: #DDC3A5;
+    -fx-border-width: 1;
 }
 .label{
     -fx-text-fill: white;
@@ -16,6 +17,17 @@
     -fx-border-color: none;
     -fx-cursor: hand;
 }
+.buttonGradient2{
+    -fx-background-color: none;
+    -fx-border-color: linear-gradient(to right top, #990011, #7e003c, #4d1b4c, #1f203f, #101820);
+    -fx-border-width: 2;
+    -fx-cursor: hand;
+}
+.buttonGradient2:hover{
+    -fx-background-color: none;
+}
+
+
 .normalButton{
     -fx-background-color: none;
     -fx-border-color: white;

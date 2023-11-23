@@ -5,16 +5,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class EnsinAEApp extends Application {
     @SuppressWarnings("all")
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("HomePage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.getIcons().add(new Image(EnsinAEApp.class.getResourceAsStream("icon.jpg")));
+        stage.getIcons().add(new Image(EnsinAEApp.class.getResourceAsStream("Logo1.png")));
         stage.setTitle("Login page");
         stage.setScene(scene);
         stage.setResizable(false);
@@ -24,5 +23,6 @@ public class EnsinAEApp extends Application {
     public static void main(String[] args) {
         launch();
     }
+
 
 }

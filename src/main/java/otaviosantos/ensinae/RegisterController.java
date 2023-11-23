@@ -7,7 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -158,14 +157,19 @@ public class RegisterController {
         user.setEmail(this.emailField.getText());
         user.setCpf(this.cpfField.getText());
         user.setPassword(Hashing.hash256(this.passwordField.getText()));
+        user.setAccess_level("student");
+        user.setStatus(false);
         return user;
     }
-    public void checkInfo() throws SQLException {
+    public void checkInfo(ActionEvent event){
         if(checkName() && checkSurname() && checkEmail() && checkCPF() && checkPassword()){
             try {
                 UserDao.insertUser(createUser());
-                System.out.println("Usuário registrado!");
-            } catch (NoSuchAlgorithmException e) {
+                switchToLoginPage(event);
+            } catch (NoSuchAlgorithmException | IOException e) {
+                throw new RuntimeException(e);
+            } catch (SQLException e) {
+                generateError(this.cpfError, "Error: CPF já esta cadastrado");
                 throw new RuntimeException(e);
             }
         }
