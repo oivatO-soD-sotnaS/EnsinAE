@@ -6,7 +6,7 @@
     -fx-border-color: #DDC3A5;
     -fx-border-width: 1;
 }
-.label{
+.Label{
     -fx-text-fill: white;
 }
 .errorLabel{
@@ -19,6 +19,7 @@
 }
 .buttonGradient2{
     -fx-background-color: none;
+    -fx-text-fill: white;
     -fx-border-color: linear-gradient(to right top, #990011, #7e003c, #4d1b4c, #1f203f, #101820);
     -fx-border-width: 2;
     -fx-cursor: hand;
@@ -35,9 +36,7 @@
     -fx-cursor: hand;
     -fx-text-fill: white;
 }
-.dateField{
-    -fx-background-color: none;
-}
+
 .text-field{
     -fx-background-color: black;
     -fx-opacity: 0.3;
@@ -45,10 +44,7 @@
     -fx-border-color: white;
     -fx-cursor: hand;
 }
-.listViewLabel{
-    -fx-border-color: white;
-    -fx-display: none;
-}
+
 .listViewStyle{
     -fx-background-color: none;
     -fx-border-color: white;
@@ -81,9 +77,13 @@
     -fx-border-color: CORNFLOWERBLUE;
     -fx-background-color: none;
 }
-.accountDiv{
-    -fx-background-color: rgba(251,234,235, 0.5);
+.redButton{
+    -fx-background-color: red;
+    -fx-cursor: hand;
 }
-.accountDivHeader{
-    -fx-background-color: rgba(47,60,126, 1);
+.redButton:hover{
+    -fx-background-color: darkred;
+}
+.button{
+    -fx-cursor: hand;
 }

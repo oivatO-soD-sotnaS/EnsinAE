@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import modelos.Hashing;
+import modelos.UserSecurity;
 import modelos.User;
 
 import java.io.IOException;
@@ -62,7 +62,7 @@ public class LoginController {
     }
 
     private boolean checkPassword(User user) throws NoSuchAlgorithmException {
-        String password = Hashing.hash256(this.passwordField.getText());
+        String password = UserSecurity.sha256(this.passwordField.getText());
 
         if(password.isEmpty()){
             generateError(this.passwordError, "Error: caixa de senha vazia.");
@@ -77,20 +77,21 @@ public class LoginController {
 
     public void checkUserInfo(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
         User user = checkEmail();
-        if(user != null && user.getStatus()) {
-            try {
-                switchToHomePage(event);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+        if(user != null) {
+            if(!user.getStatus()){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Error");
+                alert.setHeaderText("Conta de usuário não foi verificada");
+                alert.setContentText("Esta conta de usuário esta registrada porém ainda não foi confirmada, por favor espere até que um ADM autorize o acesso à sua conta.");
+                alert.show();
+            }else{
+                try {
+                    switchToHomePage(event);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }else{
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Error");
-            alert.setHeaderText("Conta de usuário não foi verificada");
-            alert.setContentText("Esta conta de usuário esta registrada porém ainda não foi confirmada, por favor espere até que um ADM autorize o acesso à sua conta.");
-            alert.show();
         }
-
     }
     @SuppressWarnings("all")
     private void switchToHomePage(ActionEvent event) throws IOException{
@@ -105,7 +106,7 @@ public class LoginController {
 
     @SuppressWarnings("all")
     public void returnToRegisterPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("RegisterPage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("RegisterStudantPage.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
