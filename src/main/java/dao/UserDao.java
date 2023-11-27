@@ -1,6 +1,6 @@
 package dao;
 
-import DTO.User;
+import dto.User;
 import util.Conexao;
 
 import java.sql.Connection;

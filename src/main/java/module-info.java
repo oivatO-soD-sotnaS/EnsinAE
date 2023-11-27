@@ -8,6 +8,6 @@ module otaviosantos.ensinae {
     exports otaviosantos.ensinae;
     exports models;
     opens models to javafx.fxml;
-    exports DTO;
-    opens DTO to javafx.fxml;
+    exports dto;
+    opens dto to javafx.fxml;
 }

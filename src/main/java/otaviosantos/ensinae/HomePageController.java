@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import DTO.User;
+import dto.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
