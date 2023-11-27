@@ -1,4 +1,4 @@
-package modelos;
+package DTO;
 
 public class User {
     private Integer id;
@@ -9,7 +9,6 @@ public class User {
     private String password;
     private String access_level;
     private boolean status;
-
 
     public Integer getId() {
         return id;

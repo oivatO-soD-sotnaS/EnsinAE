@@ -11,8 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import modelos.UserSecurity;
-import modelos.User;
+import models.UserAccesLevels;
+import models.UserSecurity;
+import DTO.User;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -117,7 +118,7 @@ public class RegisterStudantController {
         user.setEmail(this.emailField.getText());
         user.setCpf(this.cpfField.getText());
         user.setPassword(UserSecurity.sha256(this.passwordField.getText()));
-        user.setAccess_level("studant");
+        user.setAccess_level(UserAccesLevels.STUDANT.getAccessLevel());
         user.setStatus(false);
         return user;
     }

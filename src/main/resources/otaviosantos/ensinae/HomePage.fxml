@@ -59,7 +59,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="dropDisciplineButton" mnemonicParsing="false" onAction="#dropDiscipline" styleClass="redButton" stylesheets="@styles.css" text="Excluir disciplina" />
+            <Button fx:id="dropDisciplineButton" mnemonicParsing="false" onAction="#dropDiscipline" styleClass="redButton" stylesheets="@styles.css" text="Excluir disciplina" visible="false" />
          </children>
       </VBox>
       <VBox prefHeight="598.0" prefWidth="675.0" styleClass="backgroundColor2" stylesheets="@styles.css">
@@ -102,6 +102,11 @@
                   <VBox alignment="TOP_RIGHT" prefHeight="82.0" prefWidth="288.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#changeUserInfo" text="Modificar informações de usuário" />
+                        <Button fx:id="createProfessorButton" mnemonicParsing="false" text="Criar conta para professores" visible="false">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
                      </children>
                   </VBox>
                </children></HBox>
@@ -141,7 +146,7 @@
                               <Insets left="10.0" right="10.0" />
                            </padding>
                            <children>
-                              <Button fx:id="createDisciplineButton" mnemonicParsing="false" onAction="#createDiscipline" text="Criar disciplina">
+                              <Button fx:id="createDisciplineButton" mnemonicParsing="false" onAction="#createDiscipline" text="Criar disciplina" visible="false">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>

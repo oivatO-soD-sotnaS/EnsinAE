@@ -1,6 +1,6 @@
-package modelos;
+package DTO;
 
-public class registration {
+public class Registration {
     private Integer id;
     private User studant;
     private User professor;

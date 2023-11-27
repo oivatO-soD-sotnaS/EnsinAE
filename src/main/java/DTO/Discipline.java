@@ -1,4 +1,4 @@
-package modelos;
+package DTO;
 
 public class Discipline {
 

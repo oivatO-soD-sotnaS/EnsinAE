@@ -1,6 +1,6 @@
 package dao;
 
-import modelos.User;
+import DTO.User;
 import util.Conexao;
 
 import java.sql.Connection;

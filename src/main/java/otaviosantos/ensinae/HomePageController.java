@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
-import modelos.User;
+import DTO.User;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +22,8 @@ public class HomePageController implements Initializable{
     @FXML
     private Button dropDisciplineButton;
 
+    @FXML
+    private Button createProfessorButton;
     @FXML
     private TableView<?> disciplinesTableView;
 
@@ -91,8 +93,13 @@ public class HomePageController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
     }
-    private void checUserAccessLevel(User user){
-
+    private void checkUserAccessLevel(User user){
+        if(!user.getAccess_level().equals("professor")){
+            this.createDisciplineButton.setVisible(true);
+            this.dropDisciplineButton.setVisible(true);
+        }else if(!user.getAccess_level().equals("ADM")){
+            this.createProfessorButton.setVisible(true);
+        }
     }
 }
 
