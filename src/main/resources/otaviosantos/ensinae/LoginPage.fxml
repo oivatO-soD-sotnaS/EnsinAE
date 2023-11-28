@@ -65,7 +65,7 @@
          <Font name="Nunito Bold" size="18.0" />
       </font>
    </Label>
-   <Button fx:id="loginButton" layoutX="33.0" layoutY="530.0" mnemonicParsing="false" onAction="#checkUserInfo" prefHeight="55.0" prefWidth="335.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Entrar" textFill="WHITE">
+   <Button fx:id="loginButton" layoutX="33.0" layoutY="530.0" mnemonicParsing="false" onAction="#checkUserInfo" prefHeight="55.0" prefWidth="335.0" styleClass="buttonGradient3" stylesheets="@styles.css" text="Entrar" textFill="WHITE">
       <font>
          <Font name="Nunito Bold" size="18.0" />
       </font>

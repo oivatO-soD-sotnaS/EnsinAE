@@ -1,7 +1,5 @@
 package dao;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import vo.Discipline;
 import vo.User;
 import util.Conexao;
@@ -10,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
@@ -29,12 +28,15 @@ public class UserDao {
         ps.setString(6, user.access_level());
         ps.setBoolean(7, user.status());
         ps.execute();
+        ps.close();
     }
     public static User searchUser(String email) throws SQLException{
         String sql = "SELECT * FROM user WHERE email LIKE ?";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
+
         ps.setString(1, email);
+
         ResultSet rs = ps.executeQuery();
         User user = null;
 
@@ -49,14 +51,16 @@ public class UserDao {
                     rs.getBoolean("status")
             );
         }
-
+        ps.close();
         return user;
     }
     public static User searchUser(Integer id) throws SQLException{
-        String sql = "SELECT * FROM user WHERE email LIKE ?";
+        String sql = "SELECT * FROM user WHERE id LIKE ?";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
+
         ps.setInt(1, id);
+
         ResultSet rs = ps.executeQuery();
         User user = null;
 
@@ -72,6 +76,7 @@ public class UserDao {
             );
         }
 
+        ps.close();
         return user;
     }
     public void updateUser(User user) throws SQLException {
@@ -89,10 +94,11 @@ public class UserDao {
         ps.setString(4, user.cpf());
         ps.setString(5, user.password());
 
+        ps.close();
         ps.execute();
     }
-    public static ObservableList<Discipline> listDisciplines(User user) throws SQLException {
-        ObservableList<Discipline> initialData = FXCollections.observableArrayList();
+    public static List<Discipline> listDisciplines(User user) throws SQLException {
+        List<Discipline> initialData = new ArrayList<>();
         String sql = "SELECT id_discipline FROM registration WHERE id_user = ? AND status = TRUE";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -106,6 +112,7 @@ public class UserDao {
                     rs.getString("description"));
             initialData.add(discipline);
         }
+        ps.close();
         return initialData;
     }
     public static void createDiscipline(Discipline discipline) throws SQLException {
@@ -119,6 +126,7 @@ public class UserDao {
         ps.setInt(2, discipline.professor().id());
         ps.setString(3, discipline.description());
 
+        ps.close();
         ps.execute();
     }
     public static List<User> listUsersIntDiscipline(){

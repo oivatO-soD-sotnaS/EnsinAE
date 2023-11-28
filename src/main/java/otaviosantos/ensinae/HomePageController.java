@@ -2,6 +2,7 @@ package otaviosantos.ensinae;
 
 
 import dao.UserDao;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -125,11 +126,11 @@ public class HomePageController implements Initializable{
         this.userCPF.setText(activeUser.cpf());
 
         //innit table of disciplines
-        try {
-            this.disciplinesTableView.setItems(UserDao.listDisciplines(this.activeUser));
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            this.disciplinesTableView.setItems((ObservableList<Discipline>) UserDao.listDisciplines(this.activeUser));
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
 
         //change UI depending on user access level
         if(user.access_level().equals("professor")){

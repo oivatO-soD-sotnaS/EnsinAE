@@ -14,16 +14,21 @@
     -fx-text-fill: #eb4242;
 }
 .buttonGradient{
-    -fx-background-color: linear-gradient(to top left, #ff0844, #ffb199);
+    -fx-background-color: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
     -fx-text-fill: white;
     -fx-border-color: none;
     -fx-cursor: hand;
 }
 .buttonGradient2{
-    -fx-background-color: none;
+    -fx-background-color: linear-gradient(to top left, #ff0844, #ffb199);
     -fx-text-fill: white;
-    -fx-border-color: linear-gradient(to right top, #990011, #7e003c, #4d1b4c, #1f203f, #101820);
-    -fx-border-width: 2;
+    -fx-border-color: none;
+    -fx-cursor: hand;
+}
+.buttonGradient3{
+    -fx-background-color: linear-gradient(to top right, rgba(4,189,228,1) , rgba(2,83,185,1) );
+    -fx-text-fill: white;
+    -fx-border-color: none;
     -fx-cursor: hand;
 }
 .buttonGradient2:hover{

@@ -101,7 +101,7 @@
             <Font name="Nunito Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="89.0" layoutY="585.0" mnemonicParsing="false" onAction="#checkInfo" prefHeight="25.0" prefWidth="214.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar conta" textFill="WHITE">
+      <Button layoutX="89.0" layoutY="585.0" mnemonicParsing="false" onAction="#checkInfo" prefHeight="25.0" prefWidth="214.0" styleClass="buttonGradient3" stylesheets="@styles.css" text="Criar conta" textFill="WHITE">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
