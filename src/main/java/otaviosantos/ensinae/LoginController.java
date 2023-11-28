@@ -13,7 +13,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.UserSecurity;
-import dto.User;
+import vo.User;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -54,6 +54,7 @@ public class LoginController {
         User user = UserDao.searchUser(email);
         if(user == null){
             generateError(this.emailError, "Error: Email não cadastrado.");
+            this.emailTextField.requestFocus();
             return null;
         }
         removeError(this.emailError);
@@ -66,19 +67,26 @@ public class LoginController {
 
         if(password.isEmpty()){
             generateError(this.passwordError, "Error: caixa de senha vazia.");
+            this.passwordField.requestFocus();
             return false;
-        }else if(!password.equals(user.getPassword())){
+        }else if(!password.equals(user.password())){
             generateError(this.passwordError, "Error: senha inválida.");
+            this.passwordField.requestFocus();
             return false;
         }
         removeError(this.passwordError);
         return true;
     }
 
-    public void checkUserInfo(ActionEvent event) throws SQLException, NoSuchAlgorithmException {
-        User user = checkEmail();
+    public void checkUserInfo(ActionEvent event) {
+        User user;
+        try {
+            user = checkEmail();
+        } catch (SQLException | NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
         if(user != null) {
-            if(!user.getStatus()){
+            if(!user.status()){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
                 alert.setHeaderText("Conta de usuário não foi verificada");
@@ -86,7 +94,7 @@ public class LoginController {
                 alert.show();
             }else{
                 try {
-                    switchToHomePage(event);
+                    switchToHomePage(event, user);
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
@@ -94,24 +102,28 @@ public class LoginController {
         }
     }
     @SuppressWarnings("all")
-    private void switchToHomePage(ActionEvent event) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("HomePage.fxml"));
+    private void switchToHomePage(ActionEvent event, User user) throws IOException{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
+        Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+        HomePageController homePageController = fxmlLoader.getController();
+        homePageController.innitHomePage(user);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Home Page");
+        stage.setTitle("Página Inicial");
         stage.show();
     }
 
     @SuppressWarnings("all")
     public void returnToRegisterPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("RegisterStudantPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RegisterStudantPage.fxml"));
+        Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Registration page");
+        stage.setTitle("Página de Registro");
         stage.show();
     }
 }

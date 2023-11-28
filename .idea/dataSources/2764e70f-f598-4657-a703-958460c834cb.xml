@@ -1011,8 +1011,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="293" parent="1" name="db_ensinae_model">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-11-23.10:57:00</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-11-23.16:57:00</LocalIntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-11-27.13:41:44</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-11-27.19:41:44</LocalIntrospectionTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="294" parent="1" name="mysql.infoschema">
@@ -1104,7 +1104,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="313" parent="299" name="id_professor">
+    <column id="313" parent="299" name="id_discipline">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
@@ -1121,9 +1121,9 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <RefTableName>user</RefTableName>
     </foreign-key>
     <foreign-key id="316" parent="299" name="registration_ibfk_2">
-      <ColNames>id_user</ColNames>
+      <ColNames>id_discipline</ColNames>
       <RefColNames>id</RefColNames>
-      <RefTableName>user</RefTableName>
+      <RefTableName>discipline</RefTableName>
     </foreign-key>
     <index id="317" parent="299" name="PRIMARY">
       <ColNames>id</ColNames>
@@ -1134,85 +1134,89 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <ColNames>id_user</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="319" parent="299" name="PRIMARY">
+    <index id="319" parent="299" name="registration_ibfk_2">
+      <ColNames>id_discipline</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="320" parent="299" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="320" parent="300" name="id">
-      <AutoIncrement>1</AutoIncrement>
+    <column id="321" parent="300" name="id">
+      <AutoIncrement>11</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="321" parent="300" name="name">
+    <column id="322" parent="300" name="name">
       <DasType>varchar(128)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="322" parent="300" name="surname">
+    <column id="323" parent="300" name="surname">
       <DasType>varchar(128)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="323" parent="300" name="email">
+    <column id="324" parent="300" name="email">
       <DasType>varchar(256)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="324" parent="300" name="cpf">
+    <column id="325" parent="300" name="cpf">
       <DasType>varchar(11)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="325" parent="300" name="password">
+    <column id="326" parent="300" name="password">
       <DasType>varchar(512)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="326" parent="300" name="access_level">
+    <column id="327" parent="300" name="access_level">
       <DasType>varchar(60)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="327" parent="300" name="status">
+    <column id="328" parent="300" name="status">
       <DasType>tinyint(1)|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <index id="328" parent="300" name="PRIMARY">
+    <index id="329" parent="300" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="329" parent="300" name="id">
+    <index id="330" parent="300" name="id">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="330" parent="300" name="email">
+    <index id="331" parent="300" name="email">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="331" parent="300" name="cpf">
+    <index id="332" parent="300" name="cpf">
       <ColNames>cpf</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="332" parent="300" name="PRIMARY">
+    <key id="333" parent="300" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="333" parent="300" name="id">
+    <key id="334" parent="300" name="id">
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <key id="334" parent="300" name="email">
+    <key id="335" parent="300" name="email">
       <UnderlyingIndexName>email</UnderlyingIndexName>
     </key>
-    <key id="335" parent="300" name="cpf">
+    <key id="336" parent="300" name="cpf">
       <UnderlyingIndexName>cpf</UnderlyingIndexName>
     </key>
   </database-model>

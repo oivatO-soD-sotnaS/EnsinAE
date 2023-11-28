@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.UserAccesLevels;
 import models.UserSecurity;
-import dto.User;
+import vo.User;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -61,6 +61,7 @@ public class RegisterStudantController {
             return true;
         }
         generateError(this.nameError, output);
+        this.nameField.requestFocus();
         return false;
     }
 
@@ -72,6 +73,7 @@ public class RegisterStudantController {
             return true;
         }
         generateError(this.surnameError, output);
+        this.surnameField.requestFocus();
         return false;
     }
 
@@ -111,39 +113,40 @@ public class RegisterStudantController {
         return false;
     }
 
-    private User createUser() throws NoSuchAlgorithmException {
-        User user =  new User();
-        user.setName(this.nameField.getText());
-        user.setSurname(this.surnameField.getText());
-        user.setEmail(this.emailField.getText());
-        user.setCpf(this.cpfField.getText());
-        user.setPassword(UserSecurity.sha256(this.passwordField.getText()));
-        user.setAccess_level(UserAccesLevels.STUDANT.getAccessLevel());
-        user.setStatus(false);
-        return user;
+    private User createStudant() throws NoSuchAlgorithmException {
+        return new User(0,
+                this.nameField.getText(),
+                this.surnameField.getText(),
+                this.emailField.getText(),
+                this.cpfField.getText(),
+                UserSecurity.sha256(this.passwordField.getText()),
+                UserAccesLevels.STUDANT.getAccessLevel(),
+                false);
     }
 
     public void checkInfo(ActionEvent event){
         if(checkName() && checkSurname() && checkEmail() && checkCPF() && checkPassword()){
             try {
-                UserDao.insertUser(createUser());
+                UserDao.insertUser(createStudant());
                 switchToLoginPage(event);
             } catch (NoSuchAlgorithmException | IOException e) {
                 throw new RuntimeException(e);
             } catch (SQLException e) {
                 generateError(this.cpfError, "Error: CPF já esta cadastrado");
+                this.cpfField.requestFocus();
                 throw new RuntimeException(e);
             }
         }
     }
     @SuppressWarnings("all")
     public void switchToLoginPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("LoginPage.fxml"));
+        Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setResizable(false);
-        stage.setTitle("Login page");
+        stage.setTitle("Página de Login");
         stage.show();
     }
 }

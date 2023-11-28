@@ -1,6 +1,9 @@
 package dao;
 
-import dto.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import vo.Discipline;
+import vo.User;
 import util.Conexao;
 
 import java.sql.Connection;
@@ -18,13 +21,13 @@ public class UserDao {
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
-        ps.setString(1, user.getName());
-        ps.setString(2, user.getSurname());
-        ps.setString(3, user.getEmail());
-        ps.setString(4, user.getCpf());
-        ps.setString(5, user.getPassword());
-        ps.setString(6, user.getAccess_level());
-        ps.setBoolean(7, user.getStatus());
+        ps.setString(1, user.name());
+        ps.setString(2, user.surname());
+        ps.setString(3, user.email());
+        ps.setString(4, user.cpf());
+        ps.setString(5, user.password());
+        ps.setString(6, user.access_level());
+        ps.setBoolean(7, user.status());
         ps.execute();
     }
     public static User searchUser(String email) throws SQLException{
@@ -36,26 +39,96 @@ public class UserDao {
         User user = null;
 
         if(rs.next()){
-            user = new User();
-            user.setId(rs.getInt("id"));
-            user.setName(rs.getString("name"));
-            user.setSurname(rs.getString("surname"));
-            user.setEmail(rs.getString("email"));
-            user.setCpf(rs.getString("cpf"));
-            user.setPassword(rs.getString("password"));
-            user.setAccess_level(rs.getString("access_level"));
-            user.setStatus(rs.getBoolean("status"));
+            user = new User(rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("surname"),
+                    rs.getString("email"),
+                    rs.getString("cpf"),
+                    rs.getString("password"),
+                    rs.getString("access_level"),
+                    rs.getBoolean("status")
+            );
         }
+
         return user;
     }
-    public static List<User> listUserInSubject(){
+    public static User searchUser(Integer id) throws SQLException{
+        String sql = "SELECT * FROM user WHERE email LIKE ?";
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, id);
+        ResultSet rs = ps.executeQuery();
+        User user = null;
+
+        if(rs.next()){
+            user = new User(rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("surname"),
+                    rs.getString("email"),
+                    rs.getString("cpf"),
+                    rs.getString("password"),
+                    rs.getString("access_level"),
+                    rs.getBoolean("status")
+            );
+        }
+
+        return user;
+    }
+    public void updateUser(User user) throws SQLException {
+        String sql = "UPDATE user SET name = ?, " +
+                "surname = ?, " +
+                "email = ?, " +
+                "cpf = ?, " +
+                "password = ?";
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setString(1, user.name());
+        ps.setString(2, user.surname());
+        ps.setString(3, user.email());
+        ps.setString(4, user.cpf());
+        ps.setString(5, user.password());
+
+        ps.execute();
+    }
+    public static ObservableList<Discipline> listDisciplines(User user) throws SQLException {
+        ObservableList<Discipline> initialData = FXCollections.observableArrayList();
+        String sql = "SELECT id_discipline FROM registration WHERE id_user = ? AND status = TRUE";
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()){
+            Discipline discipline = new Discipline(
+                    rs.getInt("id"),
+                    searchUser(rs.getInt(user.id())),
+                    rs.getString("name"),
+                    rs.getString("description"));
+            initialData.add(discipline);
+        }
+        return initialData;
+    }
+    public static void createDiscipline(Discipline discipline) throws SQLException {
+        String sql = "INSERT INTO discipline " +
+                "(name, id_professor, description)" +
+                "VALUES (?, ?, ?)";
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setString(1, String.valueOf(discipline.name()));
+        ps.setInt(2, discipline.professor().id());
+        ps.setString(3, discipline.description());
+
+        ps.execute();
+    }
+    public static List<User> listUsersIntDiscipline(){
 
         return null;
     }
-    public static void removeUserFromSubject(Integer id){
+    public static void removeUserFromDiscipline(Integer id){
 
     }
-    public static void addUserToSubject(Integer id){
+    public static void addUserToDiscipline(Integer id){
 
     }
 }

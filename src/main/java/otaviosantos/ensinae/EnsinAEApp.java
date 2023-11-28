@@ -15,7 +15,7 @@ public class EnsinAEApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(EnsinAEApp.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.getIcons().add(new Image(EnsinAEApp.class.getResourceAsStream("Logo1.png")));
-        stage.setTitle("Login page");
+        stage.setTitle("Página de Login");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
