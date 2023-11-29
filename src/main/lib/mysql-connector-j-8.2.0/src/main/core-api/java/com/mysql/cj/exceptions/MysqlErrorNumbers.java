@@ -134,7 +134,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_CANT_DROP_FIELD_OR_KEY = 1091; //SQLSTATE: 42000 Message: Can't DROP '%s'; check that column/key exists
     public final static int ER_INSERT_INFO = 1092; //SQLSTATE: HY000 Message: Records: %ld Duplicates: %ld Warnings: %ld
     public final static int ER_UPDATE_TABLE_USED = 1093; //SQLSTATE: HY000 Message: You can't specify target table '%s' for update in FROM clause
-    public final static int ER_NO_SUCH_THREAD = 1094; //SQLSTATE: HY000 Message: Unknown thread id: %lu
+    public final static int ER_NO_SUCH_THREAD = 1094; //SQLSTATE: HY000 Message: Unknown thread id_discipline: %lu
     public final static int ER_KILL_DENIED_ERROR = 1095; //SQLSTATE: HY000 Message: You are not owner of thread %lu
     public final static int ER_NO_TABLES_USED = 1096; //SQLSTATE: HY000 Message: No tables used
     public final static int ER_TOO_BIG_SET = 1097; //SQLSTATE: HY000 Message: Too many strings for column %s and SET
@@ -748,7 +748,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_UNKNOWN_LOCALE = 1649; //SQLSTATE: HY000 Message: Unknown locale: '%s'
     @Deprecated
     public final static int ER_SLAVE_IGNORE_SERVER_IDS = 1650;
-    public final static int ER_REPLICA_IGNORE_SERVER_IDS = 1650; //SQLSTATE: HY000 Message: The requested server id %d clashes with the replica startup option --replicate-same-server-id
+    public final static int ER_REPLICA_IGNORE_SERVER_IDS = 1650; //SQLSTATE: HY000 Message: The requested server id_discipline %d clashes with the replica startup option --replicate-same-server-id_discipline
     public final static int ER_QUERY_CACHE_DISABLED = 1651; //SQLSTATE: HY000 Message: Query cache is disabled; restart the server with query_cache_type=1 to enable it
     public final static int ER_SAME_NAME_PARTITION_FIELD = 1652; //SQLSTATE: HY000 Message: Duplicate partition field name '%s'
     public final static int ER_PARTITION_COLUMN_LIST_ERROR = 1653; //SQLSTATE: HY000 Message: Inconsistency in usage of column lists for partitioning
@@ -913,7 +913,7 @@ public final class MysqlErrorNumbers {
     public final static int ER_TOO_LONG_TABLE_PARTITION_COMMENT = 1793; //SQLSTATE: HY000 Message: Comment for table partition '%s' is too long (max = %lu)
     @Deprecated
     public final static int ER_SLAVE_CONFIGURATION = 1794;
-    public final static int ER_REPLICA_CONFIGURATION = 1794; //SQLSTATE: HY000 Message: Replica is not configured or failed to initialize properly. You must at least set --server-id to enable either a source or a replica. Additional error messages can be found in the MySQL error log.
+    public final static int ER_REPLICA_CONFIGURATION = 1794; //SQLSTATE: HY000 Message: Replica is not configured or failed to initialize properly. You must at least set --server-id_discipline to enable either a source or a replica. Additional error messages can be found in the MySQL error log.
     public final static int ER_INNODB_FT_LIMIT = 1795; //SQLSTATE: HY000 Message: InnoDB presently supports one FULLTEXT index creation at a time
     public final static int ER_INNODB_NO_FT_TEMP_TABLE = 1796; //SQLSTATE: HY000 Message: Cannot create FULLTEXT index on temporary InnoDB table
     public final static int ER_INNODB_FT_WRONG_DOCID_COLUMN = 1797; //SQLSTATE: HY000 Message: Column '%s' is of wrong type for an InnoDB FULLTEXT index

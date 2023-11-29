@@ -5,10 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import models.UserSecurity;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 public class EnsinAEApp extends Application {
     @SuppressWarnings("all")

@@ -59,9 +59,9 @@ public class WebAuthnAuthenticationCallback implements MysqlCallback {
      * @param clientDataHash
      *            the client data hash
      * @param relyingPartyId
-     *            the relying party id
+     *            the relying party id_discipline
      * @param credentialId
-     *            the credential id
+     *            the credential id_discipline
      */
     public WebAuthnAuthenticationCallback(byte[] clientDataHash, String relyingPartyId, byte[] credentialId) {
         this.clientDataHash = clientDataHash;
@@ -85,7 +85,7 @@ public class WebAuthnAuthenticationCallback implements MysqlCallback {
      * Returns the FIDO Relying Party Id for the upcoming authenticator interaction.
      *
      * @return
-     *         the relying party id
+     *         the relying party id_discipline
      */
     public String getRelyingPartyId() {
         return this.relyingPartyId;
@@ -95,7 +95,7 @@ public class WebAuthnAuthenticationCallback implements MysqlCallback {
      * Returns the FIDO Credential Id for the upcoming authenticator interaction.
      *
      * @return
-     *         the credential id
+     *         the credential id_discipline
      */
     public byte[] getCredentialId() {
         return this.credentialId;

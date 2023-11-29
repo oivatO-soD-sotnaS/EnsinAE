@@ -15,6 +15,20 @@ public class UserSecurity {
         }
         return hexStrBuilder.toString();
     }
+    public static String checkName(String name){
+        if (name.isEmpty())
+            return "Error: Nome não pode ser vazio.";
+        else if(name.length() > 128)
+            return "Error: nome excede o número máximo de caracteres.";
+        return "valid name";
+    }
+    public static String checkSurname(String surname){
+        if (surname.isEmpty())
+            return "Error: Nome não pode ser vazio.";
+        else if(surname.length() > 128)
+            return "Error: nome excede o número máximo de caracteres.";
+        return "valid surname";
+    }
     public static String checkPassword(String password){
         if (password.length() < 8 || password.length() > 24) {
             return "Error: senha deve ter entre 8 e 12 caracteres.";
@@ -68,18 +82,5 @@ public class UserSecurity {
         }
         return "valid email";
     }
-    public static String checkName(String name){
-        if (name.isEmpty())
-            return "Error: Nome não pode ser vazio.";
-        else if(name.length() > 128)
-            return "Error: nome excede o número máximo de caracteres.";
-        return "valid name";
-    }
-    public static String checkSurname(String surname){
-        if (surname.isEmpty())
-            return "Error: Nome não pode ser vazio.";
-        else if(surname.length() > 128)
-            return "Error: nome excede o número máximo de caracteres.";
-        return "valid surname";
-    }
+
 }

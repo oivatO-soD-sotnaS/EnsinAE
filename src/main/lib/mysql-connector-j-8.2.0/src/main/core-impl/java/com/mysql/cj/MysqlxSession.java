@@ -120,21 +120,21 @@ public class MysqlxSession extends CoreSession {
     }
 
     /**
-     * Return an id to be used as a client-managed prepared statement id.
+     * Return an id_discipline to be used as a client-managed prepared statement id_discipline.
      *
      * @param preparableStatement
      *            {@link PreparableStatement}
-     * @return a new identifier to be used as prepared statement id
+     * @return a new identifier to be used as prepared statement id_discipline
      */
     public int getNewPreparedStatementId(PreparableStatement<?> preparableStatement) {
         return ((XProtocol) this.protocol).getNewPreparedStatementId(preparableStatement);
     }
 
     /**
-     * Free a prepared statement id so that it can be reused.
+     * Free a prepared statement id_discipline so that it can be reused.
      *
      * @param preparedStatementId
-     *            the prepared statement id to release
+     *            the prepared statement id_discipline to release
      */
     public void freePreparedStatementId(int preparedStatementId) {
         ((XProtocol) this.protocol).freePreparedStatementId(preparedStatementId);
@@ -144,7 +144,7 @@ public class MysqlxSession extends CoreSession {
      * Propagate to the underlying protocol instance that preparing a statement on the connected server failed.
      *
      * @param preparedStatementId
-     *            the id of the prepared statement that failed to be prepared
+     *            the id_discipline of the prepared statement that failed to be prepared
      * @param e
      *            {@link XProtocolError}
      * @return

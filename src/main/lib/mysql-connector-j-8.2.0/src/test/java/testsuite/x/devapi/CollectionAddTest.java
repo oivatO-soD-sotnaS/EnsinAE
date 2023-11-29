@@ -259,7 +259,7 @@ public class CollectionAddTest extends BaseCollectionTestCase {
         assertFalse(this.collection.find("a = 3").execute().hasNext());
         assertTrue(this.collection.find("a = 4").execute().hasNext());
 
-        // a new document with _id field that doesn't match id parameter
+        // a new document with _id field that doesn't match id_discipline parameter
         assertThrows(XDevAPIError.class, "Replacement document has an _id that is different than the matched document\\.", () -> {
             CollectionAddTest.this.collection.addOrReplaceOne("id2", CollectionAddTest.this.collection.newDoc().add("_id", new JsonString().setValue("id111")));
             return null;
@@ -275,12 +275,12 @@ public class CollectionAddTest extends BaseCollectionTestCase {
             return null;
         });
 
-        // null id parameter
-        assertThrows(XDevAPIError.class, "Parameter 'id' must not be null.", () -> {
+        // null id_discipline parameter
+        assertThrows(XDevAPIError.class, "Parameter 'id_discipline' must not be null.", () -> {
             CollectionAddTest.this.collection.addOrReplaceOne(null, CollectionAddTest.this.collection.newDoc().add("_id", new JsonString().setValue("id111")));
             return null;
         });
-        assertThrows(XDevAPIError.class, "Parameter 'id' must not be null.", () -> {
+        assertThrows(XDevAPIError.class, "Parameter 'id_discipline' must not be null.", () -> {
             CollectionAddTest.this.collection.addOrReplaceOne(null, "{\"_id\": \"id100\", \"a\": 100}");
             return null;
         });
@@ -771,7 +771,7 @@ public class CollectionAddTest extends BaseCollectionTestCase {
             DbDoc newDoc = new DbDocImpl();
             newDoc.add("FLD1", new JsonString().setValue("Data" + (i + 8)));
             if (i % 2 == 0) {
-                newDoc.add("_id", new JsonString().setValue("id-" + (i + 8)));
+                newDoc.add("_id", new JsonString().setValue("id_discipline-" + (i + 8)));
             }
             jsonlist[i] = newDoc;
             newDoc = null;

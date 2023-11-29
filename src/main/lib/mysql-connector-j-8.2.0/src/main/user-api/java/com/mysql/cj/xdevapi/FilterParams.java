@@ -58,9 +58,9 @@ public interface FilterParams {
         }
 
         /**
-         * Get the row lock type id.
+         * Get the row lock type id_discipline.
          *
-         * @return row lock type id
+         * @return row lock type id_discipline
          */
         public int asNumber() {
             return this.rowLock;
@@ -89,9 +89,9 @@ public interface FilterParams {
         }
 
         /**
-         * Get the row lock option id.
+         * Get the row lock option id_discipline.
          *
-         * @return row lock option id
+         * @return row lock option id_discipline
          */
         public int asNumber() {
             return this.rowLockOption;

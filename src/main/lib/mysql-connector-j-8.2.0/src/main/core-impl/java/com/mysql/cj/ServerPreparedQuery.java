@@ -128,7 +128,7 @@ public class ServerPreparedQuery extends ClientPreparedQuery {
                     .sendCommand(this.commandBuilder.buildComStmtPrepare(this.session.getSharedSendPacket(), sql,
                             this.session.getPropertySet().getStringProperty(PropertyKey.characterEncoding).getValue()), false, 0);
 
-            // 4.1.1 and newer use the first byte as an 'ok' or 'error' flag, so move the buffer pointer past it to start reading the statement id.
+            // 4.1.1 and newer use the first byte as an 'ok' or 'error' flag, so move the buffer pointer past it to start reading the statement id_discipline.
             prepareResultPacket.setPosition(1);
 
             this.serverStatementId = prepareResultPacket.readInteger(IntegerDataType.INT4);

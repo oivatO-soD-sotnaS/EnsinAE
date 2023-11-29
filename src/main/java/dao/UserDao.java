@@ -41,7 +41,7 @@ public class UserDao {
         User user = null;
 
         if(rs.next()){
-            user = new User(rs.getInt("id"),
+            user = new User(rs.getInt("id_user"),
                     rs.getString("name"),
                     rs.getString("surname"),
                     rs.getString("email"),
@@ -65,7 +65,7 @@ public class UserDao {
         User user = null;
 
         if(rs.next()){
-            user = new User(rs.getInt("id"),
+            user = new User(rs.getInt("id_user"),
                     rs.getString("name"),
                     rs.getString("surname"),
                     rs.getString("email"),
@@ -84,7 +84,8 @@ public class UserDao {
                 "surname = ?, " +
                 "email = ?, " +
                 "cpf = ?, " +
-                "password = ?";
+                "password = ? " +
+                "WHERE id_user = ?";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -93,43 +94,45 @@ public class UserDao {
         ps.setString(3, user.email());
         ps.setString(4, user.cpf());
         ps.setString(5, user.password());
+        ps.setInt(6, user.id_user());
 
-        ps.close();
         ps.execute();
+        ps.close();
     }
     public static List<Discipline> listDisciplines(User user) throws SQLException {
         List<Discipline> initialData = new ArrayList<>();
-        String sql = "SELECT id_discipline FROM registration WHERE id_user = ? AND status = TRUE";
+        String sql = "";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()){
-            Discipline discipline = new Discipline(
-                    rs.getInt("id"),
-                    searchUser(rs.getInt(user.id())),
-                    rs.getString("name"),
-                    rs.getString("description"));
-            initialData.add(discipline);
+
+
         }
         ps.close();
         return initialData;
     }
     public static void createDiscipline(Discipline discipline) throws SQLException {
         String sql = "INSERT INTO discipline " +
-                "(name, id_professor, description)" +
+                "(name, id_professor, description) " +
                 "VALUES (?, ?, ?)";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, String.valueOf(discipline.name()));
-        ps.setInt(2, discipline.professor().id());
+        ps.setInt(2, discipline.professor().id_user());
         ps.setString(3, discipline.description());
 
-        ps.close();
         ps.execute();
+        ps.close();
     }
-    public static List<User> listUsersIntDiscipline(){
+    public static List<User> listUsersInDiscipline(Discipline discipline) throws SQLException {
+        String sql = "";
+
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
 
         return null;
     }

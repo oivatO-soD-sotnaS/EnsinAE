@@ -427,7 +427,7 @@ public class CallableStatementTest extends BaseTestCase {
 
         try {
 
-            createTable("t1", "(id   char(16) not null default '', data int not null)");
+            createTable("t1", "(id_discipline   char(16) not null default '', data int not null)");
             createTable("t2", "(s   char(16),  i   int,  d   double)");
 
             createProcedure("foo42", "() insert into test.t1 values ('foo', 42);");

@@ -229,7 +229,7 @@ public class ConnectionTest extends BaseTestCase {
 
             int timeoutSecs = this.rs.getInt(2);
 
-            createTable("t1", "(id INTEGER, x INTEGER) ", "INNODB");
+            createTable("t1", "(id_discipline INTEGER, x INTEGER) ", "INNODB");
             this.stmt.executeUpdate("INSERT INTO t1 VALUES(0, 0)");
             this.conn.setAutoCommit(false);
 
@@ -243,10 +243,10 @@ public class ConnectionTest extends BaseTestCase {
             deadlockConn.setAutoCommit(false);
 
             try {
-                this.conn.createStatement().execute("SELECT * FROM t1 WHERE id=0 FOR UPDATE");
+                this.conn.createStatement().execute("SELECT * FROM t1 WHERE id_discipline=0 FOR UPDATE");
 
                 // The following query should hang because con1 is locking the page
-                deadlockConn.createStatement().executeUpdate("UPDATE t1 SET x=2 WHERE id=0");
+                deadlockConn.createStatement().executeUpdate("UPDATE t1 SET x=2 WHERE id_discipline=0");
             } finally {
                 this.conn.commit();
                 deadlockConn.commit();

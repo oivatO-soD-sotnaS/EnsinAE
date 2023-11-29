@@ -38,24 +38,24 @@ public class SequentialIdLease {
     private Set<Integer> sequentialIdsLease = new TreeSet<>();
 
     /**
-     * Finds and allocates the first available sequential id.
+     * Finds and allocates the first available sequential id_discipline.
      *
-     * @return the next free sequential id.
+     * @return the next free sequential id_discipline.
      */
     public int allocateSequentialId() {
         int nextSequentialId = 0;
         for (Iterator<Integer> it = this.sequentialIdsLease.iterator(); it.hasNext() && nextSequentialId + 1 == it.next(); nextSequentialId++) {
-            // Find the first free sequential id.
+            // Find the first free sequential id_discipline.
         }
         this.sequentialIdsLease.add(++nextSequentialId);
         return nextSequentialId;
     }
 
     /**
-     * Frees the given sequential id so that it can be reused.
+     * Frees the given sequential id_discipline so that it can be reused.
      *
      * @param sequentialId
-     *            the sequential id to release
+     *            the sequential id_discipline to release
      */
     public void releaseSequentialId(int sequentialId) {
         this.sequentialIdsLease.remove(sequentialId);

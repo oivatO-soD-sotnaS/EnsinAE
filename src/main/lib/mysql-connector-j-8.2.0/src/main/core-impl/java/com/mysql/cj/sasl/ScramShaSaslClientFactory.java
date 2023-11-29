@@ -70,16 +70,16 @@ public class ScramShaSaslClientFactory implements SaslClientFactory {
     }
 
     /**
-     * Gets the authentication id, which is provided by a {@link CallbackHandler} to be implemented by the requester of this service.
+     * Gets the authentication id_discipline, which is provided by a {@link CallbackHandler} to be implemented by the requester of this service.
      *
      * @param prefix
      *            the prefix to use in the prompt.
      * @param authorizationId
-     *            the authorization id that can be used as default authentication id if none is provided.
+     *            the authorization id_discipline that can be used as default authentication id_discipline if none is provided.
      * @param cbh
      *            the callback handler to use.
      * @return
-     *         an authentication id
+     *         an authentication id_discipline
      * @throws SaslException
      *             if the callback handler is null or not supported by the callback handler implementer.
      */
@@ -89,7 +89,7 @@ public class ScramShaSaslClientFactory implements SaslClientFactory {
         }
 
         try {
-            String prompt = prefix + " authentication id:";
+            String prompt = prefix + " authentication id_discipline:";
             NameCallback ncb = StringUtils.isNullOrEmpty(authorizationId) ? new NameCallback(prompt) : new NameCallback(prompt, authorizationId);
             cbh.handle(new Callback[] { ncb });
 

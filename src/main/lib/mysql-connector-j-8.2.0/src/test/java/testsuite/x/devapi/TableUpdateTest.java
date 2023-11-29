@@ -313,7 +313,7 @@ public class TableUpdateTest extends BaseTableTestCase {
 
     private void testPreparedStatementsResetData() {
         for (int i = 0; i < 4; i++) {
-            sqlUpdate("CREATE TABLE IF NOT EXISTS testPrepareUpdate_" + (i + 1) + " (id INT PRIMARY KEY, ord INT)");
+            sqlUpdate("CREATE TABLE IF NOT EXISTS testPrepareUpdate_" + (i + 1) + " (id_discipline INT PRIMARY KEY, ord INT)");
             sqlUpdate("TRUNCATE TABLE testPrepareUpdate_" + (i + 1));
             sqlUpdate("INSERT INTO testPrepareUpdate_" + (i + 1) + " VALUES (1, 1), (2, 2), (3, 3), (4, 4)");
         }

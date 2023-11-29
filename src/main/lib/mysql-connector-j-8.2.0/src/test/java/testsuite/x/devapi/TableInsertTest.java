@@ -57,7 +57,7 @@ public class TableInsertTest extends BaseTableTestCase {
     public void lastInsertId() {
         try {
             sqlUpdate("drop table if exists lastInsertId");
-            sqlUpdate("create table lastInsertId (id int not null primary key auto_increment, name varchar(20) not null)");
+            sqlUpdate("create table lastInsertId (id_discipline int not null primary key auto_increment, name varchar(20) not null)");
             Table table = this.schema.getTable("lastInsertId");
             InsertResult res = table.insert("name").values("a").values("b").values("c").execute();
             assertEquals(3, res.getAffectedItemsCount());

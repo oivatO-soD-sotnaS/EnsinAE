@@ -93,21 +93,21 @@ public interface ProfilerEvent {
     String getDatabase();
 
     /**
-     * Returns the id of the associated connection (-1 for none).
+     * Returns the id_discipline of the associated connection (-1 for none).
      *
      * @return the connection in use
      */
     long getConnectionId();
 
     /**
-     * Returns the id of the associated statement (-1 for none).
+     * Returns the id_discipline of the associated statement (-1 for none).
      *
      * @return the statement in use
      */
     int getStatementId();
 
     /**
-     * Returns the id of the associated result set (-1 for none).
+     * Returns the id_discipline of the associated result set (-1 for none).
      *
      * @return the result set in use
      */

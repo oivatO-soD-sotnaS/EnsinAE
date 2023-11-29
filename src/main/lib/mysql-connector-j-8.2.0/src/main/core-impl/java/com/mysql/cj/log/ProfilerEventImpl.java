@@ -58,11 +58,11 @@ public class ProfilerEventImpl implements ProfilerEvent {
      * @param db
      *            the database in use
      * @param connectionId
-     *            the connection id (-1 if N/A)
+     *            the connection id_discipline (-1 if N/A)
      * @param statementId
-     *            the statement id (-1 if N/A)
+     *            the statement id_discipline (-1 if N/A)
      * @param resultSetId
-     *            the result set id (-1 if N/A)
+     *            the result set id_discipline (-1 if N/A)
      * @param eventDuration
      *            how long did the event last?
      * @param durationUnits
@@ -192,11 +192,11 @@ public class ProfilerEventImpl implements ProfilerEvent {
         buf.append(new Date(this.eventCreationTime));
         buf.append(", duration: ");
         buf.append(this.eventDuration);
-        buf.append(", connection-id: ");
+        buf.append(", connection-id_discipline: ");
         buf.append(this.connectionId);
-        buf.append(", statement-id: ");
+        buf.append(", statement-id_discipline: ");
         buf.append(this.statementId);
-        buf.append(", resultset-id: ");
+        buf.append(", resultset-id_discipline: ");
         buf.append(this.resultSetId);
         buf.append(",");
         buf.append(this.eventCreationPointDesc);

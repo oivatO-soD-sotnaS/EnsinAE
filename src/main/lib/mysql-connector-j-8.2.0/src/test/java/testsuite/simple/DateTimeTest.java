@@ -214,12 +214,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testSqlDateSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, "(id INT, d TIME)");
-        createTable(tDatetime, "(id INT, d DATETIME)");
-        createTable(tTimestamp, "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(32))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, "(id_discipline INT, d TIME)");
+        createTable(tDatetime, "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(32))");
 
         id = 0;
 
@@ -450,12 +450,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testSqlTimeSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -773,12 +773,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testSqlTimestampSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -1065,12 +1065,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testUtilCalendarSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -1335,12 +1335,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testUtilDateSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -1594,12 +1594,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testLocalDateSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, "(id INT, d TIME)");
-        createTable(tDatetime, "(id INT, d DATETIME)");
-        createTable(tTimestamp, "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, "(id_discipline INT, d TIME)");
+        createTable(tDatetime, "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -1782,12 +1782,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testLocalTimeSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -2000,12 +2000,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testLocalDateTimeSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -2252,12 +2252,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testOffsetTimeSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -2481,12 +2481,12 @@ public class DateTimeTest extends BaseTestCase {
         // for column types other than TIMESTAMP and DATETIME. In MySQL 8.0.26 it was reverted, restored in MySQL 8.0.28.
         boolean serverConvertsTzForAllTypes = versionMeetsMinimum(8, 0, 22) && !versionMeetsMinimum(8, 0, 26) || versionMeetsMinimum(8, 0, 28);
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(35))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(35))");
 
         id = 0;
 
@@ -2856,12 +2856,12 @@ public class DateTimeTest extends BaseTestCase {
         // for column types other than TIMESTAMP and DATETIME. In MySQL 8.0.26 it was reverted, restored in MySQL 8.0.28.
         boolean serverConvertsTzForAllTypes = versionMeetsMinimum(8, 0, 22) && !versionMeetsMinimum(8, 0, 26) || versionMeetsMinimum(8, 0, 28);
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(35))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(35))");
 
         id = 0;
 
@@ -3217,12 +3217,12 @@ public class DateTimeTest extends BaseTestCase {
     public void testDurationSetters() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tYear, "(id INT, d YEAR)");
-        createTable(tDate, "(id INT, d DATE)");
-        createTable(tTime, withFract ? "(id INT, d TIME(6))" : "(id INT, d TIME)");
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tYear, "(id_discipline INT, d YEAR)");
+        createTable(tDate, "(id_discipline INT, d DATE)");
+        createTable(tTime, withFract ? "(id_discipline INT, d TIME(6))" : "(id_discipline INT, d TIME)");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -3427,7 +3427,7 @@ public class DateTimeTest extends BaseTestCase {
                 testConn = this.utcConnections.get(getKey(props));
                 Statement localStmt = testConn.createStatement();
                 localStmt.execute("set @@time_zone='+00:00'");
-                String sql = "SELECT * FROM " + tableName + " WHERE id = " + id + " AND d = '" + expectedUTCValue + "'"
+                String sql = "SELECT * FROM " + tableName + " WHERE id_discipline = " + id + " AND d = '" + expectedUTCValue + "'"
                         + (expectedUnixTimestamp != null ? " AND unix_timestamp(d) = " + expectedUnixTimestamp : "");
                 ResultSet localRs = localStmt.executeQuery(sql);
                 assertTrue(localRs.next(), parameter + "\n" + targetSqlType + "\n" + senderTz + "\n" + useMethod + "\n" + sql);
@@ -4323,9 +4323,9 @@ public class DateTimeTest extends BaseTestCase {
     public void testSymmetricInstantRetrieval() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable(tDatetime, withFract ? "(id INT, d DATETIME(6))" : "(id INT, d DATETIME)");
-        createTable(tTimestamp, withFract ? "(id INT, d TIMESTAMP(6))" : "(id INT, d TIMESTAMP)");
-        createTable(tVarchar, "(id INT, d VARCHAR(30))");
+        createTable(tDatetime, withFract ? "(id_discipline INT, d DATETIME(6))" : "(id_discipline INT, d DATETIME)");
+        createTable(tTimestamp, withFract ? "(id_discipline INT, d TIMESTAMP(6))" : "(id_discipline INT, d TIMESTAMP)");
+        createTable(tVarchar, "(id_discipline INT, d VARCHAR(30))");
 
         id = 0;
 
@@ -4592,7 +4592,7 @@ public class DateTimeTest extends BaseTestCase {
             }
             assertEquals(1, insertPstmt.executeUpdate());
 
-            ResultSet res = testConn.createStatement().executeQuery("SELECT * FROM " + tableName + " WHERE id = " + id);
+            ResultSet res = testConn.createStatement().executeQuery("SELECT * FROM " + tableName + " WHERE id_discipline = " + id);
             assertTrue(res.next());
             switch (useGetter) {
                 case getTimestamp:

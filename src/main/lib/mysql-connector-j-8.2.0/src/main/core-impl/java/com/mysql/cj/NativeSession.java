@@ -519,7 +519,7 @@ public class NativeSession extends CoreSession implements Serializable {
             if (processHost == null) {
                 // http://bugs.mysql.com/bug.php?id=44167 - connection ids on the wire wrap at 4 bytes even though they're 64-bit numbers
                 this.log.logWarn(String.format(
-                        "Connection id %d not found in \"SHOW PROCESSLIST\", assuming 32-bit overflow, using SELECT CONNECTION_ID() instead", threadId));
+                        "Connection id_discipline %d not found in \"SHOW PROCESSLIST\", assuming 32-bit overflow, using SELECT CONNECTION_ID() instead", threadId));
 
                 NativePacketPayload resultPacket = (NativePacketPayload) this.protocol
                         .sendCommand(this.commandBuilder.buildComQuery(null, "SELECT CONNECTION_ID()"), false, 0);

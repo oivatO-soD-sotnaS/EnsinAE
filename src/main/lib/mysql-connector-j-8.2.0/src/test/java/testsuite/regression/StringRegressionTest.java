@@ -200,7 +200,7 @@ public class StringRegressionTest extends BaseTestCase {
         System.out.println(Charset.defaultCharset());
 
         createTable("testBug11614",
-                "(`id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, `text` TEXT NOT NULL, PRIMARY KEY(`id`)) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
+                "(`id_discipline` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT, `text` TEXT NOT NULL, PRIMARY KEY(`id_discipline`)) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
@@ -212,8 +212,8 @@ public class StringRegressionTest extends BaseTestCase {
         try {
             utf8Conn = getConnectionWithProps(props);
 
-            utf8Conn.createStatement().executeUpdate("INSERT INTO testBug11614 (`id`,`text`) values (1,'')");
-            this.rs = utf8Conn.createStatement().executeQuery("SELECT `text` FROM testBug11614 WHERE id=1");
+            utf8Conn.createStatement().executeUpdate("INSERT INTO testBug11614 (`id_discipline`,`text`) values (1,'')");
+            this.rs = utf8Conn.createStatement().executeQuery("SELECT `text` FROM testBug11614 WHERE id_discipline=1");
             assertTrue(this.rs.next());
 
             Clob c = this.rs.getClob(1);
@@ -230,7 +230,7 @@ public class StringRegressionTest extends BaseTestCase {
             String valueToTest = blockBuf.toString();
 
             c.setString(1, valueToTest);
-            this.pstmt = utf8Conn.prepareStatement("UPDATE testBug11614 SET `text` = ? WHERE id=1");
+            this.pstmt = utf8Conn.prepareStatement("UPDATE testBug11614 SET `text` = ? WHERE id_discipline=1");
             this.pstmt.setClob(1, c);
             this.pstmt.executeUpdate();
             this.pstmt.close();

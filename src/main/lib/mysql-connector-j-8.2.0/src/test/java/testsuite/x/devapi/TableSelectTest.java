@@ -867,12 +867,12 @@ public class TableSelectTest extends BaseTableTestCase {
 
         try {
             sqlUpdate("drop table if exists testBug22038729");
-            sqlUpdate("create table testBug22038729 (c1 int, c2 int unsigned, id bigint)");
+            sqlUpdate("create table testBug22038729 (c1 int, c2 int unsigned, id_discipline bigint)");
             sqlUpdate("insert into testBug22038729 values(10, 100, -9223372036854775808)");
             sqlUpdate("insert into testBug22038729 values(11, 11, 9223372036854775806)");
 
             sqlUpdate("drop procedure if exists testBug22038729p");
-            sqlUpdate("create procedure testBug22038729p (in p1 int,IN p2 char(20)) begin select -10;select id+1000 from testBug22038729; end;");
+            sqlUpdate("create procedure testBug22038729p (in p1 int,IN p2 char(20)) begin select -10;select id_discipline+1000 from testBug22038729; end;");
 
             // XProtocol.readRowOrNull()
             Session sess = new SessionFactory().getSession(this.testProperties);
@@ -929,7 +929,7 @@ public class TableSelectTest extends BaseTableTestCase {
         try {
             // Prepare test data.
             sqlUpdate("DROP TABLE IF EXISTS testPrepareSelect");
-            sqlUpdate("CREATE TABLE testPrepareSelect (id INT PRIMARY KEY, ord INT)");
+            sqlUpdate("CREATE TABLE testPrepareSelect (id_discipline INT PRIMARY KEY, ord INT)");
             sqlUpdate("INSERT INTO testPrepareSelect VALUES (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8)");
 
             SessionFactory sf = new SessionFactory();

@@ -206,7 +206,7 @@ public class CollectionImpl implements Collection {
         if (docId != null && (!JsonString.class.isInstance(docId) || !id.equals(((JsonString) docId).getString()))) {
             throw new XDevAPIError(Messages.getString("Collection.DocIdMismatch"));
         }
-        return modify("_id = :id").set("$", doc).bind("id", id).execute();
+        return modify("_id = :id_discipline").set("$", doc).bind("id", id).execute();
     }
 
     @Override
@@ -258,12 +258,12 @@ public class CollectionImpl implements Collection {
 
     @Override
     public DbDoc getOne(String id) {
-        return find("_id = :id").bind("id", id).execute().fetchOne();
+        return find("_id = :id_discipline").bind("id", id).execute().fetchOne();
     }
 
     @Override
     public Result removeOne(String id) {
-        return remove("_id = :id").bind("id", id).execute();
+        return remove("_id = :id_discipline").bind("id", id).execute();
     }
 
 }

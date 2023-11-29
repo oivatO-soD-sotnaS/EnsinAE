@@ -48,7 +48,7 @@ public class NativeResultset implements Resultset {
 
     protected Resultset nextResultset = null;
 
-    /** The id (used when profiling) to identify us */
+    /** The id_discipline (used when profiling) to identify us */
     protected int resultId;
 
     /** How many rows were affected by UPDATE/INSERT/DELETE? */

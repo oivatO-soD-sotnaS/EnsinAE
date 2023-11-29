@@ -162,7 +162,7 @@ public class StatementsTest extends BaseTestCase {
 
     @Test
     public void testAutoIncrement() throws SQLException {
-        createTable("statement_test", "(id int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255))");
+        createTable("statement_test", "(id_discipline int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255))");
 
         try {
             this.stmt.setFetchSize(Integer.MIN_VALUE);
@@ -771,7 +771,7 @@ public class StatementsTest extends BaseTestCase {
 
     @Test
     public void testInsert() throws SQLException {
-        createTable("statement_test", "(id int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255))");
+        createTable("statement_test", "(id_discipline int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255))");
 
         try {
             boolean autoCommit = this.conn.getAutoCommit();
@@ -958,10 +958,10 @@ public class StatementsTest extends BaseTestCase {
 
     @Test
     public void testPreparedStatement() throws SQLException {
-        createTable("statement_test", "(id int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255))");
+        createTable("statement_test", "(id_discipline int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255))");
 
-        this.stmt.executeUpdate("INSERT INTO statement_test (id, strdata1,strdata2) values (999,'abcdefg', 'poi')");
-        this.pstmt = this.conn.prepareStatement("UPDATE statement_test SET strdata1=?, strdata2=? where id=999");
+        this.stmt.executeUpdate("INSERT INTO statement_test (id_discipline, strdata1,strdata2) values (999,'abcdefg', 'poi')");
+        this.pstmt = this.conn.prepareStatement("UPDATE statement_test SET strdata1=?, strdata2=? where id_discipline=999");
         this.pstmt.setString(1, "iop");
         this.pstmt.setString(2, "higjklmn");
 
@@ -972,7 +972,7 @@ public class StatementsTest extends BaseTestCase {
 
         this.pstmt.close();
 
-        this.rs = this.stmt.executeQuery("SELECT id, strdata1, strdata2 FROM statement_test");
+        this.rs = this.stmt.executeQuery("SELECT id_discipline, strdata1, strdata2 FROM statement_test");
 
         assertTrue(this.rs.next());
         assertTrue(this.rs.getInt(1) == 999);
@@ -984,11 +984,11 @@ public class StatementsTest extends BaseTestCase {
     public void testPreparedStatementBatch() throws SQLException {
         try {
             createTable("statement_batch_test",
-                    "(id int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255), UNIQUE INDEX (strdata1))");
+                    "(id_discipline int not null primary key auto_increment, strdata1 varchar(255) not null, strdata2 varchar(255), UNIQUE INDEX (strdata1))");
         } catch (SQLException sqlEx) {
             if (sqlEx.getMessage().indexOf("max key length") != -1) {
                 createTable("statement_batch_test",
-                        "(id int not null primary key auto_increment, strdata1 varchar(175) not null, strdata2 varchar(175), UNIQUE INDEX (strdata1))");
+                        "(id_discipline int not null primary key auto_increment, strdata1 varchar(175) not null, strdata2 varchar(175), UNIQUE INDEX (strdata1))");
             }
         }
 
@@ -2494,7 +2494,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Fully working batch
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         this.stmt.addBatch("INSERT INTO testExecuteLargeBatch (n) VALUES (1)");
         this.stmt.addBatch("INSERT INTO testExecuteLargeBatch (n) VALUES (2)");
@@ -2531,7 +2531,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Batch with failing queries
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         this.stmt.addBatch("INSERT INTO testExecuteLargeBatch (n) VALUES (1)");
         this.stmt.addBatch("INSERT INTO testExecuteLargeBatch (n) VALUES (2)");
@@ -2577,7 +2577,7 @@ public class StatementsTest extends BaseTestCase {
      */
     @Test
     public void testStmtExecuteLargeUpdateNoGeneratedKeys() throws Exception {
-        createTable("testExecuteLargeUpdate", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeUpdate", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         long count = this.stmt.executeLargeUpdate("INSERT INTO testExecuteLargeUpdate (n) VALUES (1), (2), (3), (4), (5)");
         assertEquals(5, count);
@@ -2602,7 +2602,7 @@ public class StatementsTest extends BaseTestCase {
      */
     @Test
     public void testStmtExecuteLargeUpdate() throws Exception {
-        createTable("testExecuteLargeUpdate", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeUpdate", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         for (int tst = 1; tst <= 3; tst++) {
             this.stmt.execute("TRUNCATE TABLE testExecuteLargeUpdate");
@@ -2650,7 +2650,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Fully working batch
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         this.pstmt = this.conn.prepareStatement("INSERT INTO testExecuteLargeBatch (n) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
         this.pstmt.setInt(1, 1);
@@ -2693,7 +2693,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Batch with failing queries
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         this.pstmt = this.conn.prepareStatement("INSERT INTO testExecuteLargeBatch (n) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
         this.pstmt.setInt(1, 1);
@@ -2745,7 +2745,7 @@ public class StatementsTest extends BaseTestCase {
      */
     @Test
     public void testPrepStmtExecuteLargeUpdateNoGeneratedKeys() throws Exception {
-        createTable("testExecuteLargeUpdate", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeUpdate", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         this.pstmt = this.conn.prepareStatement("INSERT INTO testExecuteLargeUpdate (n) VALUES (?), (?), (?), (?), (?)");
         this.pstmt.setInt(1, 1);
@@ -2775,7 +2775,7 @@ public class StatementsTest extends BaseTestCase {
      */
     @Test
     public void testPrepStmtExecuteLargeUpdateExplicitGeneratedKeys() throws Exception {
-        createTable("testExecuteLargeUpdate", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeUpdate", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         this.pstmt = this.conn.prepareStatement("INSERT INTO testExecuteLargeUpdate (n) VALUES (?), (?), (?), (?), (?)", Statement.RETURN_GENERATED_KEYS);
         this.pstmt.setInt(1, 1);
@@ -2814,7 +2814,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Fully working batch
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
         createProcedure("testExecuteLargeBatchProc", "(IN n INT) BEGIN INSERT INTO testExecuteLargeBatch (n) VALUES (n); END");
 
         CallableStatement testCstmt = this.conn.prepareCall("{CALL testExecuteLargeBatchProc(?)}");
@@ -2868,7 +2868,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Batch with failing queries
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         testCstmt = this.conn.prepareCall("{call testExecuteLargeBatchProc(?)}");
         testCstmt.setInt(1, 1);
@@ -2919,7 +2919,7 @@ public class StatementsTest extends BaseTestCase {
      */
     @Test
     public void testCallStmtExecuteLargeUpdate() throws Exception {
-        createTable("testExecuteLargeUpdate", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeUpdate", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
         createProcedure("testExecuteLargeUpdateProc", "(IN n1 INT, IN n2 INT, IN n3 INT, IN n4 INT, IN n5 INT) BEGIN "
                 + "INSERT INTO testExecuteLargeUpdate (n) VALUES (n1), (n2), (n3), (n4), (n5); END");
 
@@ -2963,7 +2963,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Fully working batch
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
@@ -3012,7 +3012,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Batch with failing queries
          */
-        createTable("testExecuteLargeBatch", "(id BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
+        createTable("testExecuteLargeBatch", "(id_discipline BIGINT AUTO_INCREMENT PRIMARY KEY, n INT)");
 
         this.pstmt = testConn.prepareStatement("INSERT INTO testExecuteLargeBatch (n) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
         this.pstmt.setInt(1, 1);
@@ -3103,7 +3103,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Objects java.time.Local[Date][Time] are supported via conversion to/from java.sql.[Date|Time|Timestamp].
          */
-        createTable("testSetObjectPS1", "(id INT, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
+        createTable("testSetObjectPS1", "(id_discipline INT, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
@@ -3115,7 +3115,7 @@ public class StatementsTest extends BaseTestCase {
         this.stmt = testConn.createStatement();
         validateTestDataLocalDTTypes("testSetObjectPS1", insertTestDataLocalDTTypes(this.pstmt));
 
-        createTable("testSetObjectPS2", "(id INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB)");
+        createTable("testSetObjectPS2", "(id_discipline INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB)");
 
         this.pstmt = testConn.prepareStatement("INSERT INTO testSetObjectPS2 VALUES (?, ?, ?, ?, ?, ?, ?)");
         validateTestDataOffsetDTTypes("testSetObjectPS2", insertTestDataOffsetDTTypes(this.pstmt));
@@ -3142,9 +3142,9 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Objects java.time.Local[Date][Time] are supported via conversion to/from java.sql.[Date|Time|Timestamp].
          */
-        createTable("testSetObjectCS1", "(id INT, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
+        createTable("testSetObjectCS1", "(id_discipline INT, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
         createProcedure("testSetObjectCS1Proc",
-                "(IN id INT, IN d DATE, IN t TIME, IN dt DATETIME, IN ts TIMESTAMP) BEGIN " + "INSERT INTO testSetObjectCS1 VALUES (id, d, t, dt, ts); END");
+                "(IN id_discipline INT, IN d DATE, IN t TIME, IN dt DATETIME, IN ts TIMESTAMP) BEGIN " + "INSERT INTO testSetObjectCS1 VALUES (id_discipline, d, t, dt, ts); END");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
@@ -3157,9 +3157,9 @@ public class StatementsTest extends BaseTestCase {
         CallableStatement testCstmt = testConn.prepareCall("{CALL testSetObjectCS1Proc(?, ?, ?, ?, ?)}");
         validateTestDataLocalDTTypes("testSetObjectCS1", insertTestDataLocalDTTypes(testCstmt));
 
-        createTable("testSetObjectCS2", "(id INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB)");
+        createTable("testSetObjectCS2", "(id_discipline INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB)");
         createProcedure("testSetObjectCS2Proc",
-                "(id INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB) BEGIN INSERT INTO testSetObjectCS2 VALUES (id, ot1, ot2, odt1, odt2, zdt1, zdt2); END");
+                "(id_discipline INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB) BEGIN INSERT INTO testSetObjectCS2 VALUES (id_discipline, ot1, ot2, odt1, odt2, zdt1, zdt2); END");
 
         testCstmt = testConn.prepareCall("{CALL testSetObjectCS2Proc(?, ?, ?, ?, ?, ?, ?)}");
         validateTestDataOffsetDTTypes("testSetObjectCS2", insertTestDataOffsetDTTypes(testCstmt));
@@ -3187,7 +3187,7 @@ public class StatementsTest extends BaseTestCase {
         /*
          * Objects java.time.Local[Date][Time] are supported via conversion to/from java.sql.[Date|Time|Timestamp].
          */
-        createTable("testSetObjectSPS1", "(id INT, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
+        createTable("testSetObjectSPS1", "(id_discipline INT, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
@@ -3201,7 +3201,7 @@ public class StatementsTest extends BaseTestCase {
         this.pstmt = testConn.prepareStatement("INSERT INTO testSetObjectSPS1 VALUES (?, ?, ?, ?, ?)");
         validateTestDataLocalDTTypes("testSetObjectSPS1", insertTestDataLocalDTTypes(this.pstmt));
 
-        createTable("testSetObjectSPS2", "(id INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB)");
+        createTable("testSetObjectSPS2", "(id_discipline INT, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, zdt1 VARCHAR(100), zdt2 BLOB)");
 
         this.pstmt = testConn.prepareStatement("INSERT INTO testSetObjectSPS2 VALUES (?, ?, ?, ?, ?, ?, ?)");
         validateTestDataOffsetDTTypes("testSetObjectSPS2", insertTestDataOffsetDTTypes(this.pstmt));
@@ -3226,7 +3226,7 @@ public class StatementsTest extends BaseTestCase {
     /**
      * Helper method for *SetObject* tests.
      * Insert data into the given PreparedStatement, or any of its subclasses, with the following structure:
-     * 1 - `id` INT
+     * 1 - `id_discipline` INT
      * 2 - `d` DATE (or any kind of *CHAR)
      * 3 - `t` TIME (or any kind of *CHAR)
      * 4 - `dt` DATETIME (or any kind of *CHAR)
@@ -3333,7 +3333,7 @@ public class StatementsTest extends BaseTestCase {
     /**
      * Helper method for *SetObject* tests.
      * Validate the test data contained in the given ResultSet with following structure:
-     * 1 - `id` INT
+     * 1 - `id_discipline` INT
      * 2 - `d` DATE (or any kind of *CHAR)
      * 3 - `t` TIME (or any kind of *CHAR)
      * 4 - `dt` DATETIME (or any kind of *CHAR)
@@ -3391,7 +3391,7 @@ public class StatementsTest extends BaseTestCase {
     /**
      * Helper method for *SetObject* tests.
      * Insert data into the given PreparedStatement, or any of its subclasses, with the following structure:
-     * 1 - `id` INT
+     * 1 - `id_discipline` INT
      * 2 - `ot1` VARCHAR
      * 3 - `ot2` BLOB
      * 4 - `odt1` VARCHAR
@@ -3432,7 +3432,7 @@ public class StatementsTest extends BaseTestCase {
     /**
      * Helper method for *SetObject* tests.
      * Validate the test data contained in the given ResultSet with following structure:
-     * 1 - `id` INT
+     * 1 - `id_discipline` INT
      * 2 - `ot1` VARCHAR
      * 3 - `ot2` BLOB
      * 4 - `odt1` VARCHAR

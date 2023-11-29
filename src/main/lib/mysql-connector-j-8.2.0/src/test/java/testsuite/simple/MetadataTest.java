@@ -206,18 +206,18 @@ public class MetadataTest extends BaseTestCase {
 
             // Test compound foreign keys
             try {
-                createTable("cpd_foreign_1", "(id int(8) not null auto_increment primary key,name varchar(255) not null unique,key (id))", "InnoDB");
+                createTable("cpd_foreign_1", "(id_discipline int(8) not null auto_increment primary key,name varchar(255) not null unique,key (id_discipline))", "InnoDB");
             } catch (SQLException sqlEx) {
                 if (sqlEx.getMessage().indexOf("max key length") != -1) {
-                    createTable("cpd_foreign_1", "(id int(8) not null auto_increment primary key,name varchar(180) not null unique,key (id))", "InnoDB");
+                    createTable("cpd_foreign_1", "(id_discipline int(8) not null auto_increment primary key,name varchar(180) not null unique,key (id_discipline))", "InnoDB");
                 }
             }
 
-            createTable("cpd_foreign_2", "(id int(8) not null auto_increment primary key,key (id),name varchar(255)) ", "InnoDB");
+            createTable("cpd_foreign_2", "(id_discipline int(8) not null auto_increment primary key,key (id_discipline),name varchar(255)) ", "InnoDB");
             createTable(refDb + ".cpd_foreign_3",
                     "(cpd_foreign_1_id int(8) not null,cpd_foreign_2_id int(8) not null,key(cpd_foreign_1_id),"
                             + "key(cpd_foreign_2_id),primary key (cpd_foreign_1_id, cpd_foreign_2_id)," + "foreign key (cpd_foreign_1_id) references "
-                            + this.dbName + ".cpd_foreign_1(id),foreign key (cpd_foreign_2_id) references " + this.dbName + ".cpd_foreign_2(id)) ",
+                            + this.dbName + ".cpd_foreign_1(id_discipline),foreign key (cpd_foreign_2_id) references " + this.dbName + ".cpd_foreign_2(id_discipline)) ",
                     "InnoDB");
             createTable("cpd_foreign_4",
                     "(cpd_foreign_1_id int(8) not null,cpd_foreign_2_id int(8) not null,key(cpd_foreign_1_id),"
@@ -1384,9 +1384,9 @@ public class MetadataTest extends BaseTestCase {
     public void testGetCrossReferenceUsingInfoSchema() throws Exception {
         this.stmt.executeUpdate("DROP TABLE IF EXISTS child");
         this.stmt.executeUpdate("DROP TABLE If EXISTS parent");
-        this.stmt.executeUpdate("CREATE TABLE parent(id INT NOT NULL, PRIMARY KEY (id)) ENGINE=INNODB");
+        this.stmt.executeUpdate("CREATE TABLE parent(id_discipline INT NOT NULL, PRIMARY KEY (id_discipline)) ENGINE=INNODB");
         this.stmt.executeUpdate(
-                "CREATE TABLE child(id INT, parent_id INT, " + "FOREIGN KEY (parent_id) REFERENCES parent(id) ON DELETE SET NULL) ENGINE=INNODB");
+                "CREATE TABLE child(id_discipline INT, parent_id INT, " + "FOREIGN KEY (parent_id) REFERENCES parent(id_discipline) ON DELETE SET NULL) ENGINE=INNODB");
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), "DISABLED");
         props.setProperty(PropertyKey.allowPublicKeyRetrieval.getKeyName(), "true");
@@ -1415,8 +1415,8 @@ public class MetadataTest extends BaseTestCase {
     public void testGetExportedKeys() throws Exception {
         this.stmt.executeUpdate("DROP TABLE IF EXISTS child");
         this.stmt.executeUpdate("DROP TABLE If EXISTS parent");
-        createTable("parent", "(id INT NOT NULL, PRIMARY KEY (id)) ENGINE=INNODB");
-        createTable("child", "(id INT, parent_id INT, FOREIGN KEY (parent_id) REFERENCES parent(id) ON DELETE SET NULL) ENGINE=INNODB");
+        createTable("parent", "(id_discipline INT NOT NULL, PRIMARY KEY (id_discipline)) ENGINE=INNODB");
+        createTable("child", "(id_discipline INT, parent_id INT, FOREIGN KEY (parent_id) REFERENCES parent(id_discipline) ON DELETE SET NULL) ENGINE=INNODB");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), "DISABLED");
@@ -1481,8 +1481,8 @@ public class MetadataTest extends BaseTestCase {
 
     @Test
     public void testGetImportedKeys() throws Exception {
-        createTable("parent", "(id INT NOT NULL, PRIMARY KEY (id)) ENGINE=INNODB");
-        createTable("child", "(id INT, parent_id INT, FOREIGN KEY (parent_id) REFERENCES parent(id) ON DELETE SET NULL) ENGINE=INNODB");
+        createTable("parent", "(id_discipline INT NOT NULL, PRIMARY KEY (id_discipline)) ENGINE=INNODB");
+        createTable("child", "(id_discipline INT, parent_id INT, FOREIGN KEY (parent_id) REFERENCES parent(id_discipline) ON DELETE SET NULL) ENGINE=INNODB");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), "DISABLED");
@@ -1762,7 +1762,7 @@ public class MetadataTest extends BaseTestCase {
     @Test
     public void testGetTablePrivileges() throws Exception {
         String tableName = "testGetTablePrivileges";
-        createTable(tableName, "(id INT NOT NULL, PRIMARY KEY (id)) ENGINE=INNODB");
+        createTable(tableName, "(id_discipline INT NOT NULL, PRIMARY KEY (id_discipline)) ENGINE=INNODB");
         createUser("'testGTPUser'@'%'", "IDENTIFIED BY 'aha'");
         this.stmt.executeUpdate("grant SELECT on `" + this.dbName + "`.`testGetTablePrivileges` to 'testGTPUser'@'%'");
 

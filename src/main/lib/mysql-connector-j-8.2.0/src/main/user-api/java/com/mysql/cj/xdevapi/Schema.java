@@ -186,7 +186,7 @@ public interface Schema extends DatabaseObject {
      * schema.createCollection(collName,
      *         new CreateCollectionOptions().setReuseExisting(false)
      *                 .setValidation(new Validation().setLevel(ValidationLevel.STRICT)
-     *                         .setSchema("{\"id\": \"http://json-schema.org/idx\", \"$schema\": \"http://json-schema.org/draft-06/schema#\","
+     *                         .setSchema("{\"id_discipline\": \"http://json-schema.org/idx\", \"$schema\": \"http://json-schema.org/draft-06/schema#\","
      *                                 + "\"type\": \"object\", \"properties\": {\"index\": {\"type\": \"number\"}},\"required\": [\"index\"]}")));
      * </pre>
      *

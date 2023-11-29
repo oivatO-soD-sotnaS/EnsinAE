@@ -237,7 +237,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
      * Build an {@link XMessage} for a prepared doc update operation.
      *
      * @param preparedStatementId
-     *            the prepared statement id
+     *            the prepared statement id_discipline
      * @param filterParams
      *            the filter parameters
      * @param updates
@@ -293,7 +293,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
      * Build an {@link XMessage} for a prepared row update operation.
      *
      * @param preparedStatementId
-     *            the prepared statement id
+     *            the prepared statement id_discipline
      * @param filterParams
      *            the filter parameters
      * @param updateParams
@@ -358,7 +358,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
      * Build an {@link XMessage} for a prepared find operation.
      *
      * @param preparedStatementId
-     *            the prepared statement id
+     *            the prepared statement id_discipline
      * @param filterParams
      *            the filter parameters
      * @return
@@ -404,7 +404,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
      * Build an {@link XMessage} for a prepared delete operation.
      *
      * @param preparedStatementId
-     *            the prepared statement id
+     *            the prepared statement id_discipline
      * @param filterParams
      *            the filter parameters
      * @return
@@ -468,7 +468,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
      * Build a <i>Prepare</i> message for a SQL statement.
      *
      * @param preparedStatementId
-     *            the prepared statement id
+     *            the prepared statement id_discipline
      * @param statement
      *            SQL statement string
      * @return {@link XMessage} wrapping {@link StmtExecute}
@@ -557,7 +557,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
      * Build an {@link XMessage} for executing a prepared statement with the given filters.
      *
      * @param preparedStatementId
-     *            the prepared statement id
+     *            the prepared statement id_discipline
      * @param filterParams
      *            the filter parameter values
      * @return
@@ -583,7 +583,7 @@ public class XMessageBuilder implements MessageBuilder<XMessage> {
      * Build an {@link XMessage} for deallocating a prepared statement.
      *
      * @param preparedStatementId
-     *            the prepared statement id
+     *            the prepared statement id_discipline
      * @return
      *         an {@link XMessage} instance
      */

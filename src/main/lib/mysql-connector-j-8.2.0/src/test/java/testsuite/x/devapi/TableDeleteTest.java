@@ -306,7 +306,7 @@ public class TableDeleteTest extends BaseTableTestCase {
 
     private void testPreparedStatementsResetData() {
         for (int i = 0; i < 4; i++) {
-            sqlUpdate("CREATE TABLE IF NOT EXISTS testPrepareDelete_" + (i + 1) + " (id INT PRIMARY KEY, ord INT)");
+            sqlUpdate("CREATE TABLE IF NOT EXISTS testPrepareDelete_" + (i + 1) + " (id_discipline INT PRIMARY KEY, ord INT)");
             sqlUpdate("TRUNCATE TABLE testPrepareDelete_" + (i + 1));
             sqlUpdate("INSERT INTO testPrepareDelete_" + (i + 1) + " VALUES (1, 1), (2, 2), (3, 3), (4, 4)");
         }

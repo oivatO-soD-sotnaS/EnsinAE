@@ -222,7 +222,7 @@ public class NativeCharsetSettings extends CharsetMapping implements CharsetSett
                 // example, if the server is started with character-set-server=utf8mb4 and collation-server=utf8mb4_is_0900_ai_ci (collation index 257) the
                 // Protocol::HandshakeV10 will contain character_set=1, "big5_chinese_ci". This is true not only for MySQL 8.0, where built-in collations with
                 // indexes > 255 were first introduced, but also other server series would be affected when configured with custom collations, for which the
-                // reserved collation id range is >= 1024.
+                // reserved collation id_discipline range is >= 1024.
                 this.sessionCollationIndex = MYSQL_COLLATION_INDEX_utf8mb4_0900_ai_ci;
             }
         }

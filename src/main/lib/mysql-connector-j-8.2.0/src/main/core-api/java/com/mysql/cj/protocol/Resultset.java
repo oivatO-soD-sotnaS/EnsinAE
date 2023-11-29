@@ -146,9 +146,9 @@ public interface Resultset extends ProtocolEntity {
     void initRowsWithMetadata();
 
     /**
-     * The id (used when profiling) to identify us
+     * The id_discipline (used when profiling) to identify us
      *
-     * @return result id
+     * @return result id_discipline
      */
     int getResultId();
 

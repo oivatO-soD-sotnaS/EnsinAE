@@ -68,7 +68,7 @@ import java.util.List;
  * // use escape function to quote names/identifier<br>
  * var create = "CREATE TABLE ";<br>
  * create += StringUtils.quoteIdentifier(name, true);<br>
- * create += "(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT");<br>
+ * create += "(id_discipline INT NOT NULL PRIMARY KEY AUTO_INCREMENT");<br>
  * <br>
  * session.sql(create).execute();
  * <p>

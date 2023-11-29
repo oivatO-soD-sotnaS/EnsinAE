@@ -1092,7 +1092,7 @@ public class DatabaseMetaDataUsingInfoSchema extends DatabaseMetaData {
      * Getter to DatabaseMetaData.function* constants.
      *
      * @param constant
-     *            the constant id from DatabaseMetaData fields to return.
+     *            the constant id_discipline from DatabaseMetaData fields to return.
      *
      * @return one of the java.sql.DatabaseMetaData#function* fields.
      */

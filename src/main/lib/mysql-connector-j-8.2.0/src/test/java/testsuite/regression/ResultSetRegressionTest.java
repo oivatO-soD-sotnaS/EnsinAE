@@ -194,10 +194,10 @@ public class ResultSetRegressionTest extends BaseTestCase {
          * assertTrue(this.rs.getBigDecimal(1) != null);
          * assertTrue(!this.rs.wasNull());
          */
-        createTable("testBug2359_1", "(id INT)", "InnoDB");
+        createTable("testBug2359_1", "(id_discipline INT)", "InnoDB");
         this.stmt.executeUpdate("INSERT INTO testBug2359_1 VALUES (1)");
 
-        this.pstmt = this.conn.prepareStatement("SELECT max(id) FROM testBug2359_1");
+        this.pstmt = this.conn.prepareStatement("SELECT max(id_discipline) FROM testBug2359_1");
         this.rs = this.pstmt.executeQuery();
 
         if (this.rs.next()) {
@@ -243,14 +243,14 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug2654() throws Exception {
-        createTable("foo", "(id tinyint(3) default NULL, data varchar(255) default NULL) DEFAULT CHARSET=latin1", "MyISAM ");
+        createTable("foo", "(id_discipline tinyint(3) default NULL, data varchar(255) default NULL) DEFAULT CHARSET=latin1", "MyISAM ");
         this.stmt.executeUpdate("INSERT INTO foo VALUES (2,'male'), (1,'female') ");
 
-        createTable("bar", "(id tinyint(3) unsigned default NULL, data char(3) default '0') DEFAULT CHARSET=latin1", "MyISAM ");
+        createTable("bar", "(id_discipline tinyint(3) unsigned default NULL, data char(3) default '0') DEFAULT CHARSET=latin1", "MyISAM ");
 
         this.stmt.executeUpdate("INSERT INTO bar VALUES (1,'no'), (2,'yes')");
 
-        String statement = "select foo.id, foo.data, bar.data from foo, bar	where foo.id = bar.id order by foo.id";
+        String statement = "select foo.id_discipline, foo.data, bar.data from foo, bar	where foo.id_discipline = bar.id_discipline order by foo.id_discipline";
 
         this.rs = this.stmt.executeQuery(statement);
 
@@ -579,13 +579,13 @@ public class ResultSetRegressionTest extends BaseTestCase {
         this.rs = null;
 
         createTable("updatabilityBug",
-                "(id int(10) unsigned NOT NULL auto_increment, field1 varchar(32) NOT NULL default '',"
+                "(id_discipline int(10) unsigned NOT NULL auto_increment, field1 varchar(32) NOT NULL default '',"
                         + " field2 varchar(128) NOT NULL default '', field3 varchar(128) default NULL, field4 varchar(128) default NULL,"
-                        + " field5 varchar(64) default NULL, field6 int(10) unsigned default NULL, field7 varchar(64) default NULL, PRIMARY KEY  (id)) ",
+                        + " field5 varchar(64) default NULL, field6 int(10) unsigned default NULL, field7 varchar(64) default NULL, PRIMARY KEY  (id_discipline)) ",
                 "InnoDB");
-        this.stmt.executeUpdate("insert into updatabilityBug (id) values (1)");
+        this.stmt.executeUpdate("insert into updatabilityBug (id_discipline) values (1)");
 
-        String sQuery = " SELECT * FROM updatabilityBug WHERE id = ? ";
+        String sQuery = " SELECT * FROM updatabilityBug WHERE id_discipline = ? ";
         this.pstmt = this.conn.prepareStatement(sQuery, ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
         this.conn.setAutoCommit(false);
         this.pstmt.setInt(1, 1);
@@ -1026,11 +1026,11 @@ public class ResultSetRegressionTest extends BaseTestCase {
     public void testBug6537() throws Exception {
         String tableName = "testBug6537";
 
-        createTable(tableName, "(`id` int(11) NOT NULL default '0', `value` decimal(10,2) NOT NULL default '0.00', `stringval` varchar(10),"
-                + "PRIMARY KEY  (`id`)) DEFAULT CHARSET=latin1", "MyISAM");
-        this.stmt.executeUpdate("INSERT INTO " + tableName + "(id, value, stringval) VALUES (1, 100.00, '100.00'), (2, 200, '200')");
+        createTable(tableName, "(`id_discipline` int(11) NOT NULL default '0', `value` decimal(10,2) NOT NULL default '0.00', `stringval` varchar(10),"
+                + "PRIMARY KEY  (`id_discipline`)) DEFAULT CHARSET=latin1", "MyISAM");
+        this.stmt.executeUpdate("INSERT INTO " + tableName + "(id_discipline, value, stringval) VALUES (1, 100.00, '100.00'), (2, 200, '200')");
 
-        String sql = "SELECT SUM(value) as total FROM " + tableName + " WHERE id = ? ";
+        String sql = "SELECT SUM(value) as total FROM " + tableName + " WHERE id_discipline = ? ";
         PreparedStatement pStmt = this.conn.prepareStatement(sql);
         pStmt.setInt(1, 1);
         this.rs = pStmt.executeQuery();
@@ -1038,7 +1038,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         assertTrue("100.00".equals(this.rs.getBigDecimal("total").toString()));
 
-        sql = "SELECT stringval as total FROM " + tableName + " WHERE id = ? ";
+        sql = "SELECT stringval as total FROM " + tableName + " WHERE id_discipline = ? ";
         pStmt = this.conn.prepareStatement(sql);
         pStmt.setInt(1, 2);
         this.rs = pStmt.executeQuery();
@@ -1633,20 +1633,20 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
     @Test
     public void testBug14897() throws Exception {
-        createTable("table1", "(id int, name_id int)");
-        createTable("table2", "(id int)");
-        createTable("lang_table", "(id int, en varchar(255) CHARACTER SET utf8, cz varchar(255) CHARACTER SET utf8)");
+        createTable("table1", "(id_discipline int, name_id int)");
+        createTable("table2", "(id_discipline int)");
+        createTable("lang_table", "(id_discipline int, en varchar(255) CHARACTER SET utf8, cz varchar(255) CHARACTER SET utf8)");
 
         this.stmt.executeUpdate("insert into table1 values (0, 0)");
         this.stmt.executeUpdate("insert into table2 values (0)");
         this.stmt.executeUpdate("insert into lang_table values (0, 'abcdef', 'ghijkl')");
-        this.rs = this.stmt.executeQuery("select a.id, b.id, c.en, c.cz from table1 as a, table2 as b, lang_table as c where a.id = b.id and a.name_id = c.id");
+        this.rs = this.stmt.executeQuery("select a.id_discipline, b.id_discipline, c.en, c.cz from table1 as a, table2 as b, lang_table as c where a.id_discipline = b.id_discipline and a.name_id = c.id_discipline");
         assertTrue(this.rs.next());
         this.rs.getString("c.cz");
 
         this.rs = this.stmt.executeQuery("select table1.*, table2.* FROM table1, table2");
-        this.rs.findColumn("table1.id");
-        this.rs.findColumn("table2.id");
+        this.rs.findColumn("table1.id_discipline");
+        this.rs.findColumn("table2.id_discipline");
     }
 
     /**
@@ -1880,20 +1880,20 @@ public class ResultSetRegressionTest extends BaseTestCase {
     }
 
     /*
-     * public void testBug16458() throws Exception { createTable("a", "(id
-     * INTEGER NOT NULL, primary key (id)) Type=InnoDB"); createTable("b", "(id
-     * INTEGER NOT NULL, primary key (id)) Type=InnoDB"); createTable("c", "(id
-     * INTEGER NOT NULL, primary key (id)) Type=InnoDB");
+     * public void testBug16458() throws Exception { createTable("a", "(id_discipline
+     * INTEGER NOT NULL, primary key (id_discipline)) Type=InnoDB"); createTable("b", "(id_discipline
+     * INTEGER NOT NULL, primary key (id_discipline)) Type=InnoDB"); createTable("c", "(id_discipline
+     * INTEGER NOT NULL, primary key (id_discipline)) Type=InnoDB");
      *
-     * createTable( "problem_table", "(id int(11) NOT NULL auto_increment," +
+     * createTable( "problem_table", "(id_discipline int(11) NOT NULL auto_increment," +
      * "a_id int(11) NOT NULL default '0'," + "b_id int(11) NOT NULL default
      * '0'," + "c_id int(11) default NULL," + "order_num int(2) NOT NULL default
-     * '0'," + "PRIMARY KEY (id)," + "KEY idx_problem_table__b_id (b_id)," +
+     * '0'," + "PRIMARY KEY (id_discipline)," + "KEY idx_problem_table__b_id (b_id)," +
      * "KEY idx_problem_table__a_id (a_id)," + "KEY idx_problem_table__c_id
      * (c_id)," + "CONSTRAINT fk_problem_table__c FOREIGN KEY (c_id) REFERENCES
-     * c (id)," + "CONSTRAINT fk_problem_table__a FOREIGN KEY (a_id) REFERENCES
-     * a (id)," + "CONSTRAINT fk_problem_table__b FOREIGN KEY (b_id) REFERENCES
-     * b (id)" + ")" + "Type=InnoDB");
+     * c (id_discipline)," + "CONSTRAINT fk_problem_table__a FOREIGN KEY (a_id) REFERENCES
+     * a (id_discipline)," + "CONSTRAINT fk_problem_table__b FOREIGN KEY (b_id) REFERENCES
+     * b (id_discipline)" + ")" + "Type=InnoDB");
      *
      * this.stmt .executeUpdate("INSERT INTO `a` VALUES " +
      * "(1),(4),(9),(10),(11),(12),(13),(14),(15),(16),(17),(18),(19),(20),(21),(22),(23"
@@ -1932,7 +1932,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      * + ",1),(101,47,10,NULL,1),(102,47,5,NULL,1),(105,47,19,NULL,1)");
      * PreparedStatement ps = null;
      *
-     * try { ps = conn.prepareStatement("SELECT DISTINCT id,order_num FROM
+     * try { ps = conn.prepareStatement("SELECT DISTINCT id_discipline,order_num FROM
      * problem_table WHERE a_id=? FOR UPDATE", ResultSet.TYPE_FORWARD_ONLY,
      * ResultSet.CONCUR_UPDATABLE);
      *
@@ -2641,9 +2641,9 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug15677() throws Exception {
-        createTable("testBug15677", "(id BIGINT, field1 TINYINT UNSIGNED)");
+        createTable("testBug15677", "(id_discipline BIGINT, field1 TINYINT UNSIGNED)");
         this.stmt.executeUpdate("INSERT INTO testBug15677 VALUES (1, 0), (2, 127), (3, 128), (4, 255)");
-        this.rs = this.conn.prepareStatement("SELECT field1 FROM testBug15677 ORDER BY id ASC").executeQuery();
+        this.rs = this.conn.prepareStatement("SELECT field1 FROM testBug15677 ORDER BY id_discipline ASC").executeQuery();
         this.rs.next();
         assertEquals("0", this.rs.getString(1));
         assertEquals("0", this.rs.getObject(1).toString());
@@ -2825,7 +2825,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         // pre-C/J 5.0 behavior for these cases
         //
 
-        this.rs = this.stmt.executeQuery("SELECT LAST_INSERT_ID() AS id");
+        this.rs = this.stmt.executeQuery("SELECT LAST_INSERT_ID() AS id_discipline");
         this.rs.next();
         assertEquals("id", this.rs.getMetaData().getColumnName(1));
         assertEquals(1, this.rs.findColumn("id"));
@@ -3435,13 +3435,13 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug30664() throws Exception {
-        createTable("testBug30664_1", "(id int)");
-        createTable("testBug30664_2", "(id int, binaryvalue varbinary(255))");
+        createTable("testBug30664_1", "(id_discipline int)");
+        createTable("testBug30664_2", "(id_discipline int, binaryvalue varbinary(255))");
 
         this.stmt.executeUpdate("insert into testBug30664_1 values (1),(2),(3)");
         this.stmt.executeUpdate("insert into testBug30664_2 values (1,'���'),(2,'����'),(3,' ���')");
-        this.rs = this.stmt.executeQuery("select testBug30664_1.id, (select testBug30664_2.binaryvalue from testBug30664_2 "
-                + "where testBug30664_2.id=testBug30664_1.id) as value from testBug30664_1");
+        this.rs = this.stmt.executeQuery("select testBug30664_1.id_discipline, (select testBug30664_2.binaryvalue from testBug30664_2 "
+                + "where testBug30664_2.id_discipline=testBug30664_1.id_discipline) as value from testBug30664_1");
         ResultSetMetaData tblMD = this.rs.getMetaData();
 
         for (int i = 1; i < tblMD.getColumnCount() + 1; i++) {
@@ -3862,13 +3862,13 @@ public class ResultSetRegressionTest extends BaseTestCase {
         Connection cachedRsmdConn = getConnectionWithProps(props);
 
         try {
-            createTable("bug41484", "(id int not null primary key, day date not null) DEFAULT CHARSET=utf8");
-            this.pstmt = cachedRsmdConn.prepareStatement("INSERT INTO bug41484(id, day) values(1, ?)");
+            createTable("bug41484", "(id_discipline int not null primary key, day date not null) DEFAULT CHARSET=utf8");
+            this.pstmt = cachedRsmdConn.prepareStatement("INSERT INTO bug41484(id_discipline, day) values(1, ?)");
             this.pstmt.setInt(1, 20080509);
             assertEquals(1, this.pstmt.executeUpdate());
             this.pstmt.close();
 
-            this.pstmt = cachedRsmdConn.prepareStatement("SELECT * FROM bug41484 WHERE id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            this.pstmt = cachedRsmdConn.prepareStatement("SELECT * FROM bug41484 WHERE id_discipline = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             this.pstmt.setInt(1, 1);
             this.rs = this.pstmt.executeQuery();
             this.rs.first();
@@ -3876,12 +3876,12 @@ public class ResultSetRegressionTest extends BaseTestCase {
             this.rs.close();
             this.pstmt.close();
 
-            this.pstmt = cachedRsmdConn.prepareStatement("INSERT INTO bug41484(id, day) values(2, ?)");
+            this.pstmt = cachedRsmdConn.prepareStatement("INSERT INTO bug41484(id_discipline, day) values(2, ?)");
             this.pstmt.setInt(1, 20090212);
             assertEquals(1, this.pstmt.executeUpdate());
             this.pstmt.close();
 
-            this.pstmt = cachedRsmdConn.prepareStatement("SELECT * FROM bug41484 WHERE id = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            this.pstmt = cachedRsmdConn.prepareStatement("SELECT * FROM bug41484 WHERE id_discipline = ?", ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
             this.pstmt.setInt(1, 2);
             this.rs = this.pstmt.executeQuery();
             this.rs.first();
@@ -4102,7 +4102,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
     @Test
     @Disabled("It's a very long test")
     public void testBug65503() throws Exception {
-        createTable("testBug65503", "(id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, value INTEGER)");
+        createTable("testBug65503", "(id_discipline INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, value INTEGER)");
 
         PreparedStatement pStmt = this.conn.prepareStatement("INSERT INTO testBug65503 (value) VALUES (?)", Statement.RETURN_GENERATED_KEYS),
                 stmt2 = this.conn.prepareStatement("SELECT * FROM testBug65503 LIMIT 6");
@@ -4120,7 +4120,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
             }
 
             if (i % 500 == 0) {
-                System.out.printf("free-mem: %d, id: %d\n", Runtime.getRuntime().freeMemory() / 1024 / 1024, i);
+                System.out.printf("free-mem: %d, id_discipline: %d\n", Runtime.getRuntime().freeMemory() / 1024 / 1024, i);
                 this.conn.createStatement().execute("TRUNCATE TABLE testBug65503");
             }
         }
@@ -4232,9 +4232,9 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug45757() throws SQLException {
-        createTable("bug45757", "(id INTEGER NOT NULL PRIMARY KEY)");
+        createTable("bug45757", "(id_discipline INTEGER NOT NULL PRIMARY KEY)");
         this.stmt = this.conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
-        this.rs = this.stmt.executeQuery("select id from bug45757");
+        this.rs = this.stmt.executeQuery("select id_discipline from bug45757");
         this.rs.moveToInsertRow();
         assertThrows("updateRow() should throw an exception, not allowed to be called on insert row", SQLException.class,
                 "Can not call updateRow\\(\\) when on insert row.*", () -> {
@@ -4250,7 +4250,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug38252() throws Exception {
-        createTable("testBug38252", "(id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY)");
+        createTable("testBug38252", "(id_discipline INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY)");
 
         this.stmt = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         this.stmt.executeUpdate("INSERT INTO testBug38252 VALUES (NULL), (NULL)");
@@ -4516,7 +4516,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug19536760() throws Exception {
-        createTable("testBug19536760", "(id int)");
+        createTable("testBug19536760", "(id_discipline int)");
 
         this.stmt.execute("insert into testBug19536760 values(1),(2),(3)");
         this.rs = this.stmt.executeQuery("select * from testBug19536760");
@@ -4593,7 +4593,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         testBug19536760CheckStates(this.rs, false, false, false, true);
 
         // empty result set
-        this.rs = this.stmt.executeQuery("select * from testBug19536760 where id=5");
+        this.rs = this.stmt.executeQuery("select * from testBug19536760 where id_discipline=5");
         assertFalse(this.rs.first());
         assertFalse(this.rs.last());
 
@@ -4727,7 +4727,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         Timestamp ts1 = Timestamp.from(LocalDateTime.parse(tsStr1.replace(" ", "T")).atZone(serverTz.toZoneId()).toInstant());
         Timestamp ts2 = Timestamp.from(LocalDateTime.parse(tsStr2.replace(" ", "T")).atZone(serverTz.toZoneId()).toInstant());
 
-        createTable("testBug56479", "(id INT PRIMARY KEY, ts1 TIMESTAMP NULL, ts2 TIMESTAMP(6) NULL)", "InnoDB");
+        createTable("testBug56479", "(id_discipline INT PRIMARY KEY, ts1 TIMESTAMP NULL, ts2 TIMESTAMP(6) NULL)", "InnoDB");
         this.stmt.executeUpdate("INSERT INTO testBug56479 VALUES (1, '" + tsStr1 + "', '" + tsStr2 + "'), (2, '" + tsStr1 + "', '" + tsStr2 + "')");
 
         Statement testStmt = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -5259,7 +5259,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
     public void testBug23197238() throws Exception {
         assumeTrue(versionMeetsMinimum(5, 7, 9), "MySQL 5.7.9+ is required to run this test.");
 
-        createTable("testBug23197238", "(id INT AUTO_INCREMENT PRIMARY KEY, doc JSON DEFAULT NULL, field3 int DEFAULT 10)");
+        createTable("testBug23197238", "(id_discipline INT AUTO_INCREMENT PRIMARY KEY, doc JSON DEFAULT NULL, field3 int DEFAULT 10)");
 
         String[] docs = new String[] { "{\"key10\": \"value10\"}", "{\"key2\": \"value2\"}", "{\"key3\": \"value3\"}" };
         Properties props = new Properties();
@@ -5287,7 +5287,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         testBug23197238AssertDoc(new String[] { docs[1], docs[1] });
         testBug23197238AssertId(new int[] { 1, 2 });
 
-        PreparedStatement testPstmt = testConn.prepareStatement("SELECT * FROM testBug23197238 WHERE id = ?", ResultSet.TYPE_FORWARD_ONLY,
+        PreparedStatement testPstmt = testConn.prepareStatement("SELECT * FROM testBug23197238 WHERE id_discipline = ?", ResultSet.TYPE_FORWARD_ONLY,
                 ResultSet.CONCUR_UPDATABLE);
         testPstmt.setObject(1, 1, Types.INTEGER);
         testPstmt.setFetchSize(1);
@@ -5333,7 +5333,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
     @Test
     public void testBug81202() throws Exception {
         createTable("testBug81202",
-                "(id INT unsigned NOT NULL, value_timestamp TIMESTAMP NULL, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, otd3 TIMESTAMP NULL, otd4 DATETIME)");
+                "(id_discipline INT unsigned NOT NULL, value_timestamp TIMESTAMP NULL, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB, otd3 TIMESTAMP NULL, otd4 DATETIME)");
 
         OffsetDateTime testOffsetDateTime = OffsetDateTime.of(2015, 8, 04, 12, 34, 56, 7890, ZoneOffset.UTC);
         OffsetTime testOffsetTime = OffsetTime.of(12, 34, 56, 7890, ZoneOffset.UTC);
@@ -5447,7 +5447,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
     public void testBug24525461() throws Exception {
         boolean testJSON = versionMeetsMinimum(5, 7, 9);
 
-        StringBuilder sb = new StringBuilder("(id int primary key, f01 DECIMAL, f02 TINYINT, f03 BOOLEAN, f04 SMALLINT, f05 INT,"
+        StringBuilder sb = new StringBuilder("(id_discipline int primary key, f01 DECIMAL, f02 TINYINT, f03 BOOLEAN, f04 SMALLINT, f05 INT,"
                 + " f06 FLOAT, f07 DOUBLE, f08 TIMESTAMP, f09 BIGINT, f10 MEDIUMINT, f11 DATE, f12 TIME, f13 DATETIME, f14 YEAR,"
                 + " f15 VARCHAR(20) character set utf8, f16 VARBINARY(30), f17 BIT, f18 ENUM('x','y','z'), f19 SET('a','b','c'),"
                 + " f20 TINYBLOB, f21 TINYTEXT character set utf8, f22 MEDIUMBLOB, f23 MEDIUMTEXT character set utf8,"
@@ -5873,15 +5873,15 @@ public class ResultSetRegressionTest extends BaseTestCase {
         String VALUE_ONE = "bar";
 
         createTable("testBug25215008",
-                "( `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, `val_one` VARCHAR(10), `val_blob` blob, `val_three` VARCHAR(10), PRIMARY KEY (`id`) )");
-        this.stmt.execute("INSERT INTO `testBug25215008`(`id`,`val_one`,`val_blob`, `val_three`) VALUES ( NULL,'" + VALUE_ONE + "',NULL,NULL)");
+                "( `id_discipline` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT, `val_one` VARCHAR(10), `val_blob` blob, `val_three` VARCHAR(10), PRIMARY KEY (`id_discipline`) )");
+        this.stmt.execute("INSERT INTO `testBug25215008`(`id_discipline`,`val_one`,`val_blob`, `val_three`) VALUES ( NULL,'" + VALUE_ONE + "',NULL,NULL)");
 
         // test 1 - OK
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
         props.setProperty(PropertyKey.allowPublicKeyRetrieval.getKeyName(), "true");
         Connection conn1 = getConnectionWithProps(props);
-        PreparedStatement pstm1 = conn1.prepareStatement("select id, val_one, val_blob, val_three from testBug25215008 where val_one = ?");
+        PreparedStatement pstm1 = conn1.prepareStatement("select id_discipline, val_one, val_blob, val_three from testBug25215008 where val_one = ?");
         pstm1.setString(1, VALUE_ONE);
         ResultSet rs1 = pstm1.executeQuery();
         assertTrue(rs1.next());
@@ -5896,7 +5896,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         // - test 2 - OK
         props.setProperty(PropertyKey.useServerPrepStmts.getKeyName(), "true");
         Connection conn2 = getConnectionWithProps(props);
-        PreparedStatement pstm2 = conn2.prepareStatement("select id, val_one, val_three from testBug25215008 where val_one = ?"); // let's not request val_blob for now
+        PreparedStatement pstm2 = conn2.prepareStatement("select id_discipline, val_one, val_three from testBug25215008 where val_one = ?"); // let's not request val_blob for now
         pstm2.setString(1, VALUE_ONE);
         rs1 = pstm2.executeQuery();
         assertTrue(rs1.next());
@@ -5907,7 +5907,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
         // test 3 - OK!
         // let's call query to make sure value of a last column in a result set is not NULL  - val_one is not NULL and this is now last column in result set
-        PreparedStatement pstm3 = conn2.prepareStatement("select id, val_blob, val_three, val_one from testBug25215008 where val_one = ?");
+        PreparedStatement pstm3 = conn2.prepareStatement("select id_discipline, val_blob, val_three, val_one from testBug25215008 where val_one = ?");
         pstm3.setString(1, VALUE_ONE);
         rs1 = pstm3.executeQuery();
         assertTrue(rs1.next());
@@ -5921,7 +5921,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         // 1. useServerPrepStmts=true
         // 2. result set has column with mediumblob type
         // 3. value of a last column in result set is NULL
-        PreparedStatement pstm4 = conn2.prepareStatement("select id, val_one, val_blob, val_three from testBug25215008 where val_one = ?");
+        PreparedStatement pstm4 = conn2.prepareStatement("select id_discipline, val_one, val_blob, val_three from testBug25215008 where val_one = ?");
         pstm4.setString(1, VALUE_ONE);
         rs1 = pstm4.executeQuery();
         assertTrue(rs1.next());
@@ -6259,12 +6259,12 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
             Timestamp ts2 = new Timestamp(TimeUtil.getSimpleDateFormat(null, "yyyy-MM-dd HH:mm:ss.SSS", null).parse("2019-12-30 13:59:57.789").getTime());
             createTable("testBug22305979_orig_1",
-                    "(id int, tmp int,ts1 timestamp(6),ts2 timestamp(3) NOT NULL DEFAULT '2001-01-01 00:00:01',primary key(id,ts1) )");
+                    "(id_discipline int, tmp int,ts1 timestamp(6),ts2 timestamp(3) NOT NULL DEFAULT '2001-01-01 00:00:01',primary key(id_discipline,ts1) )");
             this.stmt.execute("insert into testBug22305979_orig_1 values (1,100,'2014-12-31 23:59:59.123','2015-12-31 23:59:59.456')");
             this.stmt.execute("insert into testBug22305979_orig_1 values (1,200,'2014-12-31 23:59:59','2022-12-31 23:59:59.456')");
 
             Statement scrollableStmt = testConn2.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs1 = scrollableStmt.executeQuery("SELECT * FROM testBug22305979_orig_1 where id=1 and ts1='2014-12-31 23:59:59.123'");
+            ResultSet rs1 = scrollableStmt.executeQuery("SELECT * FROM testBug22305979_orig_1 where id_discipline=1 and ts1='2014-12-31 23:59:59.123'");
             if (rs1.next()) {
                 rs1.updateTimestamp(3, ts2); //Updating part of primary key
                 rs1.updateRow();
@@ -6529,12 +6529,12 @@ public class ResultSetRegressionTest extends BaseTestCase {
 
                     String tableName = "testBug22305979_" + len;
                     createTable(tableName,
-                            "(id INTEGER, dt DATETIME" + (fieldLen == 0 ? "" : "(" + fieldLen + ")") + ", ts TIMESTAMP"
+                            "(id_discipline INTEGER, dt DATETIME" + (fieldLen == 0 ? "" : "(" + fieldLen + ")") + ", ts TIMESTAMP"
                                     + (fieldLen == 0 ? "" : "(" + fieldLen + ")") + ", tm TIME" + (fieldLen == 0 ? "" : "(" + fieldLen + ")")
-                                    + ", PRIMARY KEY(id,dt,ts,tm))");
+                                    + ", PRIMARY KEY(id_discipline,dt,ts,tm))");
 
                     Statement st = testConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                    this.rs = st.executeQuery("SELECT id,dt,ts,tm FROM " + tableName + " FOR UPDATE");
+                    this.rs = st.executeQuery("SELECT id_discipline,dt,ts,tm FROM " + tableName + " FOR UPDATE");
                     this.rs.next(); // No rows
                     this.rs.moveToInsertRow();
                     this.rs.updateInt("id", 1);
@@ -6608,7 +6608,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 final String testCase = String.format("Case: [characterEncoding=%s, useServerPrepStmts=%s]", enc, useSSPS);
                 System.out.println(testCase);
 
-                createTable("testBug80532", "(id char(50) NOT NULL, data longtext, num int, PRIMARY KEY (id,num)) CHARACTER SET "
+                createTable("testBug80532", "(id_discipline char(50) NOT NULL, data longtext, num int, PRIMARY KEY (id_discipline,num)) CHARACTER SET "
                         + (versionMeetsMinimum(5, 5) ? "utf8mb4" : "utf8"));
 
                 props.setProperty(PropertyKey.characterEncoding.getKeyName(), enc);
@@ -6621,10 +6621,10 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 String data1 = "my data";
                 String data2 = "new data";
 
-                c1.createStatement().executeUpdate("INSERT INTO testBug80532(id,data,num) VALUES( '" + id1 + "', '" + data1 + "', 1 )");
+                c1.createStatement().executeUpdate("INSERT INTO testBug80532(id_discipline,data,num) VALUES( '" + id1 + "', '" + data1 + "', 1 )");
 
                 Statement st = this.conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                this.rs = st.executeQuery("select * From testBug80532"); // where id='" + id1 + "'"
+                this.rs = st.executeQuery("select * From testBug80532"); // where id_discipline='" + id1 + "'"
                 this.rs.next();
 
                 System.out.println(this.rs.getString("id") + ", " + this.rs.getString("data"));
@@ -7135,7 +7135,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug80441() throws Exception {
-        createTable("testBug80441", "( id varchar(50) NOT NULL, data longtext, start DATETIME, PRIMARY KEY (id) )");
+        createTable("testBug80441", "( id_discipline varchar(50) NOT NULL, data longtext, start DATETIME, PRIMARY KEY (id_discipline) )");
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
         props.setProperty(PropertyKey.allowPublicKeyRetrieval.getKeyName(), "true");
@@ -7151,7 +7151,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
                     con = getConnectionWithProps(dbUrl, props);
                     Statement st = con.createStatement();
                     try {
-                        st.execute("INSERT INTO testBug80441(id,data,start) VALUES( 'key''''s', 'my data', {ts '2005-01-05 13:59:20'})");
+                        st.execute("INSERT INTO testBug80441(id_discipline,data,start) VALUES( 'key''''s', 'my data', {ts '2005-01-05 13:59:20'})");
                         this.pstmt = con.prepareStatement("SELECT * FROM testBug80441", ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
                         this.rs = this.pstmt.executeQuery();
                         assertTrue(this.rs.next(), errMsg);
@@ -7308,7 +7308,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
     public void testBug96383() throws Exception {
         boolean withFract = versionMeetsMinimum(5, 6, 4); // fractional seconds are not supported in previous versions
 
-        createTable("testBug96383", withFract ? "(id VARCHAR(10), x_time TIME(6))" : "(id VARCHAR(10), x_time TIME)");
+        createTable("testBug96383", withFract ? "(id_discipline VARCHAR(10), x_time TIME(6))" : "(id_discipline VARCHAR(10), x_time TIME)");
         this.stmt.execute("INSERT INTO testBug96383 values ('time', '00:00:05.123')");
 
         Properties props = new Properties();
@@ -7323,11 +7323,11 @@ public class ResultSetRegressionTest extends BaseTestCase {
                 Connection con = getConnectionWithProps(props);
 
                 Statement st = con.createStatement();
-                this.rs = st.executeQuery("SELECT * FROM testBug96383 WHERE id='time'");
+                this.rs = st.executeQuery("SELECT * FROM testBug96383 WHERE id_discipline='time'");
                 assertTrue(this.rs.next());
                 assertEquals(withFract ? "1970-01-01 00:00:05.123" : "1970-01-01 00:00:05.0", this.rs.getTimestamp(2).toString());
 
-                this.pstmt = con.prepareStatement("SELECT * FROM testBug96383 WHERE id='time'");
+                this.pstmt = con.prepareStatement("SELECT * FROM testBug96383 WHERE id_discipline='time'");
                 this.rs = this.pstmt.executeQuery();
                 assertTrue(this.rs.next());
                 assertEquals(withFract ? "1970-01-01 00:00:05.123" : "1970-01-01 00:00:05.0", this.rs.getTimestamp(2).toString());
@@ -7611,7 +7611,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug31747910() throws Exception {
-        createTable("testBug31747910", "(id INT)");
+        createTable("testBug31747910", "(id_discipline INT)");
         this.stmt.executeUpdate("INSERT INTO testBug31747910 VALUES (1), (2), (3), (4), (5)");
 
         /*
@@ -7753,10 +7753,10 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug102131() throws Exception {
-        createTable("testBug102131User", "(id int,name varchar(10))");
-        createTable("testBug102131Age", "(id int,age int)");
+        createTable("testBug102131User", "(id_discipline int,name varchar(10))");
+        createTable("testBug102131Age", "(id_discipline int,age int)");
         createView("testBug102131View",
-                "as select name,ifnull(age,0) age from testBug102131User inner join testBug102131Age on testBug102131User.id = testBug102131Age.id");
+                "as select name,ifnull(age,0) age from testBug102131User inner join testBug102131Age on testBug102131User.id_discipline = testBug102131Age.id_discipline");
 
         this.stmt.executeUpdate("INSERT INTO testBug102131User VALUES (1, 'a')");
         this.stmt.executeUpdate("INSERT INTO testBug102131Age VALUES (1, 20)");
@@ -7878,7 +7878,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug20802947() throws Exception {
-        createTable("`test``Bug20802947`", "(id int,c char(10),primary key(id))");
+        createTable("`test``Bug20802947`", "(id_discipline int,c char(10),primary key(id_discipline))");
         this.stmt.executeUpdate("INSERT INTO `test``Bug20802947` VALUES(10,'a'),(20,'b'),(30,'c'),(40,'d'),(50,'e')");
 
         Statement st = this.conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
@@ -7887,7 +7887,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         rs1.updateString(2, rs1.getString(2) + rs1.getString(2));
         rs1.updateRow();
         rs1.close();
-        this.rs = this.stmt.executeQuery("select * from  `test``Bug20802947` where id=10");
+        this.rs = this.stmt.executeQuery("select * from  `test``Bug20802947` where id_discipline=10");
         while (this.rs.next()) {
             assertEquals(10, this.rs.getInt(1));
             assertEquals("aa", this.rs.getString(2));
@@ -7899,7 +7899,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         rs1.updateNull(2);
         rs1.updateRow();
         rs1.close();
-        this.rs = this.stmt.executeQuery("select * from  `test``Bug20802947` where id=10");
+        this.rs = this.stmt.executeQuery("select * from  `test``Bug20802947` where id_discipline=10");
         while (this.rs.next()) {
             assertEquals(10, this.rs.getInt(1));
             assertNull(this.rs.getString(2));
@@ -7914,7 +7914,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug32954396() throws Exception {
-        createTable("testBug32954396", "(id INT, name VARCHAR(10))");
+        createTable("testBug32954396", "(id_discipline INT, name VARCHAR(10))");
 
         this.stmt.executeUpdate("INSERT INTO testBug32954396 VALUES (1, 'value1'), (2, 'value2')");
 
@@ -7929,7 +7929,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
             props.setProperty(PropertyKey.allowPublicKeyRetrieval.getKeyName(), "true");
             Connection testConn = getConnectionWithProps(props);
 
-            this.pstmt = testConn.prepareStatement("SELECT id, name, (SELECT id FROM testBug32954396) FROM testBug32954396");
+            this.pstmt = testConn.prepareStatement("SELECT id_discipline, name, (SELECT id_discipline FROM testBug32954396) FROM testBug32954396");
             if (setFetchSize) {
                 this.pstmt.setFetchSize(1);
             }
@@ -7951,7 +7951,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
         boolean[] boolValues = new boolean[] { false, false, false, true, true, false, true, true, true, false, false, true, true, false, false, true, true,
                 false, false };
 
-        createTable("testBug33185116", "(id int not null, f varchar(5), key(id))");
+        createTable("testBug33185116", "(id_discipline int not null, f varchar(5), key(id_discipline))");
         for (int i = 0; i < strValues.length; i++) {
             String val = strValues[i] == null ? null : "'" + strValues[i] + "'";
             this.stmt.executeUpdate("insert into testBug33185116 values(" + i + "," + val + ")");
@@ -8056,7 +8056,7 @@ public class ResultSetRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug68608() throws Exception {
-        createTable("testBug68608", "(id INT UNSIGNED NOT NULL PRIMARY KEY, data VARCHAR(100))");
+        createTable("testBug68608", "(id_discipline INT UNSIGNED NOT NULL PRIMARY KEY, data VARCHAR(100))");
 
         Statement testStmt = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 

@@ -43,9 +43,9 @@ public interface Query {
     }
 
     /**
-     * Returns the query id used when profiling
+     * Returns the query id_discipline used when profiling
      *
-     * @return id
+     * @return id_discipline
      */
     int getId();
 

@@ -303,7 +303,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
         this.collection.add("{\"_id\": \"2\", \"name\": \"Bob\", \"address\": {\"zip\": \"325226\", \"city\": \"San Francisco\", \"street\": \"42 2nd str\"}}")
                 .execute();
 
-        this.collection.modify("_id = :id").patch(JsonParser.parseDoc("{\"name\": \"Joe\", \"address\": {\"zip\":\"91234\"}}")).bind("id", "1").execute();
+        this.collection.modify("_id = :id_discipline").patch(JsonParser.parseDoc("{\"name\": \"Joe\", \"address\": {\"zip\":\"91234\"}}")).bind("id", "1").execute();
 
         DocResult docs = this.collection.find().orderBy("$._id").execute();
         assertTrue(docs.hasNext());
@@ -316,7 +316,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
         assertFalse(docs.hasNext());
 
         // Delete the address field of match
-        this.collection.modify("_id = :id").patch("{\"address\": null}").bind("id", "1").execute();
+        this.collection.modify("_id = :id_discipline").patch("{\"address\": null}").bind("id", "1").execute();
 
         docs = this.collection.find().orderBy("$._id").execute();
         assertTrue(docs.hasNext());
@@ -367,7 +367,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         // Adding a new field to multiple documents
         this.collection.modify("language = :lang").patch("{\"translations\": [\"Spanish\"]}").bind("lang", "English").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         DbDoc doc = docs.next();
         assertNotNull(doc.get("translations"));
@@ -377,7 +377,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         this.collection.modify("additionalinfo.director.name = :director").patch("{\"additionalinfo\": {\"musicby\": \"Sakila D\" }}")
                 .bind("director", "Sharice Legaspi").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNotNull(doc.get("additionalinfo"));
@@ -387,7 +387,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         this.collection.modify("additionalinfo.director.name = :director").patch("{\"additionalinfo\": {\"director\": {\"country\": \"France\"}}}")
                 .bind("director", "Sharice Legaspi").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNotNull(doc.get("additionalinfo"));
@@ -398,7 +398,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         // Replacing/Updating a field's value in multiple documents
         this.collection.modify("language = :lang").patch("{\"translations\": [\"Spanish\", \"Italian\"]}").bind("lang", "English").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNotNull(doc.get("translations"));
@@ -409,7 +409,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         this.collection.modify("additionalinfo.director.name = :director").patch("{\"additionalinfo\": {\"musicby\": \"The Sakila\" }}")
                 .bind("director", "Sharice Legaspi").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNotNull(doc.get("additionalinfo"));
@@ -419,7 +419,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         this.collection.modify("additionalinfo.director.name = :director").patch("{\"additionalinfo\": {\"director\": {\"country\": \"Canada\"}}}")
                 .bind("director", "Sharice Legaspi").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNotNull(doc.get("additionalinfo"));
@@ -430,14 +430,14 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         // Removing a field from multiple documents:
         this.collection.modify("language = :lang").patch("{\"translations\": null}").bind("lang", "English").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNull(doc.get("translations"));
 
         this.collection.modify("additionalinfo.director.name = :director").patch("{\"additionalinfo\": {\"musicby\": null }}")
                 .bind("director", "Sharice Legaspi").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNotNull(doc.get("additionalinfo"));
@@ -446,7 +446,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         this.collection.modify("additionalinfo.director.name = :director").patch("{\"additionalinfo\": {\"director\": {\"country\": null}}}")
                 .bind("director", "Sharice Legaspi").execute();
-        docs = this.collection.find("_id = :id").bind("id", id).limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", id).limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertNotNull(doc.get("additionalinfo"));
@@ -456,12 +456,12 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
 
         // Using expressions
 
-        this.collection.modify("_id = :id").patch("{\"zip\": address.zip-300000, \"street\": CONCAT($.name, '''s street: ', $.address.street)}").bind("id", "2")
+        this.collection.modify("_id = :id_discipline").patch("{\"zip\": address.zip-300000, \"street\": CONCAT($.name, '''s street: ', $.address.street)}").bind("id", "2")
                 .execute();
 
-        this.collection.modify("_id = :id").patch("{\"city\": UPPER($.address.city)}").bind("id", "2").execute();
+        this.collection.modify("_id = :id_discipline").patch("{\"city\": UPPER($.address.city)}").bind("id", "2").execute();
 
-        docs = this.collection.find("_id = :id").bind("id", "2").limit(1).execute();
+        docs = this.collection.find("_id = :id_discipline").bind("id", "2").limit(1).execute();
         assertTrue(docs.hasNext());
         doc = docs.next();
         assertEquals(25226, ((JsonNumber) doc.get("zip")).getBigDecimal().intValue());
@@ -524,7 +524,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
                 + "    }" //
                 + "}").execute();
         this.collection.modify("true").patch("{\"nullfield\": { \"nested\": null}}").execute();
-        DocResult docs = this.collection.find("_id = :id").bind("id", id).execute();
+        DocResult docs = this.collection.find("_id = :id_discipline").bind("id", id).execute();
         assertTrue(docs.hasNext());
         doc = docs.next(); //   <---- Error at this line
         assertNotNull(doc.get("nullfield"));
@@ -560,7 +560,7 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
         });
 
         /*
-         * FR5.2 The id of the document must remain immutable:
+         * FR5.2 The id_discipline of the document must remain immutable:
          *
          * Use a collection with some documents
          * Fetch a document
@@ -596,12 +596,12 @@ public class CollectionModifyTest extends BaseCollectionTestCase {
             return null;
         });
 
-        // null id parameter
-        assertThrows(XDevAPIError.class, "Parameter 'id' must not be null.", () -> {
+        // null id_discipline parameter
+        assertThrows(XDevAPIError.class, "Parameter 'id_discipline' must not be null.", () -> {
             CollectionModifyTest.this.collection.replaceOne(null, new DbDocImpl().add("a", new JsonNumber().setValue("2")));
             return null;
         });
-        assertThrows(XDevAPIError.class, "Parameter 'id' must not be null.", () -> {
+        assertThrows(XDevAPIError.class, "Parameter 'id_discipline' must not be null.", () -> {
             CollectionModifyTest.this.collection.replaceOne(null, "{\"_id\": \"id100\", \"a\": 100}");
             return null;
         });

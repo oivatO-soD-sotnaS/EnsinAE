@@ -490,7 +490,7 @@ public class SessionTest extends DevApiBaseTestCase {
     public void sqlInsertAutoIncrementValue() {
         try {
             sqlUpdate("drop table if exists lastInsertId");
-            sqlUpdate("create table lastInsertId (id int not null primary key auto_increment, name varchar(20) not null)");
+            sqlUpdate("create table lastInsertId (id_discipline int not null primary key auto_increment, name varchar(20) not null)");
 
             SqlStatement stmt = this.session.sql("insert into lastInsertId values (null, 'a')");
             SqlResult res = stmt.execute();
@@ -1497,12 +1497,12 @@ public class SessionTest extends DevApiBaseTestCase {
     public void testBug23721537() throws Exception {
         try {
             sqlUpdate("drop table if exists testBug23721537");
-            sqlUpdate("create table testBug23721537 (id int, name varchar(20) not null)");
+            sqlUpdate("create table testBug23721537 (id_discipline int, name varchar(20) not null)");
             sqlUpdate("insert into testBug23721537 values (0, 'a')");
 
             this.session.sql("drop procedure if exists newproc").execute();
             this.session.sql(
-                    "create procedure newproc (in p1 int,in p2 char(20)) begin select 1; update testBug23721537 set name='b' where id=0; select 2; select 3; end;")
+                    "create procedure newproc (in p1 int,in p2 char(20)) begin select 1; update testBug23721537 set name='b' where id_discipline=0; select 2; select 3; end;")
                     .execute();
 
             /* sync execution */
@@ -2404,7 +2404,7 @@ public class SessionTest extends DevApiBaseTestCase {
             sqlUpdate(
                     "create table testExecAsyncNegative(a int,b bigint ,c bigint  GENERATED ALWAYS AS (b*1000) VIRTUAL COMMENT '1',d bigint  GENERATED ALWAYS AS (c*100000) STOred  COMMENT '2')");
             sqlUpdate("Insert into  testExecAsyncNegative (a,b) values(1,100)");
-            sqlUpdate("create index id on testExecAsyncNegative(d)");
+            sqlUpdate("create index id_discipline on testExecAsyncNegative(d)");
             sqlUpdate("create unique index id2 on testExecAsyncNegative(a)");
 
             int NUMBER_OF_QUERIES = 5000;

@@ -45,17 +45,17 @@ public class TransactionTest extends BaseTestCase {
     @Test
     public void testTransaction() throws SQLException {
         try {
-            createTable("trans_test", "(id INT NOT NULL PRIMARY KEY, decdata DOUBLE)", "InnoDB");
+            createTable("trans_test", "(id_discipline INT NOT NULL PRIMARY KEY, decdata DOUBLE)", "InnoDB");
             this.conn.setAutoCommit(false);
-            this.stmt.executeUpdate("INSERT INTO trans_test (id, decdata) VALUES (1, 1.0)");
+            this.stmt.executeUpdate("INSERT INTO trans_test (id_discipline, decdata) VALUES (1, 1.0)");
             this.conn.rollback();
             this.rs = this.stmt.executeQuery("SELECT * from trans_test");
 
             boolean hasResults = this.rs.next();
             assertTrue(!hasResults, "Results returned, rollback to empty table failed");
-            this.stmt.executeUpdate("INSERT INTO trans_test (id, decdata) VALUES (2, " + DOUBLE_CONST + ")");
+            this.stmt.executeUpdate("INSERT INTO trans_test (id_discipline, decdata) VALUES (2, " + DOUBLE_CONST + ")");
             this.conn.commit();
-            this.rs = this.stmt.executeQuery("SELECT * from trans_test where id=2");
+            this.rs = this.stmt.executeQuery("SELECT * from trans_test where id_discipline=2");
             hasResults = this.rs.next();
             assertTrue(hasResults, "No rows in table after INSERT");
 

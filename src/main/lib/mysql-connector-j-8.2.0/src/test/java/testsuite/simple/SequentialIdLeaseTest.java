@@ -55,7 +55,7 @@ public class SequentialIdLeaseTest extends BaseTestCase {
         assertEquals(1, seqIdLease.allocateSequentialId());
         assertEquals(4, seqIdLease.allocateSequentialId());
 
-        // Release single id in middle.
+        // Release single id_discipline in middle.
         seqIdLease = new SequentialIdLease();
         assertEquals(1, seqIdLease.allocateSequentialId());
         assertEquals(2, seqIdLease.allocateSequentialId());

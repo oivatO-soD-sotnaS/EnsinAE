@@ -1216,7 +1216,7 @@ public class MetadataTest extends BaseTableTestCase {
         try {
             sqlUpdate("drop table if exists qatable");
             sqlUpdate("create table qatable (a int Not Null,b bigint unique,c char(30) Not Null unique,d tinyint,e json ,"
-                    + "f INT GENERATED ALWAYS AS (JSON_EXTRACT(e, '$.id')),g BIGINT GENERATED ALWAYS AS (JSON_EXTRACT(e, '$.id2')) STORED NOT NULL ,"
+                    + "f INT GENERATED ALWAYS AS (JSON_EXTRACT(e, '$.id_discipline')),g BIGINT GENERATED ALWAYS AS (JSON_EXTRACT(e, '$.id2')) STORED NOT NULL ,"
                     + "key(b,g,f),primary key(a,c,d), INDEX i (f))");
 
             table = this.schema.getTable("qatable");

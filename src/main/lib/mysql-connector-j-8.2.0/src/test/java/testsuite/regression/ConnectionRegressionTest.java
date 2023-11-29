@@ -624,7 +624,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
             String failoverConnectionId = getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()").toString();
 
-            System.out.println("Connection id: " + failoverConnectionId);
+            System.out.println("Connection id_discipline: " + failoverConnectionId);
 
             killConnection(killerConnection, failoverConnectionId);
 
@@ -641,7 +641,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             failoverConnection.setAutoCommit(true);
 
             String failedConnectionId = getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()").toString();
-            System.out.println("Failed over connection id: " + failedConnectionId);
+            System.out.println("Failed over connection id_discipline: " + failedConnectionId);
 
             ((com.mysql.cj.jdbc.JdbcConnection) failoverConnection).setFailedOver(true);
 
@@ -654,7 +654,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             }
 
             String fallbackConnectionId = getSingleIndexedValueWithQuery(failoverConnection, 1, "SELECT CONNECTION_ID()").toString();
-            System.out.println("fallback connection id: " + fallbackConnectionId);
+            System.out.println("fallback connection id_discipline: " + fallbackConnectionId);
 
             /*
              * long begin = System.currentTimeMillis();
@@ -1096,9 +1096,9 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
             int replicaConnectionId = Integer.parseInt(getSingleIndexedValueWithQuery(replConn, 1, "SELECT CONNECTION_ID()").toString());
 
-            // The following test is okay for now, as the chance of MySQL wrapping the connection id counter during our testsuite is very small.
+            // The following test is okay for now, as the chance of MySQL wrapping the connection id_discipline counter during our testsuite is very small.
             // As per Bug#21286268 fix a Replication connection first initializes the Replicas sub-connection, then the Sources.
-            assertTrue(sourceConnectionId > replicaConnectionId, "Source id " + sourceConnectionId + " is not newer than replica id " + replicaConnectionId);
+            assertTrue(sourceConnectionId > replicaConnectionId, "Source id_discipline " + sourceConnectionId + " is not newer than replica id_discipline " + replicaConnectionId);
 
             assertEquals(currentDb, dbMapsToSchema ? replConn.getSchema() : replConn.getCatalog());
 
@@ -4668,7 +4668,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
 
         Thread.sleep(2000);
         conn2.createStatement().execute("/* ping */ SELECT 1");
-        this.rs = conn2.createStatement().executeQuery("SELECT time FROM information_schema.processlist WHERE id = " + replica2id);
+        this.rs = conn2.createStatement().executeQuery("SELECT time FROM information_schema.processlist WHERE id_discipline = " + replica2id);
         this.rs.next();
         assertTrue(this.rs.getInt(1) < 2, "Processlist should be less than 2 seconds due to ping");
 
@@ -5560,7 +5560,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
     @Test
     public void testReplicationConnectionNoReplicasBasics() throws Exception {
         // create a replication connection with only a source, get the
-        // connection id for later use
+        // connection id_discipline for later use
         Properties props = getPropertiesFromTestsuiteUrl();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
         props.setProperty(PropertyKey.allowPublicKeyRetrieval.getKeyName(), "true");
@@ -6470,7 +6470,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug71084() throws Exception {
-        createTable("testBug71084", "(id INT, dt DATE)");
+        createTable("testBug71084", "(id_discipline INT, dt DATE)");
 
         Properties connProps = new Properties();
         testBug71084AssertCase(connProps, "GMT+2", "GMT+6", null, "1998-05-21", "1998-05-21", "1998-05-21 0:00:00");
@@ -6540,7 +6540,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 Statement testStmt = testConn.createStatement();
                 // Get date value from database: Column `dt` - allowing time zone conversion by returning it as is; Column `dtStr` - preventing time zone
                 // conversion by returning it as String and invalidating the date format so that no automatic conversion can ever happen.
-                ResultSet restRs = testStmt.executeQuery("SELECT dt, CONCAT('$', dt) AS dtStr FROM testBug71084 WHERE id = " + id);
+                ResultSet restRs = testStmt.executeQuery("SELECT dt, CONCAT('$', dt) AS dtStr FROM testBug71084 WHERE id_discipline = " + id);
                 restRs.next();
                 java.sql.Date dateOut = useTargetCal ? restRs.getDate(1, targetCal) : restRs.getDate(1);
                 String dateInDB = restRs.getString(2).substring(1);
@@ -9262,7 +9262,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug75209() throws Exception {
-        createTable("testBug75209", "(id INT PRIMARY KEY)", "InnoDB");
+        createTable("testBug75209", "(id_discipline INT PRIMARY KEY)", "InnoDB");
 
         boolean useLocTransSt = false;
         final Properties props = new Properties();
@@ -9908,7 +9908,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug88232() throws Exception {
-        createTable("testBug88232", "(id INT)", "INNODB");
+        createTable("testBug88232", "(id_discipline INT)", "INNODB");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
@@ -10394,7 +10394,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug89948() throws Exception {
-        createTable("testBug89948", "(id INT PRIMARY KEY)");
+        createTable("testBug89948", "(id_discipline INT PRIMARY KEY)");
 
         boolean resetConn = false;
         boolean allowMQ = false;
@@ -10434,7 +10434,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 testConn.setAutoCommit(false);
             }
 
-            this.pstmt = testConn.prepareStatement("UPDATE testBug89948 SET id = id + 100 WHERE id = ?");
+            this.pstmt = testConn.prepareStatement("UPDATE testBug89948 SET id_discipline = id_discipline + 100 WHERE id_discipline = ?");
             for (int i = 1; i <= 10; i++) {
                 this.pstmt.setInt(1, i);
                 this.pstmt.addBatch();
@@ -10451,7 +10451,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
                 testConn.setAutoCommit(false);
             }
 
-            this.pstmt = testConn.prepareStatement("DELETE FROM testBug89948 WHERE id % 100 = ?"); // match N or (100 + N)
+            this.pstmt = testConn.prepareStatement("DELETE FROM testBug89948 WHERE id_discipline % 100 = ?"); // match N or (100 + N)
             for (int i = 1; i <= 10; i++) {
                 this.pstmt.setInt(1, i);
                 this.pstmt.addBatch();
@@ -11831,7 +11831,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
      */
     @Test
     void testBug108643() throws Exception {
-        createTable("testBug108643", "(id INT PRIMARY KEY)");
+        createTable("testBug108643", "(id_discipline INT PRIMARY KEY)");
 
         boolean useSPS = false;
         boolean allowMQ = false;
@@ -11887,7 +11887,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
      */
     @Test
     void testBug109013() throws Exception {
-        createTable("testBug109013", "(id INT PRIMARY KEY)");
+        createTable("testBug109013", "(id_discipline INT PRIMARY KEY)");
 
         boolean useSPS = false;
         boolean useLTS = false;
@@ -11958,7 +11958,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
         }
         String uuid = getMysqlVariable("server_uuid");
 
-        createTable("testBug35358417", "(id INT)");
+        createTable("testBug35358417", "(id_discipline INT)");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.trackSessionState.getKeyName(), "true");
@@ -11987,7 +11987,7 @@ public class ConnectionRegressionTest extends BaseTestCase {
             assertEquals(':', gtid.charAt(uuid.length()));
             sessStateChangesListener.capturedChanges = null;
 
-            testStmt.executeUpdate("UPDATE testBug35358417 SET id = id + 1 WHERE id = 1");
+            testStmt.executeUpdate("UPDATE testBug35358417 SET id_discipline = id_discipline + 1 WHERE id_discipline = 1");
             assertNotNull(sessStateChangesListener.capturedChanges);
             changes = sessStateChangesListener.capturedChanges.getSessionStateChangesList();
             assertEquals(1, changes.size());

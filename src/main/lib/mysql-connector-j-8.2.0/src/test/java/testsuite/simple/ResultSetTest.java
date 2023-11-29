@@ -384,7 +384,7 @@ public class ResultSetTest extends BaseTestCase {
         /*
          * Objects java.time.Local[Date][Time] are supported via conversion to/from java.sql.[Date|Time|Timestamp].
          */
-        createTable("testUpdateObject1", "(id INT PRIMARY KEY, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
+        createTable("testUpdateObject1", "(id_discipline INT PRIMARY KEY, d DATE, t TIME, dt DATETIME, ts TIMESTAMP)");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), "DISABLED");
@@ -642,7 +642,7 @@ public class ResultSetTest extends BaseTestCase {
         OffsetDateTime testOffsetDateTime = OffsetDateTime.of(2015, 8, 04, 12, 34, 56, 7890, ZoneOffset.UTC);
         OffsetTime testOffsetTime = OffsetTime.of(12, 34, 56, 7890, ZoneOffset.UTC);
 
-        createTable("testUpdateObject2", "(id INT PRIMARY KEY, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB)");
+        createTable("testUpdateObject2", "(id_discipline INT PRIMARY KEY, ot1 VARCHAR(100), ot2 BLOB, odt1 VARCHAR(100), odt2 BLOB)");
 
         this.rs = testStmt.executeQuery("SELECT * FROM testUpdateObject2");
         this.rs.moveToInsertRow();
@@ -695,7 +695,7 @@ public class ResultSetTest extends BaseTestCase {
      */
     @Test
     public void testUpdResultSetUpdateObjectAndNewUnsupportedTypes() throws SQLException {
-        createTable("testUnsupportedTypes", "(id INT PRIMARY KEY, col VARCHAR(20))");
+        createTable("testUnsupportedTypes", "(id_discipline INT PRIMARY KEY, col VARCHAR(20))");
 
         Statement testStmt = this.conn.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_UPDATABLE);
         assertEquals(1, testStmt.executeUpdate("INSERT INTO testUnsupportedTypes VALUES (1, 'dummy')"));

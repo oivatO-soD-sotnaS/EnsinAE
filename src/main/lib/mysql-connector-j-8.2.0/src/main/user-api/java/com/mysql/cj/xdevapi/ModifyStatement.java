@@ -99,9 +99,9 @@ public interface ModifyStatement extends Statement<ModifyStatement, Result> {
      * A document patch is similar to a JSON object, with the key difference that document field values can be nested expressions in addition to literal values.
      * <br>
      * Example:<br>
-     * collection.modify("_id = :id")<br>
+     * collection.modify("_id = :id_discipline")<br>
      * .patch("{\"zip\": address.zip-300000, \"street\": CONCAT($.name, '''s street: ', $.address.street)}")<br>
-     * .bind("id", "2").execute();
+     * .bind("id_discipline", "2").execute();
      *
      * @param document
      *            patch object

@@ -228,15 +228,15 @@ public class SchemaTest extends DevApiBaseTestCase {
         dropCollection(collName1);
         dropCollection(collName2);
 
-        String sch1 = "{" + "\"id\":\"http://json-schema.org/geo\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
+        String sch1 = "{" + "\"id_discipline\":\"http://json-schema.org/geo\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
                 + "\"description\":\"A geographical coordinate\",\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},"
                 + "\"longitude\":{\"type\":\"number\"}},\"required\":[\"latitude\",\"longitude\"]}";
 
-        String sch2 = "{\"id\":\"http://json-schema.org/geo\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
+        String sch2 = "{\"id_discipline\":\"http://json-schema.org/geo\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
                 + "\"description\":\"The geographical coordinate\",\"type\":\"object\",\"properties\":{\"latitude\":{\"type\":\"number\"},"
                 + "\"longitude\":{\"type\":\"number\"}},\"required\":[\"latitude\",\"longitude\"]}";
 
-        String sch3 = "{\"id\":\"http://json-schema.org/idx\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
+        String sch3 = "{\"id_discipline\":\"http://json-schema.org/idx\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
                 + "\"type\":\"object\",\"properties\":{\"index\":{\"type\":\"number\"}},\"required\":[\"index\"]}";
 
         try {
@@ -403,7 +403,7 @@ public class SchemaTest extends DevApiBaseTestCase {
                 assertThrows(XProtocolError.class, "ERROR 5182 \\(HY000\\) JSON validation schema .*", () -> {
                     SchemaTest.this.schema.createCollection("wrongSchema",
                             new CreateCollectionOptions().setValidation(new Validation()
-                                    .setSchema("{\"id\": \"http://json-schema.org/geo\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
+                                    .setSchema("{\"id_discipline\": \"http://json-schema.org/geo\",\"$schema\":\"http://json-schema.org/draft-06/schema#\","
                                             + "\"description\":\"The geographical coordinate\",\"type\":\"object\",\"properties\":{\"latitude\":{" //
                                             + "\"type\":\"blablabla\"" // wrong type
                                             + "}},\"required\":[\"latitude\",\"foo\"]}")));
@@ -418,7 +418,7 @@ public class SchemaTest extends DevApiBaseTestCase {
                 assertThrows(WrongArgumentException.class, Messages.getString("Schema.CreateCollection"), () -> {
                     SchemaTest.this.schema.createCollection(collName1,
                             new CreateCollectionOptions().setValidation(new Validation().setLevel(ValidationLevel.STRICT)
-                                    .setSchema("{\"id\": \"http://json-schema.org/geo\",\"$schema\": \"http://json-schema.org/draft-06/schema#\","
+                                    .setSchema("{\"id_discipline\": \"http://json-schema.org/geo\",\"$schema\": \"http://json-schema.org/draft-06/schema#\","
                                             + "\"description\": \"A geographical coordinate\",\"type\": \"object\",\"properties\":"
                                             + "{\"latitude\": {\"type\": \"number\"},\"longitude\": {\"type\": \"number\"}},"
                                             + "\"required\": [\"latitude\", \"longitude\"]}")));

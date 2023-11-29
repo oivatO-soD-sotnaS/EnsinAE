@@ -816,7 +816,7 @@ public class CompressionTest extends DevApiBaseTestCase {
                 Session testSession = this.fact.getSession(this.compressFreeBaseUrl + makeParam(PropertyKey.xdevapiCompressionAlgorithms, "deflate")
                         + makeParam(PropertyKey.xdevapiCompression, "required"));
                 col = testSession.getDefaultSchema().getCollection("testBug99708");
-                doc = col.find("_id = :id").bind("id", docId).execute().fetchOne();
+                doc = col.find("_id = :id_discipline").bind("id", docId).execute().fetchOne();
                 doc.add("Iteration-" + i, new JsonString().setValue("" + System.nanoTime()));
                 col.addOrReplaceOne(docId, doc);
                 testSession.close();

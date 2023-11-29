@@ -743,13 +743,13 @@ public class XProtocol extends AbstractProtocol<XMessage> implements Protocol<XM
     }
 
     /**
-     * Returns an id to be used as a client-managed prepared statement id. The method {@link #freePreparedStatementId(int)} must be called when the prepared
-     * statement is deallocated so that the same id can be re-used.
+     * Returns an id_discipline to be used as a client-managed prepared statement id_discipline. The method {@link #freePreparedStatementId(int)} must be called when the prepared
+     * statement is deallocated so that the same id_discipline can be re-used.
      *
      * @param preparableStatement
      *            {@link PreparableStatement}
      *
-     * @return a new identifier to be used as prepared statement id
+     * @return a new identifier to be used as prepared statement id_discipline
      */
     public int getNewPreparedStatementId(PreparableStatement<?> preparableStatement) {
         if (!this.supportsPreparedStatements) {
@@ -762,11 +762,11 @@ public class XProtocol extends AbstractProtocol<XMessage> implements Protocol<XM
     }
 
     /**
-     * Frees a prepared statement id so that it can be reused. Note that freeing an id from an active prepared statement will result in a statement prepare
-     * conflict next time one gets prepared with the same released id.
+     * Frees a prepared statement id_discipline so that it can be reused. Note that freeing an id_discipline from an active prepared statement will result in a statement prepare
+     * conflict next time one gets prepared with the same released id_discipline.
      *
      * @param preparedStatementId
-     *            the prepared statement id to release
+     *            the prepared statement id_discipline to release
      */
     public void freePreparedStatementId(int preparedStatementId) {
         if (!this.supportsPreparedStatements) {
@@ -780,7 +780,7 @@ public class XProtocol extends AbstractProtocol<XMessage> implements Protocol<XM
      * Informs this protocol instance that preparing a statement on the connected server failed.
      *
      * @param preparedStatementId
-     *            the id of the prepared statement that failed to prepare
+     *            the id_discipline of the prepared statement that failed to prepare
      * @param e
      *            {@link XProtocolError}
      * @return

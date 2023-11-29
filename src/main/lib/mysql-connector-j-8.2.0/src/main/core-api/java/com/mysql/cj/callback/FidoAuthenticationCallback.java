@@ -54,9 +54,9 @@ public class FidoAuthenticationCallback implements MysqlCallback {
      * @param scramble
      *            the scramble
      * @param relyingPartyId
-     *            the relying party id
+     *            the relying party id_discipline
      * @param credentialId
-     *            the credential id
+     *            the credential id_discipline
      */
     public FidoAuthenticationCallback(byte[] scramble, String relyingPartyId, byte[] credentialId) {
         this.scramble = scramble;
@@ -78,7 +78,7 @@ public class FidoAuthenticationCallback implements MysqlCallback {
      * Returns the FIDO Relying Party ID for the coming authenticator interaction.
      *
      * @return
-     *         the relying party id
+     *         the relying party id_discipline
      */
     public String getRelyingPartyId() {
         return this.relyingPartyId;
@@ -88,7 +88,7 @@ public class FidoAuthenticationCallback implements MysqlCallback {
      * Returns the FIDO Credential ID for the coming authenticator interaction.
      *
      * @return
-     *         the credential id
+     *         the credential id_discipline
      */
     public byte[] getCredentialId() {
         return this.credentialId;

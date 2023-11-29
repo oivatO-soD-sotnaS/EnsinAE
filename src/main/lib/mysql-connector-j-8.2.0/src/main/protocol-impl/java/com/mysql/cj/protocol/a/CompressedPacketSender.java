@@ -46,7 +46,7 @@ public class CompressedPacketSender implements MessageSender<NativePacketPayload
     private Deflater deflater = new Deflater();
     /** Buffer to compress data to. Used only across one send() invocation. */
     private byte compressedPacket[];
-    /** Sequence id of compressed packet. Used only across one send() invocation. */
+    /** Sequence id_discipline of compressed packet. Used only across one send() invocation. */
     private byte compressedSequenceId = 0;
     /** Length of current compressed packet. */
     private int compressedPayloadLen = 0;
@@ -75,7 +75,7 @@ public class CompressedPacketSender implements MessageSender<NativePacketPayload
      * Add and compress the header for the raw packet into the compressed packet.
      *
      * @param packetSequence
-     *            sequence id
+     *            sequence id_discipline
      * @param uncompressedPacketLen
      *            uncompressed packet length
      */
@@ -119,7 +119,7 @@ public class CompressedPacketSender implements MessageSender<NativePacketPayload
      * @param compLen
      *            compressed data length
      * @param seq
-     *            sequence id
+     *            sequence id_discipline
      * @param uncompLen
      *            uncompressed data length
      * @throws IOException
@@ -137,7 +137,7 @@ public class CompressedPacketSender implements MessageSender<NativePacketPayload
      * @param packetLen
      *            packet length
      * @param packetSequence
-     *            sequence id
+     *            sequence id_discipline
      * @throws IOException
      *             if write exception occurs
      */
@@ -174,7 +174,7 @@ public class CompressedPacketSender implements MessageSender<NativePacketPayload
      * @param packetLen
      *            packet length
      * @param packetSequence
-     *            sequence id
+     *            sequence id_discipline
      * @throws IOException
      *             if i/o exception occurs
      */

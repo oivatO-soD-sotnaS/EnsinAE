@@ -2002,7 +2002,7 @@ public class NativeProtocol extends AbstractProtocol<NativePacketPayload> implem
     }
 
     public StringBuilder generateQueryCommentBlock(StringBuilder buf) {
-        buf.append("/* conn id ");
+        buf.append("/* conn id_discipline ");
         buf.append(getServerSession().getCapabilities().getThreadId());
         buf.append(" clock: ");
         buf.append(System.currentTimeMillis());

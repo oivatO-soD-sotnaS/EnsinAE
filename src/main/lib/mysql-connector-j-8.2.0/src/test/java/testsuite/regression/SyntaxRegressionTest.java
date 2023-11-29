@@ -358,8 +358,8 @@ public class SyntaxRegressionTest extends BaseTestCase {
     public void testExchangePartition() throws Exception {
         assumeTrue(versionMeetsMinimum(5, 6, 6), "MySQL 5.6.6+ is required to run this test.");
 
-        createTable("testExchangePartition1", "(id int(11) NOT NULL AUTO_INCREMENT, year year(4) DEFAULT NULL,"
-                + " modified timestamp NOT NULL, PRIMARY KEY (id)) ENGINE=InnoDB ROW_FORMAT=COMPACT PARTITION BY HASH (id) PARTITIONS 2");
+        createTable("testExchangePartition1", "(id_discipline int(11) NOT NULL AUTO_INCREMENT, year year(4) DEFAULT NULL,"
+                + " modified timestamp NOT NULL, PRIMARY KEY (id_discipline)) ENGINE=InnoDB ROW_FORMAT=COMPACT PARTITION BY HASH (id_discipline) PARTITIONS 2");
         createTable("testExchangePartition2", "LIKE testExchangePartition1");
 
         this.stmt.executeUpdate("ALTER TABLE testExchangePartition2 REMOVE PARTITIONING");
@@ -713,7 +713,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
                 { null, "::1" }, { null, "10aa:10bb:10cc:10dd:10ee:10ff:10aa:10bb" }, { null, "af::10af:a:b:1" }, { null, "48:4df1::10:ad3:1100" },
                 { null, null }, { null, null } };
 
-        createTable("testWL5787", "(id INT AUTO_INCREMENT PRIMARY KEY, ipv4 INT UNSIGNED, ipv6 VARBINARY(16))");
+        createTable("testWL5787", "(id_discipline INT AUTO_INCREMENT PRIMARY KEY, ipv4 INT UNSIGNED, ipv6 VARBINARY(16))");
 
         Connection testConn = this.conn;
         if (versionMeetsMinimum(5, 7, 10)) {
@@ -740,7 +740,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         }
         assertEquals(dataSamples.length, c, "Failed inserting data samples: wrong number of inserts.");
 
-        this.rs = this.stmt.executeQuery("SELECT id, INET_NTOA(ipv4), INET6_NTOA(ipv6) FROM testWL5787");
+        this.rs = this.stmt.executeQuery("SELECT id_discipline, INET_NTOA(ipv4), INET6_NTOA(ipv6) FROM testWL5787");
         int i = 0;
         while (this.rs.next()) {
             i = this.rs.getInt(1);
@@ -767,7 +767,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         assumeTrue(versionMeetsMinimum(5, 6), "MySQL 5.6+ is required to run this test.");
 
         createTable("testFULLTEXTSearchInnoDB",
-                "(id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY, " + "title VARCHAR(200), body TEXT, FULLTEXT (title , body)) ENGINE=InnoDB");
+                "(id_discipline INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY, " + "title VARCHAR(200), body TEXT, FULLTEXT (title , body)) ENGINE=InnoDB");
 
         this.stmt.executeUpdate("INSERT INTO testFULLTEXTSearchInnoDB (title, body) VALUES ('MySQL Tutorial','DBMS stands for DataBase ...'), "
                 + "('How To Use MySQL Well','After you went through a ...'), ('Optimizing MySQL','In this tutorial we will show ...'), "
@@ -929,7 +929,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         assumeTrue(versionMeetsMinimum(5, 7, 4), "MySQL 5.7.4+ is required to run this test.");
 
         createTable("testDiscardImportPartitions",
-                "(id INT) ENGINE = InnoDB PARTITION BY RANGE (id) (PARTITION p1 VALUES LESS THAN (0), PARTITION p2 VALUES LESS THAN MAXVALUE)");
+                "(id_discipline INT) ENGINE = InnoDB PARTITION BY RANGE (id_discipline) (PARTITION p1 VALUES LESS THAN (0), PARTITION p2 VALUES LESS THAN MAXVALUE)");
 
         this.stmt.executeUpdate("INSERT INTO testDiscardImportPartitions VALUES (-3), (-2), (-1), (0), (1), (2), (3)");
 
@@ -994,7 +994,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
     public void testJsonType() throws Exception {
         assumeTrue(versionMeetsMinimum(5, 7, 8), "MySQL 5.7.8+ is required to run this test.");
 
-        createTable("testJsonType", "(id INT PRIMARY KEY, jsonDoc JSON)");
+        createTable("testJsonType", "(id_discipline INT PRIMARY KEY, jsonDoc JSON)");
         assertEquals(1, this.stmt.executeUpdate("INSERT INTO testJsonType VALUES (1, '{\"key1\": \"value1\"}')"));
 
         // Plain statement.
@@ -1131,7 +1131,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         /*
          * Test hints in different query types using Statements.
          */
-        createTable("testHints", "(id INT PRIMARY KEY, txt CHAR(2))");
+        createTable("testHints", "(id_discipline INT PRIMARY KEY, txt CHAR(2))");
 
         // Hints in single query.
         assertEquals(1, this.stmt.executeUpdate("INSERT /*+ mrr(testHints) */ INTO testHints VALUES (1, 'a')"));
@@ -1154,7 +1154,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         assertNull(this.stmt.getWarnings());
         assertEquals(2, this.stmt.executeUpdate("REPLACE INTO testHints (SELECT /*+ qb_name(dummy) */ 2, 'B')"));
         assertNull(this.stmt.getWarnings());
-        assertEquals(1, this.stmt.executeUpdate("UPDATE testHints SET txt = 'Bb' WHERE id IN (SELECT /*+ qb_name(dummy) */ 2)"));
+        assertEquals(1, this.stmt.executeUpdate("UPDATE testHints SET txt = 'Bb' WHERE id_discipline IN (SELECT /*+ qb_name(dummy) */ 2)"));
         assertNull(this.stmt.getWarnings());
         this.rs = this.stmt.executeQuery("SELECT /*+ max_execution_time(100) */ 1, 'Aa' UNION SELECT /*+ qb_name(dummy) */ * FROM testHints");
         assertNull(this.stmt.getWarnings());
@@ -1165,7 +1165,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         assertEquals(2, this.rs.getInt(1));
         assertEquals("Bb", this.rs.getString(2));
         assertFalse(this.rs.next());
-        assertEquals(1, this.stmt.executeUpdate("DELETE FROM testHints WHERE id IN (SELECT /*+ qb_name(dummy) */ 2)"));
+        assertEquals(1, this.stmt.executeUpdate("DELETE FROM testHints WHERE id_discipline IN (SELECT /*+ qb_name(dummy) */ 2)"));
         assertNull(this.stmt.getWarnings());
 
         /*
@@ -1190,7 +1190,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
             this.pstmt.setString(1, "Aa");
             assertEquals(1, this.pstmt.executeUpdate());
             assertNull(this.pstmt.getWarnings());
-            this.pstmt = testConn.prepareStatement("SELECT /*+ max_execution_time(100) */ * FROM testHints WHERE id = ?");
+            this.pstmt = testConn.prepareStatement("SELECT /*+ max_execution_time(100) */ * FROM testHints WHERE id_discipline = ?");
             this.pstmt.setInt(1, 1);
             this.rs = this.pstmt.executeQuery();
             assertNull(this.pstmt.getWarnings());
@@ -1198,7 +1198,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
             assertEquals(1, this.rs.getInt(1));
             assertEquals("Aa", this.rs.getString(2));
             assertFalse(this.rs.next());
-            this.pstmt = testConn.prepareStatement("DELETE /*+ mrr(testHints) */ FROM testHints WHERE id = ?");
+            this.pstmt = testConn.prepareStatement("DELETE /*+ mrr(testHints) */ FROM testHints WHERE id_discipline = ?");
             this.pstmt.setInt(1, 1);
             assertEquals(1, this.pstmt.executeUpdate());
             assertNull(this.pstmt.getWarnings());
@@ -1214,7 +1214,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
             this.pstmt.setString(2, "B");
             assertEquals(2, this.pstmt.executeUpdate());
             assertNull(this.pstmt.getWarnings());
-            this.pstmt = testConn.prepareStatement("UPDATE testHints SET txt = 'Bb' WHERE id IN (SELECT /*+ qb_name(dummy) */ ?)");
+            this.pstmt = testConn.prepareStatement("UPDATE testHints SET txt = 'Bb' WHERE id_discipline IN (SELECT /*+ qb_name(dummy) */ ?)");
             this.pstmt.setInt(1, 2);
             assertEquals(1, this.pstmt.executeUpdate());
             assertNull(this.pstmt.getWarnings());
@@ -1230,7 +1230,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
             assertEquals(2, this.rs.getInt(1));
             assertEquals("Bb", this.rs.getString(2));
             assertFalse(this.rs.next());
-            this.pstmt = testConn.prepareStatement("DELETE FROM testHints WHERE id IN (SELECT /*+ qb_name(dummy) */ ?)");
+            this.pstmt = testConn.prepareStatement("DELETE FROM testHints WHERE id_discipline IN (SELECT /*+ qb_name(dummy) */ ?)");
             this.pstmt.setInt(1, 2);
             assertEquals(1, this.pstmt.executeUpdate());
             assertNull(this.pstmt.getWarnings());
@@ -1272,9 +1272,9 @@ public class SyntaxRegressionTest extends BaseTestCase {
 
             testCreateTablespaceCheckTablespaces(2);
 
-            createTable("testTs1Tbl1", "(id INT) TABLESPACE testTs1");
-            createTable("testTs1Tbl2", "(id INT) TABLESPACE testTs1");
-            createTable("testTs2Tbl1", "(id INT) TABLESPACE testTs2");
+            createTable("testTs1Tbl1", "(id_discipline INT) TABLESPACE testTs1");
+            createTable("testTs1Tbl2", "(id_discipline INT) TABLESPACE testTs1");
+            createTable("testTs2Tbl1", "(id_discipline INT) TABLESPACE testTs2");
 
             testCreateTablespaceCheckTables("testTs1", 2);
             testCreateTablespaceCheckTables("testTs2", 1);
@@ -1998,7 +1998,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
         }
 
         if (keyringPluginIsActive) {
-            createTable("testInnodbTablespaceEncryption", "(id INT, txt VARCHAR(100)) ENCRYPTION='y'");
+            createTable("testInnodbTablespaceEncryption", "(id_discipline INT, txt VARCHAR(100)) ENCRYPTION='y'");
 
             this.stmt.executeUpdate("INSERT INTO testInnodbTablespaceEncryption VALUES (123, 'this is a test')");
             this.rs = this.stmt.executeQuery("SELECT * FROM testInnodbTablespaceEncryption");
@@ -2028,7 +2028,7 @@ public class SyntaxRegressionTest extends BaseTestCase {
 
             final Statement testStmt = this.conn.createStatement();
             assertThrows(SQLException.class, err, () -> {
-                testStmt.execute("CREATE TABLE testInnodbTablespaceEncryption (id INT) ENCRYPTION='y'");
+                testStmt.execute("CREATE TABLE testInnodbTablespaceEncryption (id_discipline INT) ENCRYPTION='y'");
                 testStmt.execute("DROP TABLE testInnodbTablespaceEncryption");
                 return null;
             });

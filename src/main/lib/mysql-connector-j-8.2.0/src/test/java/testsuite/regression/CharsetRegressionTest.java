@@ -762,7 +762,7 @@ public class CharsetRegressionTest extends BaseTestCase {
             final String fourBytesValue = "\ud841\udf0e";
 
             createTable("testBug81196", //"TestDb.TestTable",
-                    "(`id` int AUTO_INCREMENT NOT NULL, `name` varchar(50)  NULL," + "CONSTRAINT `PK_LastViewedMatch_id` PRIMARY KEY  (`id`))"
+                    "(`id_discipline` int AUTO_INCREMENT NOT NULL, `name` varchar(50)  NULL," + "CONSTRAINT `PK_LastViewedMatch_id` PRIMARY KEY  (`id_discipline`))"
                             + " ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci");
 
             Properties props = new Properties();

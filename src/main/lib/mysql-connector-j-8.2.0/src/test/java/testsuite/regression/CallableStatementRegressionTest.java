@@ -565,19 +565,19 @@ public class CallableStatementRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug22297() throws Exception {
-        createTable("tblTestBug2297_1", "(id varchar(20) NOT NULL default '',Income double(19,2) default NULL)");
+        createTable("tblTestBug2297_1", "(id_discipline varchar(20) NOT NULL default '',Income double(19,2) default NULL)");
 
-        createTable("tblTestBug2297_2", "(id varchar(20) NOT NULL default '',CreatedOn datetime default NULL)");
+        createTable("tblTestBug2297_2", "(id_discipline varchar(20) NOT NULL default '',CreatedOn datetime default NULL)");
 
         createProcedure("testBug22297", "(pcaseid INT) BEGIN\nSET @sql = \"DROP TEMPORARY TABLE IF EXISTS tmpOrders\";"
                 + " PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;"
-                + "\nSET @sql = \"CREATE TEMPORARY TABLE tmpOrders SELECT id, 100 AS Income FROM tblTestBug2297_1 GROUP BY id\"; PREPARE stmt FROM @sql;"
-                + " EXECUTE stmt; DEALLOCATE PREPARE stmt;\n SELECT id, Income FROM (SELECT e.id AS id ,COALESCE(prof.Income,0) AS Income"
-                + "\n FROM tblTestBug2297_2 e LEFT JOIN tmpOrders prof ON e.id = prof.id\n WHERE e.CreatedOn > '2006-08-01') AS Final ORDER BY id;\nEND");
+                + "\nSET @sql = \"CREATE TEMPORARY TABLE tmpOrders SELECT id_discipline, 100 AS Income FROM tblTestBug2297_1 GROUP BY id_discipline\"; PREPARE stmt FROM @sql;"
+                + " EXECUTE stmt; DEALLOCATE PREPARE stmt;\n SELECT id_discipline, Income FROM (SELECT e.id_discipline AS id_discipline ,COALESCE(prof.Income,0) AS Income"
+                + "\n FROM tblTestBug2297_2 e LEFT JOIN tmpOrders prof ON e.id_discipline = prof.id_discipline\n WHERE e.CreatedOn > '2006-08-01') AS Final ORDER BY id_discipline;\nEND");
 
-        this.stmt.executeUpdate("INSERT INTO tblTestBug2297_1 (`id`,`Income`) VALUES ('a',4094.00),('b',500.00),('c',3462.17), ('d',500.00), ('e',600.00)");
+        this.stmt.executeUpdate("INSERT INTO tblTestBug2297_1 (`id_discipline`,`Income`) VALUES ('a',4094.00),('b',500.00),('c',3462.17), ('d',500.00), ('e',600.00)");
 
-        this.stmt.executeUpdate("INSERT INTO tblTestBug2297_2 (`id`,`CreatedOn`) VALUES ('d','2006-08-31 00:00:00'),('e','2006-08-31 00:00:00'),"
+        this.stmt.executeUpdate("INSERT INTO tblTestBug2297_2 (`id_discipline`,`CreatedOn`) VALUES ('d','2006-08-31 00:00:00'),('e','2006-08-31 00:00:00'),"
                 + "('b','2006-08-31 00:00:00'),('c','2006-08-31 00:00:00'),('a','2006-08-31 00:00:00')");
 
         this.pstmt = this.conn.prepareStatement("{CALL testBug22297(?)}");
@@ -755,7 +755,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
                         + "\n   _SONGS_LIST varchar(8000),\n  _COMPOSERID int,\n  _PUBLISHERID int,"
                         + "\n   _PREDEFLINK int        -- If the user is accessing through a predefined link: 0=none  1=last period\n */) BEGIN SELECT 1; END");
 
-        createProcedure("testBug26959_1", "(`/*id*/` /* before type 1 */ varchar(20),"
+        createProcedure("testBug26959_1", "(`/*id_discipline*/` /* before type 1 */ varchar(20),"
                 + "/* after type 1 */ OUT result2 DECIMAL(/*size1*/10,/*size2*/2) /* p2 */)BEGIN SELECT action, result; END");
 
         this.conn.prepareCall("{call testBug26959(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)}").close();
@@ -801,7 +801,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
         this.rs.close();
 
         index = 0;
-        parameterNames = new String[] { "/*id*/", "result2" };
+        parameterNames = new String[] { "/*id_discipline*/", "result2" };
         parameterTypes = new int[] { Types.VARCHAR, Types.DECIMAL };
         precision = new int[] { 20, 10 };
         direction = new int[] { java.sql.DatabaseMetaData.procedureColumnIn, java.sql.DatabaseMetaData.procedureColumnOut };
@@ -871,11 +871,11 @@ public class CallableStatementRegressionTest extends BaseTestCase {
     public void testBug28689() throws Exception {
         createTable("testBug28689", "(" +
 
-                "`id` int(11) NOT NULL auto_increment,`usuario` varchar(255) default NULL,PRIMARY KEY  (`id`))");
+                "`id_discipline` int(11) NOT NULL auto_increment,`usuario` varchar(255) default NULL,PRIMARY KEY  (`id_discipline`))");
 
         this.stmt.executeUpdate("INSERT INTO testBug28689 (usuario) VALUES ('AAAAAA')");
 
-        createProcedure("sp_testBug28689", "(tid INT)\nBEGIN\nUPDATE testBug28689 SET usuario = 'BBBBBB' WHERE id = tid;\nEND");
+        createProcedure("sp_testBug28689", "(tid INT)\nBEGIN\nUPDATE testBug28689 SET usuario = 'BBBBBB' WHERE id_discipline = tid;\nEND");
 
         Properties props = new Properties();
         props.setProperty(PropertyKey.sslMode.getKeyName(), SslMode.DISABLED.name());
@@ -890,7 +890,7 @@ public class CallableStatementRegressionTest extends BaseTestCase {
             cStmt.addBatch();
             cStmt.executeBatch();
 
-            assertEquals("BBBBBB", getSingleIndexedValueWithQuery(noProcedureBodiesConn, 1, "SELECT `usuario` FROM testBug28689 WHERE id=1"));
+            assertEquals("BBBBBB", getSingleIndexedValueWithQuery(noProcedureBodiesConn, 1, "SELECT `usuario` FROM testBug28689 WHERE id_discipline=1"));
         } finally {
             if (cStmt != null) {
                 cStmt.close();

@@ -517,7 +517,7 @@ public class DataSourceRegressionTest extends BaseTestCase {
                 this.rs.close();
                 if (connIsAlive) {
                     connAliveChecks--;
-                    System.out.println("Connection id " + connId + " is still alive. Checking " + connAliveChecks + " more times.");
+                    System.out.println("Connection id_discipline " + connId + " is still alive. Checking " + connAliveChecks + " more times.");
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
@@ -526,7 +526,7 @@ public class DataSourceRegressionTest extends BaseTestCase {
                     connAliveChecks = -1;
                 }
             }
-            assertFalse(connAliveChecks == 0, "Failed to kill the Connection id " + connId + " in a timely manner.");
+            assertFalse(connAliveChecks == 0, "Failed to kill the Connection id_discipline " + connId + " in a timely manner.");
 
             XAException xaEx = assertThrows(XAException.class, "Undetermined error occurred in the underlying Connection - check your data for consistency",
                     () -> {

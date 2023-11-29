@@ -2049,10 +2049,10 @@ public class MetaDataRegressionTest extends BaseTestCase {
         boolean max_key_l_bug = false;
 
         try {
-            createTable("bug33594", "(fid varchar(255) not null primary key, id INT, geom linestring, name varchar(255))");
+            createTable("bug33594", "(fid varchar(255) not null primary key, id_discipline INT, geom linestring, name varchar(255))");
         } catch (SQLException sqlEx) {
             if (sqlEx.getMessage().indexOf("max key length") != -1) {
-                createTable("bug33594", "(fid varchar(180) not null primary key, id INT, geom linestring, name varchar(255))");
+                createTable("bug33594", "(fid varchar(180) not null primary key, id_discipline INT, geom linestring, name varchar(255))");
                 max_key_l_bug = true;
             }
         }
@@ -2121,7 +2121,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
 
     @Test
     public void testBug34194() throws Exception {
-        createTable("bug34194", "(id integer,geom geometry)");
+        createTable("bug34194", "(id_discipline integer,geom geometry)");
 
         if (!versionMeetsMinimum(5, 6)) {
             this.stmt.execute("insert into bug34194 values('1', GeomFromText('POINT(622572.881 5156121.034)'))");
@@ -4561,7 +4561,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
         boolean useSPS = false;
         do {
             String testCase = String.format("Case [SPS: %s]", useSPS ? "Y" : "N");
-            createTable("testBug23212347", "(id INT)");
+            createTable("testBug23212347", "(id_discipline INT)");
 
             Properties props = new Properties();
             props.setProperty(PropertyKey.useServerPrepStmts.getKeyName(), Boolean.toString(useSPS));
@@ -4572,7 +4572,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
             Statement testStmt = testConn.createStatement();
             testStmt.execute("INSERT INTO testBug23212347 VALUES (1)");
 
-            this.pstmt = testConn.prepareStatement("SELECT * FROM testBug23212347 WHERE id = 1");
+            this.pstmt = testConn.prepareStatement("SELECT * FROM testBug23212347 WHERE id_discipline = 1");
             this.rs = this.pstmt.executeQuery();
             assertTrue(this.rs.next(), testCase);
             assertEquals(1, this.rs.getInt(1), testCase);
@@ -4580,7 +4580,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
             ResultSetMetaData rsmd = this.pstmt.getMetaData();
             assertEquals("id", rsmd.getColumnName(1), testCase);
 
-            this.pstmt = testConn.prepareStatement("SELECT * FROM testBug23212347 WHERE id = ?");
+            this.pstmt = testConn.prepareStatement("SELECT * FROM testBug23212347 WHERE id_discipline = ?");
             this.pstmt.setInt(1, 1);
             this.rs = this.pstmt.executeQuery();
             assertTrue(this.rs.next(), testCase);
@@ -4742,7 +4742,7 @@ public class MetaDataRegressionTest extends BaseTestCase {
      */
     @Test
     public void testBug87826() throws Exception {
-        createTable("testBug87826", "(id INT)");
+        createTable("testBug87826", "(id_discipline INT)");
         createProcedure("bug87826", "(in param1 int, out result varchar(197)) BEGIN select 1, ''; END");
 
         final Properties props = new Properties();

@@ -1,6 +1,6 @@
 package vo;
 
-public record User(Integer id,
+public record User(Integer id_user,
                    String name,
                    String surname,
                    String email,
