@@ -10,9 +10,9 @@ public class Conexao {
         Connection conn;
         try {
             conn = DriverManager.getConnection(
-              "jdbc:mysql://localhost:3306/db_ensinae_model",
-              "root",
-              "2xHmfcC2$@aMXd#m"
+              "jdbc:mysql://db-ensinae.chx1voeacn1x.sa-east-1.rds.amazonaws.com:1433/db_ensinae",
+              "admin",
+              "j2JJKCDPUV768QHzM7vRIEckyofRJv"
             );
         } catch (SQLException e) {
             throw new RuntimeException(e);
