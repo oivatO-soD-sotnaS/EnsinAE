@@ -22,12 +22,13 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class HomePageController implements Initializable{
+public class HomePageController{
 
     private User activeUser;
 
     @FXML
     private TextField searchBar;
+
     @FXML
     private Button createDisciplineButton;
 
@@ -46,7 +47,7 @@ public class HomePageController implements Initializable{
     private TableColumn<Discipline, String> tableDisciplineName;
 
     @FXML
-    private TableColumn<Discipline, String> tableDisciplineProfessorName;
+    private TableColumn tableDisciplineProfessor;
 
     @FXML
     private TableColumn<Discipline, String> tableDisciplineProfessorEmail;
@@ -71,7 +72,9 @@ public class HomePageController implements Initializable{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ChangeUserInfoPage.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
-        stage.setTitle("Registro de Disciplina");
+        ChangeUserInfoPageController changeUserInfoPageController = fxmlLoader.getController();
+        changeUserInfoPageController.setUser(this.activeUser);
+        stage.setTitle("Mudança de Informações do Usuário");
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
@@ -81,7 +84,7 @@ public class HomePageController implements Initializable{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("RegisterProfessorPage.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
-        stage.setTitle("Registro de Disciplina");
+        stage.setTitle("Registro de Professor");
         stage.setResizable(false);
         stage.setScene(new Scene(root));
         stage.show();
@@ -89,7 +92,13 @@ public class HomePageController implements Initializable{
 
     @FXML
     void createDiscipline(ActionEvent event) throws IOException {
-
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateDisciplinePage.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setTitle("Registro de Disciplina");
+        stage.setResizable(false);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
@@ -108,6 +117,10 @@ public class HomePageController implements Initializable{
     }
 
     @FXML
+    void getInDiscipline(ActionEvent event){
+
+    }
+    @FXML
     void refreshTable(MouseEvent event) {
 
     }
@@ -116,7 +129,14 @@ public class HomePageController implements Initializable{
     void searchDiscipline(KeyEvent event) {
         System.out.println(this.searchBar.getText());
     }
+    @FXML
+    void disciplineSelected(MouseEvent event){
 
+    }
+    @FXML
+    void updateTable(){
+
+    }
 
     void innitHomePage(User user){
         //innit user info
@@ -124,14 +144,8 @@ public class HomePageController implements Initializable{
         this.userName.setText(activeUser.name());
         this.userEmail.setText(activeUser.email());
         this.userCPF.setText(activeUser.cpf());
-
-        //innit table of disciplines
-//        try {
-//            this.disciplinesTableView.setItems((ObservableList<Discipline>) UserDao.listDisciplines(this.activeUser));
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-
+        //innit table view
+        updateTable();
         //change UI depending on user access level
         if(user.access_level().equals("professor")){
             this.createDisciplineButton.setVisible(true);
@@ -140,13 +154,6 @@ public class HomePageController implements Initializable{
             this.createProfessorButton.setVisible(true);
         }
     }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        //prepare table columns for adding data
-//        this.tableDisciplineID.setCellValueFactory(new PropertyValueFactory<Discipline, Integer>("tableDisciplineID"));
-//        this.tableDisciplineName.setCellValueFactory(new PropertyValueFactory<Discipline, String>("tableDisciplineName"));
-//        this.tableDisciplineProfessorName.setCellValueFactory(new PropertyValueFactory<Discipline, String>("tableDisciplineProfessorName"));
-//        this.tableDisciplineProfessorEmail.setCellValueFactory(new PropertyValueFactory<Discipline, String>("tableDisciplineProfessorEmail"));
-    }
+
 }
 

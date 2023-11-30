@@ -70,7 +70,7 @@ public class RegisterProfessorController {
         String surname = this.surnameTextField.getText();
         String output = UserSecurity.checkSurname(surname);
         if(output.equals("valid surname")){
-            removeError(this.nameError);
+            removeError(this.surnameError);
             return true;
         }
         generateError(this.surnameError, output);

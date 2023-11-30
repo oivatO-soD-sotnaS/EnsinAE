@@ -14,154 +14,139 @@
 <?import javafx.scene.text.Font?>
 
 <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="backgroundColor2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.HomePageController">
-   <children>
-      <VBox alignment="TOP_CENTER" prefHeight="598.0" prefWidth="235.0" styleClass="backgroundColor2" stylesheets="@styles.css">
-         <children>
-            <ImageView fitHeight="150.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@logo2.png" />
-               </image>
-            </ImageView>
-            <Label styleClass="Label" stylesheets="@styles.css" text="Disciplina Selecionada: " textFill="WHITE">
+   <VBox alignment="TOP_CENTER" prefHeight="598.0" prefWidth="235.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+      <ImageView fitHeight="150.0" fitWidth="295.0" pickOnBounds="true" preserveRatio="true">
+         <Image url="@logo2.png" />
+      </ImageView>
+      <Label styleClass="Label" stylesheets="@styles.css" text="Disciplina Selecionada: " textFill="WHITE">
+         <font>
+            <Font name="Nunito Bold" size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="selectedDisciplineName" prefHeight="20.0" prefWidth="192.0" styleClass="Label" stylesheets="@styles.css" text="...">
+         <font>
+            <Font name="Nunito Bold" size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label styleClass="Label" stylesheets="@styles.css" text="Descrição da disciplina:">
+         <font>
+            <Font name="Nunito Bold" size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="selectedDisciplineDescription" alignment="TOP_LEFT" prefHeight="201.0" prefWidth="192.0" styleClass="Label" stylesheets="@styles.css" text="...">
+         <font>
+            <Font name="Nunito Bold" size="14.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <Button mnemonicParsing="false" onAction="#getInDiscipline" styleClass="buttonGradient" stylesheets="@styles.css" text="Entrar">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#getOutOfDiscipline" styleClass="buttonGradient" stylesheets="@styles.css" text="Sair">
+               <HBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </HBox.margin>
+            </Button>
+         </HBox>
+         <Button fx:id="dropDisciplineButton" mnemonicParsing="false" onAction="#dropDiscipline" styleClass="redButton" stylesheets="@styles.css" text="Excluir disciplina" />
+      </VBox>
+   </VBox>
+   <VBox prefHeight="598.0" prefWidth="675.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+      <HBox prefHeight="117.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+         <padding>
+            <Insets left="10.0" right="10.0" top="10.0" />
+         </padding>
+         <VBox prefHeight="200.0" prefWidth="100.0">
+            <Label styleClass="Label" stylesheets="@styles.css" text="Usuário:">
                <font>
                   <Font name="Nunito Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
             </Label>
-            <Label fx:id="selectedDisciplineName" prefHeight="20.0" prefWidth="192.0" styleClass="Label" stylesheets="@styles.css" text="...">
+            <Label fx:id="userName" styleClass="Label" stylesheets="@styles.css" text="..." />
+         </VBox>
+         <VBox prefHeight="82.0" prefWidth="128.0">
+            <Label styleClass="Label" stylesheets="@styles.css" text="Email do usuário:">
                <font>
                   <Font name="Nunito Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
             </Label>
-            <Label styleClass="Label" stylesheets="@styles.css" text="Descrição da disciplina:">
+            <Label fx:id="userEmail" styleClass="Label" stylesheets="@styles.css" text="..." />
+         </VBox>
+         <VBox prefHeight="82.0" prefWidth="128.0">
+            <Label styleClass="Label" stylesheets="@styles.css" text="CPF do usuário:">
                <font>
                   <Font name="Nunito Bold" size="14.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
             </Label>
-            <Label fx:id="selectedDisciplineDescription" alignment="TOP_LEFT" prefHeight="201.0" prefWidth="192.0" styleClass="Label" stylesheets="@styles.css" text="...">
-               <font>
-                  <Font name="Nunito Bold" size="14.0" />
-               </font>
+            <Label fx:id="userCPF" styleClass="Label" stylesheets="@styles.css" text="..." />
+         </VBox>
+         <VBox alignment="TOP_RIGHT" prefHeight="82.0" prefWidth="288.0">
+            <Button mnemonicParsing="false" onAction="#changeUserInfo" styleClass="buttonGradient" stylesheets="@styles.css" text="Modificar informações de usuário" />
+            <Button fx:id="createProfessorButton" mnemonicParsing="false" onAction="#createProfessor" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar conta para professores">
                <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Button mnemonicParsing="false" onAction="#getOutOfDiscipline" text="Sair da disciplina">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="dropDisciplineButton" mnemonicParsing="false" onAction="#dropDiscipline" styleClass="redButton" stylesheets="@styles.css" text="Excluir disciplina" />
-         </children>
-      </VBox>
-      <VBox prefHeight="598.0" prefWidth="675.0" styleClass="backgroundColor2" stylesheets="@styles.css">
-         <children>
-            <HBox prefHeight="97.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+         </VBox>
+      </HBox>
+      <VBox prefHeight="504.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+         <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="665.0">
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+            <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="260.0">
                <padding>
-                  <Insets left="10.0" right="10.0" top="10.0" />
+                  <Insets left="10.0" />
                </padding>
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <Label styleClass="Label" stylesheets="@styles.css" text="Usuário:">
-                           <font>
-                              <Font name="Nunito Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="userName" styleClass="Label" stylesheets="@styles.css" text="..." />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="82.0" prefWidth="128.0">
-                     <children>
-                        <Label styleClass="Label" stylesheets="@styles.css" text="Email do usuário:">
-                           <font>
-                              <Font name="Nunito Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="userEmail" styleClass="Label" stylesheets="@styles.css" text="..." />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="82.0" prefWidth="128.0">
-                     <children>
-                        <Label styleClass="Label" stylesheets="@styles.css" text="CPF do usuário:">
-                           <font>
-                              <Font name="Nunito Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="userCPF" styleClass="Label" stylesheets="@styles.css" text="..." />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_RIGHT" prefHeight="82.0" prefWidth="288.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#changeUserInfo" text="Modificar informações de usuário" />
-                        <Button fx:id="createProfessorButton" mnemonicParsing="false" onAction="#createProfessor" text="Criar conta para professores">
-                           <VBox.margin>
-                              <Insets top="10.0" />
-                           </VBox.margin>
-                        </Button>
-                     </children>
-                  </VBox>
-               </children></HBox>
-            <VBox prefHeight="504.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="665.0">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <children>
-                        <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="342.0">
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                           <children>
-                              <TextField alignment="TOP_LEFT" onKeyTyped="#searchDiscipline" promptText="Pesquisar" />
-                              <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#refreshTable" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@imgs/refreshIcon.png" />
-                                 </image>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="64.0" prefWidth="344.0">
-                           <padding>
-                              <Insets left="10.0" right="10.0" />
-                           </padding>
-                           <children>
-                              <Button fx:id="createDisciplineButton" mnemonicParsing="false" onAction="#createDiscipline" text="Criar disciplina">
-                                 <HBox.margin>
-                                    <Insets right="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#enterDiscipline" text="Entrar em disciplina" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </HBox>
-                  <TableView fx:id="disciplinesTableView" fixedCellSize="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="442.0" prefWidth="665.0">
-                    <columns>
-                      <TableColumn fx:id="tableDisciplineID" editable="false" prefWidth="75.0" sortType="DESCENDING" text="ID" />
-                      <TableColumn fx:id="tableDisciplineName" editable="false" prefWidth="149.0" sortType="DESCENDING" text="Nome" />
-                        <TableColumn fx:id="tableDisciplineProfessor" editable="false" prefWidth="156.0" sortType="DESCENDING" text="Professor Responsável" />
-                        <TableColumn fx:id="tableDisciplineProfessorEmail" editable="false" prefWidth="282.0" sortType="DESCENDING" text="Email do Professor" />
-                    </columns>
-                     <columnResizePolicy>
-                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                     </columnResizePolicy>
-                  </TableView>
-               </children>
-            </VBox>
-         </children>
+               <TextField alignment="TOP_LEFT" onKeyTyped="#searchDiscipline" promptText="Pesquisar" />
+               <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#refreshTable" pickOnBounds="true" preserveRatio="true">
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+                  <Image url="@imgs/refreshIcon.png" />
+               </ImageView>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="416.0">
+               <padding>
+                  <Insets left="10.0" right="10.0" />
+               </padding>
+               <Button fx:id="createDisciplineButton" mnemonicParsing="false" onAction="#createDiscipline" prefHeight="34.0" prefWidth="143.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar disciplina">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin>
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Button>
+               <Button mnemonicParsing="false" onAction="#enterDiscipline" styleClass="buttonGradient" stylesheets="@styles.css" text="Se cadastar em uma nova disciplina" />
+            </HBox>
+         </HBox>
+         <TableView fx:id="disciplinesTableView" fixedCellSize="40.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="442.0" prefWidth="665.0">
+            <columns>
+               <TableColumn fx:id="tableDisciplineID" editable="false" prefWidth="75.0" sortType="DESCENDING" text="ID" />
+               <TableColumn fx:id="tableDisciplineName" editable="false" prefWidth="149.0" sortType="DESCENDING" text="Nome" />
+               <TableColumn fx:id="tableDisciplineProfessor" editable="false" prefWidth="156.0" sortType="DESCENDING" text="Professor Responsável" />
+               <TableColumn fx:id="tableDisciplineProfessorEmail" editable="false" prefWidth="282.0" sortType="DESCENDING" text="Email do Professor" />
+            </columns>
+            <columnResizePolicy>
+               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+         </TableView>
       </VBox>
-   </children>
+   </VBox>
 </HBox>

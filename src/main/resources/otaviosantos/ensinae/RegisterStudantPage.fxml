@@ -51,7 +51,7 @@
             <Font name="Nunito Bold" size="12.0" />
          </font>
       </Label>
-      <Button layoutX="206.0" layoutY="115.0" mnemonicParsing="false" onAction="#switchToLoginPage" styleClass="normalButton" stylesheets="@styles.css" text="Faça o LOGIN" textFill="WHITE">
+      <Button layoutX="206.0" layoutY="115.0" mnemonicParsing="false" onAction="#switchToLoginPage" styleClass="alternativeButton" stylesheets="@styles.css" text="Faça o LOGIN" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

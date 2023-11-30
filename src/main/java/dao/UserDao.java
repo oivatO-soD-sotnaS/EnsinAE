@@ -1,5 +1,7 @@
 package dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import vo.Discipline;
 import vo.User;
 import util.Conexao;
@@ -8,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
@@ -27,6 +28,7 @@ public class UserDao {
         ps.setString(5, user.password());
         ps.setString(6, user.access_level());
         ps.setBoolean(7, user.status());
+
         ps.execute();
         ps.close();
     }
@@ -79,13 +81,15 @@ public class UserDao {
         ps.close();
         return user;
     }
-    public void updateUser(User user) throws SQLException {
-        String sql = "UPDATE user SET name = ?, " +
+    public static void updateUser(User user) throws SQLException {
+        String sql = "UPDATE user " +
+                "SET name = ?, " +
                 "surname = ?, " +
                 "email = ?, " +
                 "cpf = ?, " +
-                "password = ? " +
+                "password = ?" +
                 "WHERE id_user = ?";
+
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -99,19 +103,29 @@ public class UserDao {
         ps.execute();
         ps.close();
     }
-    public static List<Discipline> listDisciplines(User user) throws SQLException {
-        List<Discipline> initialData = new ArrayList<>();
-        String sql = "";
+
+
+
+
+
+    public static ObservableList<Discipline> listDisciplines(User user) throws SQLException {
         Connection conn = Conexao.getConnection();
+        ObservableList<Discipline> list = FXCollections.observableArrayList();
+        String sql = "SELECT u.* FROM user u " +
+                "JOIN registration r ON u.id_user = r.id_user " +
+                "JOIN discipline d ON d.id_discipline = r.id_discipline " +
+                "WHERE r.status = TRUE";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            Discipline discipline = new Discipline(rs.getInt("id_discipline"),
+                    searchUser(rs.getInt("id_professor")),
+                    rs.getString("name"),
+                    rs.getString("description"));
 
-        while(rs.next()){
-
-
-        }
-        ps.close();
-        return initialData;
+            list.add(discipline);
+            }
+        return list;
     }
     public static void createDiscipline(Discipline discipline) throws SQLException {
         String sql = "INSERT INTO discipline " +

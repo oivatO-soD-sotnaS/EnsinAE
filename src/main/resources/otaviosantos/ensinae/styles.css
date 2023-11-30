@@ -13,35 +13,68 @@
 .errorLabel{
     -fx-text-fill: #eb4242;
 }
+.alternativeButton{
+    -fx-background-color: none;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+    -fx-border-radius: 11;
+}
+.redButton{
+    -fx-font-family: Nunito;
+    -fx-background-color: red;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-size: 18;
+}
+.redButton:hover{
+    -fx-background-color: darkred;
+}
+.button{
+    -fx-cursor: hand;
+}
 .buttonGradient{
+    -fx-font-family: Nunito;
     -fx-background-color: linear-gradient(to top left, #0f0c29, #302b63, #24243e);
+    -fx-text-fill: white;
+    -fx-border-color: none;
+    -fx-cursor: hand;
+    -fx-font-size: 14;
+}
+.buttonGradient:hover{
+    -fx-background-color: linear-gradient(to top left, #0f0c29cc, #302b63cc, #24243ecc);
     -fx-text-fill: white;
     -fx-border-color: none;
     -fx-cursor: hand;
 }
 .buttonGradient2{
+    -fx-font-family: Nunito;
     -fx-background-color: linear-gradient(to top left, #ff0844, #ffb199);
     -fx-text-fill: white;
     -fx-border-color: none;
     -fx-cursor: hand;
+    -fx-font-size: 18;
+}
+.buttonGradient2:hover{
+    -fx-background-color: linear-gradient(to top left, #ff0844, #ffb199cc);
 }
 .buttonGradient3{
-    -fx-background-color: linear-gradient(to top right, rgba(4,189,228,1) , rgba(2,83,185,1) );
+    -fx-font-family: Nunito;
+    -fx-background-color: linear-gradient(to top right, rgba(4,189,228,1) , rgba(2,83,185,1));
     -fx-text-fill: white;
     -fx-border-color: none;
     -fx-cursor: hand;
+    -fx-font-size: 18;
 }
-.buttonGradient2:hover{
-    -fx-background-color: none;
+.buttonGradient3:hover{
+    -fx-background-color: linear-gradient(to top right, rgba(4,189,228,0.5) , rgba(2,83,185,0.5));
 }
-
-
-.normalButton{
-    -fx-background-color: none;
-    -fx-border-color: white;
-    -fx-border-radius: 11px;
-    -fx-cursor: hand;
+.buttonGradient4{
+    -fx-font-family: Nunito;
+    -fx-background-color: linear-gradient(to bottom left, #EE9CA7, #FFDDE1);
     -fx-text-fill: white;
+    -fx-border-color: none;
+    -fx-cursor: hand;
+    -fx-font-size: 18;
 }
 
 .text-field{
@@ -51,7 +84,10 @@
     -fx-border-color: white;
     -fx-cursor: hand;
 }
-
+.text-area{
+    -fx-border-color: white;
+    -fx-cursor: hand;
+}
 .listViewStyle{
     -fx-background-color: none;
     -fx-border-color: white;
@@ -77,20 +113,5 @@
     -fx-text-fill: cornflowerblue;
 }
 
-.buttonGradient:hover{
-    -fx-background-color: linear-gradient(to top left, #ff0844, #ffb199cc);
-}
-.normalButton:hover{
-    -fx-border-color: CORNFLOWERBLUE;
-    -fx-background-color: none;
-}
-.redButton{
-    -fx-background-color: red;
-    -fx-cursor: hand;
-}
-.redButton:hover{
-    -fx-background-color: darkred;
-}
-.button{
-    -fx-cursor: hand;
-}
+
+

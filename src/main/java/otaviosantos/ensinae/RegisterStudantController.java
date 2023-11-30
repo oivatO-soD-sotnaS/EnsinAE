@@ -132,8 +132,15 @@ public class RegisterStudantController {
             } catch (NoSuchAlgorithmException | IOException e) {
                 throw new RuntimeException(e);
             } catch (SQLException e) {
-                generateError(this.cpfError, "Error: CPF já esta cadastrado");
-                this.cpfField.requestFocus();
+                if(e.getMessage().equals(
+                        String.format("Duplicate entry '%s' for key 'user.email'", this.emailField.getText()))
+                ){
+                    generateError(this.emailError, "Error: EMAIL já esta cadastrado");
+                    this.cpfField.requestFocus();
+                }else {
+                    generateError(this.cpfError, "Error: CPF já esta cadastrado");
+                    this.cpfField.requestFocus();
+                }
                 throw new RuntimeException(e);
             }
         }

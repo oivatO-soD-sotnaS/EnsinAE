@@ -17,32 +17,32 @@ public class UserSecurity {
     }
     public static String checkName(String name){
         if (name.isEmpty())
-            return "Error: Nome não pode ser vazio.";
+            return "Nome não pode ser vazio.";
         else if(name.length() > 128)
-            return "Error: nome excede o número máximo de caracteres.";
+            return "Nome excede o número máximo de caracteres.";
         return "valid name";
     }
     public static String checkSurname(String surname){
         if (surname.isEmpty())
-            return "Error: Nome não pode ser vazio.";
+            return "Sobrenome não pode ser vazio.";
         else if(surname.length() > 128)
-            return "Error: nome excede o número máximo de caracteres.";
+            return "Sobrenome excede o número máximo de caracteres.";
         return "valid surname";
     }
     public static String checkPassword(String password){
         if (password.length() < 8 || password.length() > 24) {
-            return "Error: senha deve ter entre 8 e 12 caracteres.";
+            return "Senha deve ter entre 8 e 12 caracteres.";
         }
         String passwordRegex = "[^a-zA-Z0-9]";
         Pattern pattern = Pattern.compile(passwordRegex);
         if (!pattern.matcher(password).find()) {
-            return "Erro: senha deve contar no mínimo um caractere especial";
+            return "Senha deve contar no mínimo um caractere especial";
         }
         return "valid password";
     }
     public static String checkCPF(String cpf){
         if(cpf.length() != 11){
-            return "Error: caixa de cpf vazia ou incompleta.";
+            return "Caixa de cpf vazia ou incompleta.";
         }
         cpf = cpf.replace( ".", "");
         cpf = cpf.replace("-","");
@@ -54,7 +54,7 @@ public class UserSecurity {
         int firstVerifierDigit = sum % 11;
         if(firstVerifierDigit == 10) firstVerifierDigit = 0;
         if(Integer.parseInt(String.valueOf(cpf.charAt(9))) != firstVerifierDigit){
-            return "Error: cpf inválido";
+            return "Cpf inválido";
         }
         weight = 0;
         sum = 0;
@@ -64,7 +64,7 @@ public class UserSecurity {
         int secondVerifierDigit = sum % 11;
         if(secondVerifierDigit == 10) secondVerifierDigit = 0;
         if(Integer.parseInt(String.valueOf(cpf.charAt(10))) != secondVerifierDigit){
-            return "Error: cpf inválido";
+            return "Cpf inválido";
         }
         return "valid cpf";
     }
@@ -72,13 +72,13 @@ public class UserSecurity {
         String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         if(email == null || email.isEmpty()){
-            return "Error: caixa de email vazia.";
+            return "Caixa de email vazia.";
         }else if(email.length() > 256){
-            return "Error: Email excede o número máximo de caracteres.";
+            return "Email excede o número máximo de caracteres.";
         }
         Pattern pattern = Pattern.compile(emailRegex);
         if(!pattern.matcher(email).matches()){
-            return "Error: padrão de email inválido";
+            return "Padrão de email inválido";
         }
         return "valid email";
     }

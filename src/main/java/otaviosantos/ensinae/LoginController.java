@@ -43,7 +43,7 @@ public class LoginController {
         label.setText("");
     }
 
-    private User checkEmail() throws SQLException, NoSuchAlgorithmException {
+    private User searchUser() throws SQLException, NoSuchAlgorithmException {
         String email = this.emailTextField.getText();
         if(email.isEmpty()){
             generateError(this.emailError, "Error: caixa de email vazia");
@@ -81,11 +81,9 @@ public class LoginController {
     public void checkUserInfo(ActionEvent event) {
         User user;
         try {
-            user = checkEmail();
-        } catch (SQLException | NoSuchAlgorithmException e) {
-            throw new RuntimeException(e);
-        }
-        if(user != null) {
+            user = searchUser();
+            if(user == null)
+                return;
             if(!user.status()){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Error");
@@ -93,16 +91,14 @@ public class LoginController {
                 alert.setContentText("Esta conta de usuário esta registrada porém ainda não foi confirmada, por favor espere até que um ADM autorize o acesso à sua conta.");
                 alert.show();
             }else{
-                try {
-                    switchToHomePage(event, user);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+                switchToHomePage(event, user);
             }
+        } catch (SQLException | NoSuchAlgorithmException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
     @SuppressWarnings("all")
-    private void switchToHomePage(ActionEvent event, User user) throws IOException{
+    private void switchToHomePage(ActionEvent event, User user) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomePage.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
