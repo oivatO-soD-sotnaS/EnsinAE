@@ -95,6 +95,8 @@ public class HomePageController{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateDisciplinePage.fxml"));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
+        CreateDisciplinePageController createDisciplinePageController = fxmlLoader.getController();
+        createDisciplinePageController.setActiveUser(this.activeUser);
         stage.setTitle("Registro de Disciplina");
         stage.setResizable(false);
         stage.setScene(new Scene(root));

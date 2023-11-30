@@ -12,7 +12,7 @@ public record User(Integer id_user,
     @Override
     public String toString() {
         return "User{" +
-                "id_user=" + id_user +
+                "user=" + id_user +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +

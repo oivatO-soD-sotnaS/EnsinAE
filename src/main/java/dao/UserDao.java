@@ -103,7 +103,22 @@ public class UserDao {
         ps.execute();
         ps.close();
     }
+    public static Discipline searchDiscipline(String accessCode) throws SQLException {
+        String sql = "";
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
 
+        ResultSet rs = ps.executeQuery();
+        Discipline discipline = null;
+        if(rs.next()){
+            discipline = new Discipline(rs.getInt("id_discipline"),
+                    searchUser(rs.getInt("id_professor")),
+                    rs.getString("name"),
+                    rs.getString("description"),
+                    rs.getString("access_code"));
+        }
+        return discipline;
+    }
 
 
 
@@ -119,9 +134,10 @@ public class UserDao {
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
             Discipline discipline = new Discipline(rs.getInt("id_discipline"),
-                    searchUser(rs.getInt("id_professor")),
+                    searchUser(rs.getInt("professor")),
                     rs.getString("name"),
-                    rs.getString("description"));
+                    rs.getString("description"),
+                    rs.getString("access_code"));
 
             list.add(discipline);
             }
@@ -129,14 +145,15 @@ public class UserDao {
     }
     public static void createDiscipline(Discipline discipline) throws SQLException {
         String sql = "INSERT INTO discipline " +
-                "(name, id_professor, description) " +
-                "VALUES (?, ?, ?)";
+                "(id_professor, name, description, access_code) " +
+                "VALUES (?, ?, ?, ?)";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
-        ps.setString(1, String.valueOf(discipline.name()));
-        ps.setInt(2, discipline.professor().id_user());
+        ps.setInt(1, discipline.professor().id_user());
+        ps.setString(2, discipline.name());
         ps.setString(3, discipline.description());
+        ps.setString(4, discipline.access_code());
 
         ps.execute();
         ps.close();

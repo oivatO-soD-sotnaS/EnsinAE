@@ -3,8 +3,8 @@
 }
 .backgroundColor2{
     -fx-backGround-color: #201E20;
-    -fx-border-color: #DDC3A5;
-    -fx-border-width: 1;
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0.5;
 }
 
 .Label{

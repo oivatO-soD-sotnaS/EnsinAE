@@ -13,7 +13,6 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="600.0" prefWidth="400.0" styleClass="backgroundColor" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.CreateDisciplinePageController">
    <children>
       <Polygon layoutX="27.0" layoutY="171.0" points="16.0, 24.0, 37.0, 24.0, 37.0, -18.0, 64.0, -18.0, 64.0, -29.0, 37.0, -29.0, 37.0, -54.0, -12.0, -54.0, -12.0, -36.0, 16.0, -36.0" stroke="TRANSPARENT" strokeType="INSIDE">
@@ -240,18 +239,23 @@
                </font>
             </Label>
             <Label styleClass="Label" stylesheets="@styles.css" text="Crie e Gerencie Suas Aulas Online" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="349.0" prefWidth="400.0">
                <children>
                   <Label styleClass="Label" stylesheets="@styles.css" text="Nome da Disciplina" />
-                  <TextField prefWidth="340.0" promptText="Programação Orientada a Objetos" />
+                  <TextField fx:id="disciplineNameTextField" prefWidth="340.0" promptText="Programação Orientada a Objetos" />
+                  <Label fx:id="nameError" prefHeight="17.0" prefWidth="358.0" styleClass="errorLabel" stylesheets="@styles.css" />
                   <Label styleClass="Label" stylesheets="@styles.css" text="Descrição da Disciplina" />
-                  <TextArea prefHeight="97.0" prefWidth="340.0" />
+                  <TextArea fx:id="disciplineDescriptionTextArea" prefHeight="138.0" prefWidth="340.0" />
+                  <Label fx:id="descriptionError" prefHeight="17.0" prefWidth="358.0" styleClass="errorLabel" stylesheets="@styles.css" />
+                  <Label styleClass="Label" stylesheets="@styles.css" text="Código da disciplina" />
+                  <TextField fx:id="disciplineCodeTextArea" />
+                  <Label fx:id="codeError" prefHeight="17.0" prefWidth="355.0" styleClass="errorLabel" stylesheets="@styles.css" />
                </children>
                <padding>
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                </padding>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="126.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar disciplina" />
+            <Button mnemonicParsing="false" onAction="#createDiscipline" prefHeight="41.0" prefWidth="126.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar disciplina" />
          </children>
       </VBox>
    </children>

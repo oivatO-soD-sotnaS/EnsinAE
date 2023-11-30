@@ -139,12 +139,12 @@ public class ChangeUserInfoPageController {
         this.emailTextField.setText(activeUser.email());
     }
     void setUser(User user){
-        System.out.println(user);
         this.activeUser = user;
         updateTextFields();
     }
     @FXML
     void updateUser(){
+        System.out.println(this.activeUser);
         if(checkName() && checkSurname() && checkCPF() && checkEmail() && checkPasswords()){
             try {
                 System.out.println("info confirmada");
