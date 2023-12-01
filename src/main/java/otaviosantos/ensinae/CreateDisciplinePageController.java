@@ -3,9 +3,12 @@ package otaviosantos.ensinae;
 import dao.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import vo.Discipline;
 import vo.User;
 
@@ -91,7 +94,7 @@ public class CreateDisciplinePageController {
         removeError(this.codeError);
         return true;
     }
-    private Discipline createDiscipline(){
+    private Discipline createDisciplineObject(){
         return new Discipline(0,
                 this.activeUser,
                 this.disciplineNameTextField.getText(),
@@ -103,14 +106,23 @@ public class CreateDisciplinePageController {
         this.activeUser = user;
     }
     @FXML
-    void createDiscipline(ActionEvent event) {
+    void checkDisciplineInfo(ActionEvent event) {
         if(checkName() && checkDescription() && checkAccessCode()){
             try {
-                UserDao.createDiscipline(createDiscipline());
+                UserDao.createDiscipline(createDisciplineObject());
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sucesso");
+                alert.setHeaderText(null);
+                alert.setContentText("A disciplina foi criada com sucesso.");
+                alert.showAndWait();
+
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.close();
+
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
-                if(e.getMessage().equals(String.format("Duplicate entry '%s'" +
-                        " for key 'discipline.name'"
+                if(e.getMessage().equals(
+                        String.format("Duplicate entry '%s'" + " for key 'discipline.name'"
                         , this.disciplineNameTextField.getText()))){
                     generateError(this.nameError, "Esta disciplina já esta cadastrada.");
                     this.disciplineNameTextField.requestFocus();

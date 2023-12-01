@@ -103,6 +103,21 @@ public class UserDao {
         ps.execute();
         ps.close();
     }
+    public static void createDiscipline(Discipline discipline) throws SQLException {
+        String sql = "INSERT INTO discipline " +
+                "(id_professor, name, description, access_code) " +
+                "VALUES (?, ?, ?, ?)";
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, discipline.professor().id_user());
+        ps.setString(2, discipline.name());
+        ps.setString(3, discipline.description());
+        ps.setString(4, discipline.access_code());
+
+        ps.execute();
+        ps.close();
+    }
     public static Discipline searchDiscipline(String accessCode) throws SQLException {
         String sql = "";
         Connection conn = Conexao.getConnection();
@@ -123,14 +138,17 @@ public class UserDao {
 
 
 
-    public static ObservableList<Discipline> listDisciplines(User user) throws SQLException {
+    public static ObservableList<Discipline> listDisciplinesUserIsIn(User user) throws SQLException {
         Connection conn = Conexao.getConnection();
         ObservableList<Discipline> list = FXCollections.observableArrayList();
-        String sql = "SELECT u.* FROM user u " +
-                "JOIN registration r ON u.id_user = r.id_user " +
-                "JOIN discipline d ON d.id_discipline = r.id_discipline " +
-                "WHERE r.status = TRUE";
+        String sql = "SELECT d.* FROM discipline d " +
+                "JOIN registration r ON d.id_discipline = r.id_discipline " +
+                "JOIN user u ON u.id_user = r.id_user " +
+                "WHERE r.status = TRUE AND u.id_user = ?";
+
         PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, user.id_user());
+
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
             Discipline discipline = new Discipline(rs.getInt("id_discipline"),
@@ -142,21 +160,6 @@ public class UserDao {
             list.add(discipline);
             }
         return list;
-    }
-    public static void createDiscipline(Discipline discipline) throws SQLException {
-        String sql = "INSERT INTO discipline " +
-                "(id_professor, name, description, access_code) " +
-                "VALUES (?, ?, ?, ?)";
-        Connection conn = Conexao.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-
-        ps.setInt(1, discipline.professor().id_user());
-        ps.setString(2, discipline.name());
-        ps.setString(3, discipline.description());
-        ps.setString(4, discipline.access_code());
-
-        ps.execute();
-        ps.close();
     }
     public static List<User> listUsersInDiscipline(Discipline discipline) throws SQLException {
         String sql = "";

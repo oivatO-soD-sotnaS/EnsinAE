@@ -7,6 +7,12 @@ import java.util.regex.Pattern;
 
 public class UserSecurity {
     public static String sha256(String text) throws NoSuchAlgorithmException {
+        /*
+          Encripta a senha utilizando
+          do padrão sha256 para maior
+          segurança das informações
+          do usuário
+          **/
         MessageDigest mDigest = MessageDigest.getInstance("SHA-256");
         byte[] shaByteArr = mDigest.digest(text.getBytes(StandardCharsets.UTF_8));
         StringBuilder hexStrBuilder = new StringBuilder();
@@ -16,6 +22,10 @@ public class UserSecurity {
         return hexStrBuilder.toString();
     }
     public static String checkName(String name){
+        /*
+          Checa se o nome passado
+          está dentro dos padrões do sistema
+          **/
         if (name.isEmpty())
             return "Nome não pode ser vazio.";
         else if(name.length() > 128)
@@ -23,6 +33,10 @@ public class UserSecurity {
         return "valid name";
     }
     public static String checkSurname(String surname){
+        /*
+          Checa se o sobrenome passado
+          está dentro dos padrões do sistema
+          **/
         if (surname.isEmpty())
             return "Sobrenome não pode ser vazio.";
         else if(surname.length() > 128)
@@ -30,6 +44,12 @@ public class UserSecurity {
         return "valid surname";
     }
     public static String checkPassword(String password){
+        /*
+          Checa se a senha passada
+          está dentro dos padrões
+          definidos para maior controle
+          das informações
+          **/
         if (password.length() < 8 || password.length() > 24) {
             return "Senha deve ter entre 8 e 12 caracteres.";
         }
@@ -41,11 +61,14 @@ public class UserSecurity {
         return "valid password";
     }
     public static String checkCPF(String cpf){
+        /*
+          Checa se o CPF é válido
+          **/
+        cpf = cpf.replace( ".", "");
+        cpf = cpf.replace("-","");
         if(cpf.length() != 11){
             return "Caixa de cpf vazia ou incompleta.";
         }
-        cpf = cpf.replace( ".", "");
-        cpf = cpf.replace("-","");
         int weight = 1;
         int sum = 0;
         for(int index = 0; index < 9; index++){
@@ -69,6 +92,12 @@ public class UserSecurity {
         return "valid cpf";
     }
     public static String checkEmail(String email){
+        /*
+          Checa se o email passado
+          é real de acordo com o
+          padrão estabelecido no
+          sistema
+          **/
         String emailRegex = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
                 + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
         if(email == null || email.isEmpty()){
