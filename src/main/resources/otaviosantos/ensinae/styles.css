@@ -13,6 +13,14 @@
 .errorLabel{
     -fx-text-fill: #eb4242;
 }
+.button:disabled{
+    -fx-font-family: Nunito;
+    -fx-text-fill: white;
+    -fx-border-color: none;
+    -fx-cursor: hand;
+    -fx-font-size: 14;
+    -fx-opacity: 0.5;
+}
 .alternativeButton{
     -fx-background-color: none;
     -fx-border-color: white;

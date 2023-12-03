@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="RDS-ensinae" uuid="acbeed3d-b175-403a-9035-b37916b91f5e">
+    <data-source source="LOCAL" name="RDS-ensinae" uuid="2decdb34-05a8-4cb7-ba9a-8e018fa9d043">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>

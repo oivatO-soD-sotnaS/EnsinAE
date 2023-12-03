@@ -7,10 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import models.UserSecurity;
 import vo.User;
@@ -22,6 +19,7 @@ import java.sql.SQLException;
 
 public class LoginController {
 
+    public Button loginButton;
     //Text Fields
     @FXML
     private TextField emailTextField;
@@ -104,7 +102,7 @@ public class LoginController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         HomePageController homePageController = fxmlLoader.getController();
-        homePageController.innitHomePage(user);
+        homePageController.initHomePage(user);
         stage.setScene(scene);
         stage.setResizable(false);
         stage.setTitle("Página Inicial");

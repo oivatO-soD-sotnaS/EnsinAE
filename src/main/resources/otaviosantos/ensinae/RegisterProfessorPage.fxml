@@ -17,7 +17,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" styleClass="backgroundColor" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.RegisterProfessorController">
    <QuadCurve controlX="43.15374755859375" controlY="-569.75634765625" endX="50.0" layoutX="463.0" layoutY="279.0" rotate="180.0" startX="-579.8462524414062" stroke="BLACK" strokeType="INSIDE">
       <fill>
-         <LinearGradient endX="0.22274881516587675" endY="1.0">
+         <LinearGradient endX="0.22274881516587675">
             <stops>
                <Stop>
                   <color>
@@ -44,100 +44,93 @@
       </fill>
    </QuadCurve>
    <VBox alignment="CENTER" prefHeight="800.0" prefWidth="400.0">
-      <children>
-         <AnchorPane prefHeight="129.0" prefWidth="400.0" />
-         <Label text="Cadastro de Professor" textFill="#f8f8f8">
-            <font>
-               <Font name="Nunito Bold" size="36.0" />
-            </font>
-         </Label>
-         <Label prefHeight="98.0" prefWidth="321.0" text="Faça parte da nossa comunidade de professores no IFPR e compartilhe seu conhecimento, inspirando e transformando vidas através da educação!" textAlignment="CENTER" textFill="#ffffff99" wrapText="true">
-            <font>
-               <Font name="Nunito Bold" size="13.0" />
-            </font>
-         </Label>
-         <HBox prefHeight="120.0" prefWidth="400.0">
-            <children>
-               <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
-                  <children>
-                     <Label styleClass="Label" stylesheets="@styles.css" text="Nome">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="nameTextField" promptText="Jefferson..." />
-                     <Label fx:id="nameError" prefHeight="53.0" prefWidth="180.0" styleClass="errorLabel" stylesheets="@styles.css" wrapText="true" />
-                  </children>
-                  <padding>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </padding>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
-                  <children>
-                     <Label styleClass="Label" stylesheets="@styles.css" text="Sobrenome">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="surnameTextField" promptText="Chaves..." />
-                     <Label fx:id="surnameError" prefHeight="106.0" prefWidth="180.0" styleClass="errorLabel" stylesheets="@styles.css" wrapText="true" />
-                  </children>
-                  <padding>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </padding>
-               </VBox>
-            </children>
-         </HBox>
-         <HBox prefHeight="100.0" prefWidth="200.0">
-            <children>
-               <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
-                  <children>
-                     <Label styleClass="Label" stylesheets="@styles.css" text="Email">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="emailTextField" promptText="professor@gmail.com" />
-                     <Label fx:id="emailError" prefHeight="93.0" prefWidth="180.0" styleClass="errorLabel" stylesheets="@styles.css" wrapText="true" />
-                  </children>
-                  <padding>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </padding>
-               </VBox>
-               <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
-                  <children>
-                     <Label styleClass="Label" stylesheets="@styles.css" text="CPF">
-                        <font>
-                           <Font name="System Bold" size="14.0" />
-                        </font>
-                     </Label>
-                     <TextField fx:id="cpfTextField" promptText="11111111111" />
-                     <Label fx:id="cpfError" prefHeight="17.0" prefWidth="235.0" styleClass="errorLabel" stylesheets="@styles.css" wrapText="true" />
-                  </children>
-                  <padding>
-                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                  </padding>
-               </VBox>
-            </children>
-         </HBox>
-         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
-            <children>
-               <Label text="Senha" textFill="WHITE">
-                  <font>
-                     <Font name="Nunito Bold" size="14.0" />
-                  </font>
-               </Label>
-               <PasswordField fx:id="passwordTextField" promptText="12345678!" />
-               <Label fx:id="passwordError" prefHeight="17.0" prefWidth="307.0" styleClass="errorLabel" stylesheets="@styles.css" />
-            </children>
+      <AnchorPane prefHeight="129.0" prefWidth="400.0"/>
+      <Label text="Cadastro de Professor" textFill="#f8f8f8">
+         <font>
+            <Font name="Nunito Bold" size="36.0"/>
+         </font>
+      </Label>
+      <Label prefHeight="98.0" prefWidth="321.0"
+             text="Faça parte da nossa comunidade de professores no IFPR e compartilhe seu conhecimento, inspirando e transformando vidas através da educação!"
+             textAlignment="CENTER" textFill="#ffffff99" wrapText="true">
+         <font>
+            <Font name="Nunito Bold" size="13.0"/>
+         </font>
+      </Label>
+      <HBox prefHeight="120.0" prefWidth="400.0">
+         <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
             <padding>
-               <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>
+            <Label styleClass="Label" stylesheets="@styles.css" text="Nome">
+               <font>
+                  <Font name="System Bold" size="14.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="nameTextField" promptText="Jefferson..."/>
+            <Label fx:id="nameError" prefHeight="53.0" prefWidth="180.0" styleClass="errorLabel"
+                   stylesheets="@styles.css" wrapText="true"/>
          </VBox>
-         <Button mnemonicParsing="false" onAction="#checkInfo" prefHeight="51.0" prefWidth="180.0" styleClass="buttonGradient2" stylesheets="@styles.css" text="Cadastrar professor!">
+         <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <Label styleClass="Label" stylesheets="@styles.css" text="Sobrenome">
+               <font>
+                  <Font name="System Bold" size="14.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="surnameTextField" promptText="Chaves..."/>
+            <Label fx:id="surnameError" prefHeight="106.0" prefWidth="180.0" styleClass="errorLabel"
+                   stylesheets="@styles.css" wrapText="true"/>
+         </VBox>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <Label styleClass="Label" stylesheets="@styles.css" text="Email">
+               <font>
+                  <Font name="System Bold" size="14.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="emailTextField" promptText="professor@gmail.com"/>
+            <Label fx:id="emailError" prefHeight="93.0" prefWidth="180.0" styleClass="errorLabel"
+                   stylesheets="@styles.css" wrapText="true"/>
+         </VBox>
+         <VBox prefHeight="200.0" prefWidth="200.0" spacing="10.0">
+            <padding>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <Label styleClass="Label" stylesheets="@styles.css" text="CPF">
+               <font>
+                  <Font name="System Bold" size="14.0"/>
+               </font>
+            </Label>
+            <TextField fx:id="cpfTextField" promptText="11111111111"/>
+            <Label fx:id="cpfError" prefHeight="17.0" prefWidth="235.0" styleClass="errorLabel"
+                   stylesheets="@styles.css" wrapText="true"/>
+         </VBox>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="400.0">
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="50.0"/>
+         </padding>
+         <Label text="Senha" textFill="WHITE">
             <font>
-               <Font name="Nunito Bold" size="14.0" />
-            </font></Button>
-      </children>
+               <Font name="Nunito Bold" size="14.0"/>
+            </font>
+         </Label>
+         <PasswordField fx:id="passwordTextField" promptText="12345678!"/>
+         <Label fx:id="passwordError" prefHeight="17.0" prefWidth="307.0" styleClass="errorLabel"
+                stylesheets="@styles.css"/>
+      </VBox>
+      <Button mnemonicParsing="false" onAction="#checkInfo" prefHeight="51.0" prefWidth="180.0"
+              styleClass="buttonGradient2" stylesheets="@styles.css" text="Cadastrar professor!">
+         <font>
+            <Font name="Nunito Bold" size="14.0"/>
+         </font>
+      </Button>
    </VBox>
 </AnchorPane>

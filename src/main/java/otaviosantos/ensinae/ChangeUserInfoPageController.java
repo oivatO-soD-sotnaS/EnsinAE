@@ -13,6 +13,7 @@ public class ChangeUserInfoPageController {
 
     private User activeUser;
 
+
     @FXML
     private Label newPasswordError;
 
@@ -102,33 +103,40 @@ public class ChangeUserInfoPageController {
         this.emailTextField.requestFocus();
         return false;
     }
-    private boolean checkPasswords() {
-        String password = this.passwordTextField.getText();
-        String newPassword = this.newPasswordTextField.getText();
-
-        String output = UserSecurity.checkPassword(password);
-        String newPasswordOutput = UserSecurity.checkPassword(newPassword);
-        if(!output.equals("valid password")){
-            generateError(this.passwordError, output);
-            this.passwordTextField.requestFocus();
-            return false;
-        }else if(newPasswordOutput.equals("valid password")){
-            generateError(this.newPasswordError, output);
-            this.newPasswordTextField.requestFocus();
-            return false;
+    private boolean checkOldPassword() {
+        try {
+            if(!UserSecurity.sha256(this.passwordTextField.getText()).equals(this.activeUser.password())) {
+                generateError(this.passwordError, "Esta senha deve ser identica a sua senha anterior!");
+                return false;
+            }
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
         }
         removeError(this.passwordError);
-        removeError(this.newPasswordError);
         return true;
     }
-
+    private boolean checkNewPassword(){
+        String password = this.newPasswordTextField.getText();
+        if(password.isEmpty())
+            return true;
+        String output = UserSecurity.checkPassword(password);
+        if(output.equals("valid password")){
+            removeError(this.newPasswordError);
+            return true;
+        }
+        generateError(this.newPasswordError, output);
+        this.newPasswordTextField.requestFocus();
+        return false;
+    }
     private User createUpdatedUser() throws NoSuchAlgorithmException {
         return new User(this.activeUser.id_user(),
                 this.nameTextField.getText(),
                 this.surnameTextField.getText(),
                 this.emailTextField.getText(),
                 this.cpfTextField.getText(),
-                UserSecurity.sha256(this.passwordTextField.getText()),
+                this.newPasswordTextField.getText().isEmpty() ?
+                        UserSecurity.sha256(this.passwordTextField.getText()) :
+                        UserSecurity.sha256(this.newPasswordTextField.getText()),
                 this.activeUser.access_level(),
                 this.activeUser.status());
     }
@@ -143,13 +151,17 @@ public class ChangeUserInfoPageController {
         updateTextFields();
     }
     @FXML
-    void updateUser(){
-        System.out.println(this.activeUser);
-        if(checkName() && checkSurname() && checkCPF() && checkEmail() && checkPasswords()){
+    public void updateUser(){
+        if(checkName() && checkSurname() && checkCPF() && checkEmail() && checkOldPassword() && checkNewPassword()){
             try {
-                System.out.println("info confirmada");
                 UserDao.updateUser(createUpdatedUser());
-                System.out.println("info updatada");
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Sucesso");
+                alert.setHeaderText(null);
+                alert.setContentText("Suas informações pessoais foram alteradas com sucesso!");
+                alert.showAndWait();
+
             } catch (SQLException e) {
                 if(e.getMessage().equals(
                         String.format("Duplicate entry '%s' for key 'user.email'", this.emailTextField.getText()))
@@ -166,5 +178,4 @@ public class ChangeUserInfoPageController {
             }
         }
     }
-
 }

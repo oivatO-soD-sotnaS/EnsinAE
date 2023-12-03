@@ -14,7 +14,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="400.0" styleClass="backgroundColor" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.LoginController">
    <QuadCurve controlX="-43.8154296875" controlY="-580.0" endX="524.1845703125" layoutX="18.0" layoutY="809.0" startX="-50.0" stroke="TRANSPARENT" strokeType="INSIDE">
       <fill>
-         <LinearGradient endX="1.0" endY="1.0">
+         <LinearGradient>
             <stops>
                <Stop>
                   <color>

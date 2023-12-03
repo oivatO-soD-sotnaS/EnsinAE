@@ -1,7 +1,7 @@
 package dao;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.DisciplineTable;
 import vo.Discipline;
 import vo.User;
 import util.Conexao;
@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
@@ -56,12 +57,12 @@ public class UserDao {
         ps.close();
         return user;
     }
-    public static User searchUser(Integer id) throws SQLException{
-        String sql = "SELECT * FROM user WHERE id LIKE ?";
+    public static User searchUser(Integer id_user) throws SQLException{
+        String sql = "SELECT * FROM user WHERE id_user LIKE ?";
+
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
-
-        ps.setInt(1, id);
+        ps.setInt(1, id_user);
 
         ResultSet rs = ps.executeQuery();
         User user = null;
@@ -118,62 +119,88 @@ public class UserDao {
         ps.execute();
         ps.close();
     }
-    public static Discipline searchDiscipline(String accessCode) throws SQLException {
-        String sql = "";
-        Connection conn = Conexao.getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
+    public static List<DisciplineTable> listDisciplinesUserIsIn(Integer id_user, String pattern) throws SQLException {
+        List<DisciplineTable> list = new ArrayList<>();
 
-        ResultSet rs = ps.executeQuery();
-        Discipline discipline = null;
-        if(rs.next()){
-            discipline = new Discipline(rs.getInt("id_discipline"),
-                    searchUser(rs.getInt("id_professor")),
-                    rs.getString("name"),
-                    rs.getString("description"),
-                    rs.getString("access_code"));
-        }
-        return discipline;
-    }
-
-
-
-
-    public static ObservableList<Discipline> listDisciplinesUserIsIn(User user) throws SQLException {
-        Connection conn = Conexao.getConnection();
-        ObservableList<Discipline> list = FXCollections.observableArrayList();
         String sql = "SELECT d.* FROM discipline d " +
                 "JOIN registration r ON d.id_discipline = r.id_discipline " +
                 "JOIN user u ON u.id_user = r.id_user " +
-                "WHERE r.status = TRUE AND u.id_user = ?";
+                "WHERE r.status = TRUE" +
+                " AND u.id_user = ?" +
+                " AND d.name LIKE ?";
 
+        Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setInt(1, user.id_user());
+        ps.setInt(1, id_user);
+        ps.setString(2, pattern);
 
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
-            Discipline discipline = new Discipline(rs.getInt("id_discipline"),
-                    searchUser(rs.getInt("professor")),
+            User professor = searchUser(rs.getInt("id_professor"));
+            DisciplineTable discipline =
+                    new DisciplineTable(rs.getInt("id_discipline"),
                     rs.getString("name"),
-                    rs.getString("description"),
-                    rs.getString("access_code"));
-
+                            professor.name(),
+                            professor.email(),
+                            rs.getString("description"),
+                            rs.getString("access_code"));
             list.add(discipline);
-            }
+        }
         return list;
     }
-    public static List<User> listUsersInDiscipline(Discipline discipline) throws SQLException {
-        String sql = "";
+    public static void removeUserRegistration(Integer id_user, Integer id_discipline) throws SQLException {
+        String sql = "DELETE FROM registration r " +
+                "WHERE r.id_user = ? AND r.id_discipline = ?";
 
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
 
+        ps.setInt(1, id_user);
+        ps.setInt(2, id_discipline);
+
+        ps.execute();
+    }
+    public static void addRegistration(Integer id_user, String access_code) throws SQLException {
+        String sqlSelect = "SELECT id_discipline FROM discipline" +
+                " WHERE access_code LIKE ?";
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sqlSelect);
+        ps.setString(1, access_code);
+
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            int id_discipline = rs.getInt("id_discipline");
+            String sqlInsert = "INSERT INTO registration(id_user, id_discipline, status)" +
+                    " VALUES(?, ?, FALSE)";
+
+            ps = conn.prepareStatement(sqlInsert);
+            ps.setInt(1, id_user);
+            ps.setInt(2, id_discipline);
+
+            ps.execute();
+        }
+    }
+
+
+
+
+    public static ObservableList<User> listUsersInDiscipline(Discipline discipline) throws SQLException {
+        String sql = "SELECT u.* FROM user u " +
+                "JOIN registration r ON u.id_user = r.id_user " +
+                "JOIN discipline d ON d.id_discipline = r.id_discipline " +
+                "WHERE r.status = TRUE AND d.access_code= ?";
+
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, discipline.access_code());
 
         return null;
     }
-    public static void removeUserFromDiscipline(Integer id){
-
+    public static Discipline searchDiscipline(String accessCode) throws SQLException {
+        return null;
     }
-    public static void addUserToDiscipline(Integer id){
+
+    public static void removeUserFromDiscipline(Integer id){
 
     }
 }

@@ -1,7 +1,6 @@
 package otaviosantos.ensinae;
 
 import dao.UserDao;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -11,7 +10,6 @@ import models.UserAccesLevels;
 import models.UserSecurity;
 import vo.User;
 
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
@@ -125,7 +123,7 @@ public class RegisterProfessorController {
                 true);
     }
     @FXML
-    void checkInfo(ActionEvent event) {
+    public void checkInfo() {
         if(checkName() && checkSurname() && checkEmail() && checkCPF() && checkPassword()){
             try {
                 UserDao.insertUser(createProfessor());
