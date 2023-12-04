@@ -6,9 +6,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import models.UserAccesLevels;
-import models.UserSecurity;
-import vo.User;
+import util.UserAccesLevels;
+import util.UserSecurity;
+import models.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;

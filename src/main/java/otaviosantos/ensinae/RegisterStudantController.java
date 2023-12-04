@@ -11,9 +11,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import models.UserAccesLevels;
-import models.UserSecurity;
-import vo.User;
+import util.UserAccesLevels;
+import util.UserSecurity;
+import models.User;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

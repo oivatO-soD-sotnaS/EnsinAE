@@ -1,4 +1,4 @@
-package vo;
+package models;
 
 public record Discipline(Integer id_discipline,
                          User professor,

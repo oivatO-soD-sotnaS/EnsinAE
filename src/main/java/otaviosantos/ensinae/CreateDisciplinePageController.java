@@ -9,8 +9,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import vo.Discipline;
-import vo.User;
+import models.Discipline;
+import models.User;
 
 import java.sql.SQLException;
 

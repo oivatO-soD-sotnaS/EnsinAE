@@ -1,6 +1,6 @@
-package models;
+package dto;
 
-public class DisciplineTable {
+public class DisciplineTableDto {
     private final Integer id;
     private final String name;
     private final String disciplineProfessor;
@@ -8,7 +8,7 @@ public class DisciplineTable {
     private final String disciplineDescription;
     private final String disciplineAccessCode;
 
-    public DisciplineTable(Integer id, String name, String disciplineProfessor, String professorEmail, String disciplineDescription, String disciplineAccessCode) {
+    public DisciplineTableDto(Integer id, String name, String disciplineProfessor, String professorEmail, String disciplineDescription, String disciplineAccessCode) {
         this.id = id;
         this.name = name;
         this.disciplineProfessor = disciplineProfessor;

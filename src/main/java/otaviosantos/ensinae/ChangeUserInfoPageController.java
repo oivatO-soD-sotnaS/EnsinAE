@@ -3,8 +3,8 @@ package otaviosantos.ensinae;
 import dao.UserDao;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import models.UserSecurity;
-import vo.User;
+import util.UserSecurity;
+import models.User;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;

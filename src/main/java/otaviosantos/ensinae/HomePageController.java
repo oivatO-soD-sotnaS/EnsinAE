@@ -12,8 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import vo.User;
-import models.DisciplineTable;
+import models.User;
+import dto.DisciplineTableDto;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,26 +33,26 @@ public class HomePageController implements Initializable{
     private Button createProfessorButton;
 
     @FXML
-    private TableView<DisciplineTable> tableView;
+    private TableView<DisciplineTableDto> tableView;
 
     @FXML
-    private TableColumn<DisciplineTable, Integer> disciplineId;
+    private TableColumn<DisciplineTableDto, Integer> disciplineId;
 
     @FXML
-    private TableColumn<DisciplineTable, String> disciplineName;
+    private TableColumn<DisciplineTableDto, String> disciplineName;
 
     @FXML
-    private TableColumn<DisciplineTable, String> disciplineProfessor;
+    private TableColumn<DisciplineTableDto, String> disciplineProfessor;
 
 
     @FXML
-    private TableColumn<DisciplineTable, String> professorEmail;
+    private TableColumn<DisciplineTableDto, String> professorEmail;
 
     @FXML
-    private TableColumn<DisciplineTable, String> disciplineDescription;
+    private TableColumn<DisciplineTableDto, String> disciplineDescription;
 
     @FXML
-    private TableColumn<DisciplineTable, String> disciplineAccessCode;
+    private TableColumn<DisciplineTableDto, String> disciplineAccessCode;
 
     @FXML
     private Button enterDisciplineButton;
@@ -151,8 +151,8 @@ public class HomePageController implements Initializable{
         String pattern = String.format("%s%s",this.searchBar.getText(),"%");
         assert this.activeUser != null;
         try {
-            List<DisciplineTable> disciplines = UserDao.listDisciplinesUserIsIn(this.activeUser.id_user(), pattern);
-            ObservableList<DisciplineTable> innitialData = FXCollections.observableList(disciplines);
+            List<DisciplineTableDto> disciplines = UserDao.listDisciplinesUserIsIn(this.activeUser.id_user(), pattern);
+            ObservableList<DisciplineTableDto> innitialData = FXCollections.observableList(disciplines);
             this.tableView.setItems(innitialData);
         } catch (SQLException e) {
             throw new RuntimeException(e);

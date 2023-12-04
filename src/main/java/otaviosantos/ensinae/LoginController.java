@@ -9,8 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import models.UserSecurity;
-import vo.User;
+import util.UserSecurity;
+import models.User;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;

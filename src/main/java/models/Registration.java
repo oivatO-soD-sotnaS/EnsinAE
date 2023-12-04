@@ -1,4 +1,4 @@
-package vo;
+package models;
 
 public record Registration(Integer id_registration,
                            User user,

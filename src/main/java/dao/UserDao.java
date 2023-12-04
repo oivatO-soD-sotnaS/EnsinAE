@@ -1,9 +1,9 @@
 package dao;
 
 import javafx.collections.ObservableList;
-import models.DisciplineTable;
-import vo.Discipline;
-import vo.User;
+import dto.DisciplineTableDto;
+import models.Discipline;
+import models.User;
 import util.Conexao;
 
 import java.sql.Connection;
@@ -119,8 +119,8 @@ public class UserDao {
         ps.execute();
         ps.close();
     }
-    public static List<DisciplineTable> listDisciplinesUserIsIn(Integer id_user, String pattern) throws SQLException {
-        List<DisciplineTable> list = new ArrayList<>();
+    public static List<DisciplineTableDto> listDisciplinesUserIsIn(Integer id_user, String pattern) throws SQLException {
+        List<DisciplineTableDto> list = new ArrayList<>();
 
         String sql = "SELECT d.* FROM discipline d " +
                 "JOIN registration r ON d.id_discipline = r.id_discipline " +
@@ -137,8 +137,8 @@ public class UserDao {
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
             User professor = searchUser(rs.getInt("id_professor"));
-            DisciplineTable discipline =
-                    new DisciplineTable(rs.getInt("id_discipline"),
+            DisciplineTableDto discipline =
+                    new DisciplineTableDto(rs.getInt("id_discipline"),
                     rs.getString("name"),
                             professor.name(),
                             professor.email(),

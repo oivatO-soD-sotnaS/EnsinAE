@@ -1,4 +1,4 @@
-package vo;
+package models;
 
 public record User(Integer id_user,
                    String name,
