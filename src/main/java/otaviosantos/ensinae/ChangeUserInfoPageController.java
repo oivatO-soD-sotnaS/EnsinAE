@@ -1,8 +1,11 @@
 package otaviosantos.ensinae;
 
 import dao.UserDao;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import util.UserSecurity;
 import models.User;
 
@@ -151,7 +154,7 @@ public class ChangeUserInfoPageController {
         updateTextFields();
     }
     @FXML
-    public void updateUser(){
+    public void updateUser(ActionEvent event){
         if(checkName() && checkSurname() && checkCPF() && checkEmail() && checkOldPassword() && checkNewPassword()){
             try {
                 UserDao.updateUser(createUpdatedUser());
@@ -162,6 +165,8 @@ public class ChangeUserInfoPageController {
                 alert.setContentText("Suas informações pessoais foram alteradas com sucesso!");
                 alert.showAndWait();
 
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.close();
             } catch (SQLException e) {
                 if(e.getMessage().equals(
                         String.format("Duplicate entry '%s' for key 'user.email'", this.emailTextField.getText()))

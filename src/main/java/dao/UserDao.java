@@ -156,6 +156,7 @@ public class UserDao {
         ps.execute();
         ps.close();
         conn.close();
+        addRegistration(discipline.professor().id_user(), discipline.access_code(), true);
     }
     public static List<UserDisciplinesDTO> getUserDisciplines(Integer id_user, String pattern) throws SQLException {
         List<UserDisciplinesDTO> list = new ArrayList<>();
@@ -203,27 +204,31 @@ public class UserDao {
         ps.close();
         conn.close();
     }
-    public static void addRegistration(Integer id_user, String access_code) throws SQLException {
+    public static boolean addRegistration(Integer id_user, String access_code, Boolean status) throws SQLException {
         String sqlSelect = "SELECT id_discipline FROM discipline" +
                 " WHERE access_code LIKE ?";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sqlSelect);
+
         ps.setString(1, access_code);
 
         ResultSet rs = ps.executeQuery();
         if(rs.next()){
             int id_discipline = rs.getInt("id_discipline");
             String sqlInsert = "INSERT INTO registration(id_user, id_discipline, status)" +
-                    " VALUES(?, ?, FALSE)";
+                    " VALUES(?, ?, ?)";
 
             ps = conn.prepareStatement(sqlInsert);
             ps.setInt(1, id_user);
             ps.setInt(2, id_discipline);
-
+            ps.setBoolean(3, status);
             ps.execute();
-            ps.close();
-            conn.close();
+        }else{
+            return false;
         }
+        ps.close();
+        conn.close();
+        return true;
     }
     public static List<DisciplineStudantDTO> getDisciplineStudants(Integer id_discipline, String pattern) throws SQLException {
         String sql = "SELECT u.* FROM user u " +
