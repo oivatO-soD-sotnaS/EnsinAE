@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -52,12 +52,12 @@
       </Label>
       <VBox alignment="CENTER" prefHeight="92.0" prefWidth="227.0">
          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-            <Button fx:id="enterDisciplineButton" disable="true" mnemonicParsing="false" onAction="#getInDiscipline" prefHeight="50.0" prefWidth="110.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Entrar">
+            <Button fx:id="enterDisciplineButton" disable="true" mnemonicParsing="false" onAction="#showDisciplinePage" prefHeight="50.0" prefWidth="110.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Entrar">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="removeRegistrationButton" disable="true" mnemonicParsing="false" onAction="#getOutOfDiscipline" prefHeight="50.0" prefWidth="110.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Sair">
+            <Button fx:id="removeRegistrationButton" disable="true" mnemonicParsing="false" onAction="#removeRegistration" prefHeight="50.0" prefWidth="110.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Sair">
                <HBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </HBox.margin>
@@ -66,7 +66,7 @@
       </VBox>
    </VBox>
    <VBox prefHeight="598.0" prefWidth="675.0" styleClass="backgroundColor2" stylesheets="@styles.css">
-      <HBox prefHeight="117.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+      <HBox prefHeight="127.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
          <padding>
             <Insets left="10.0" right="10.0" top="10.0" />
          </padding>
@@ -94,37 +94,41 @@
             </Label>
             <Label fx:id="userCPF" styleClass="Label" stylesheets="@styles.css" text="..." />
          </VBox>
-         <VBox alignment="TOP_RIGHT" prefHeight="82.0" prefWidth="288.0">
-            <Button mnemonicParsing="false" onAction="#changeUserInfo" styleClass="buttonGradient" stylesheets="@styles.css" text="Modificar informações de usuário" />
-            <Button fx:id="createProfessorButton" mnemonicParsing="false" onAction="#createProfessor" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar conta para professores" visible="false">
+         <VBox alignment="CENTER_RIGHT" prefHeight="82.0" prefWidth="288.0">
+            <Button mnemonicParsing="false" onAction="#showChangeUserInfoPage" styleClass="buttonGradient" stylesheets="@styles.css" text="Modificar informações de usuário" />
+            <Button fx:id="createProfessorButton" mnemonicParsing="false" onAction="#showCreateProfessorPage" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar conta para professores" visible="false">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
+            <Hyperlink fx:id="atualizeUsersLink" onAction="#showAtualizeUsersPage" text="Atualizar usuários" visible="false">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Hyperlink>
          </VBox>
       </HBox>
-      <VBox prefHeight="504.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
-         <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="665.0">
+      <VBox prefHeight="473.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
+         <HBox alignment="CENTER_LEFT" prefHeight="73.0" prefWidth="665.0">
             <opaqueInsets>
                <Insets />
             </opaqueInsets>
-            <HBox alignment="CENTER_LEFT" prefHeight="58.0" prefWidth="198.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="64.0" prefWidth="312.0">
                <padding>
                   <Insets left="10.0" />
                </padding>
-               <TextField fx:id="searchBar" alignment="TOP_LEFT" onKeyTyped="#updateTable" promptText="Pesquisar" />
-               <ImageView fitHeight="40.0" fitWidth="40.0" onMouseClicked="#updateTable" pickOnBounds="true" preserveRatio="true">
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-                  <Image url="@imgs/refreshIcon.png" />
-               </ImageView>
+               <TextField fx:id="searchBar" alignment="TOP_LEFT" prefHeight="26.0" prefWidth="105.0" />
+               <Button mnemonicParsing="false" onAction="#updateTable" prefHeight="30.0" prefWidth="112.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Pesquisar">
+                  <HBox.margin>
+                     <Insets left="10.0" />
+                  </HBox.margin>
+               </Button>
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="58.0" prefWidth="471.0">
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
-               <Button fx:id="createDisciplineButton" mnemonicParsing="false" onAction="#createDiscipline" prefHeight="34.0" prefWidth="143.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar disciplina" visible="false">
+               <Button fx:id="createDisciplineButton" mnemonicParsing="false" onAction="#showCreateDisciplinePage" prefHeight="34.0" prefWidth="143.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Criar disciplina" visible="false">
                   <HBox.margin>
                      <Insets right="10.0" />
                   </HBox.margin>
@@ -132,10 +136,10 @@
                      <Font name="System Bold" size="12.0" />
                   </font>
                </Button>
-               <Button mnemonicParsing="false" onAction="#enterDiscipline" prefHeight="34.0" prefWidth="273.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Se cadastar em uma nova disciplina" />
+               <Button mnemonicParsing="false" onAction="#showEnterDisciplinePage" prefHeight="34.0" prefWidth="273.0" styleClass="buttonGradient" stylesheets="@styles.css" text="Se cadastar em uma nova disciplina" />
             </HBox>
          </HBox>
-         <TableView fx:id="tableView" fixedCellSize="40.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getDisciplineInfo" prefHeight="442.0" prefWidth="665.0">
+         <TableView fx:id="tableView" fixedCellSize="40.0" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#getDisciplineInfo" prefHeight="413.0" prefWidth="665.0">
             <columns>
                <TableColumn fx:id="disciplineId" editable="false" prefWidth="75.0" sortType="DESCENDING" text="ID" />
                <TableColumn fx:id="disciplineName" editable="false" prefWidth="215.0" sortType="DESCENDING" text="Nome" />

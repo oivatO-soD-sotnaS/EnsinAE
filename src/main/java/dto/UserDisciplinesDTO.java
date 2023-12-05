@@ -1,15 +1,15 @@
 package dto;
 
-public class DisciplineTableDto {
-    private final Integer id;
+public class UserDisciplinesDTO {
+    private final Integer id_discipline;
     private final String name;
     private final String disciplineProfessor;
     private final String professorEmail;
     private final String disciplineDescription;
     private final String disciplineAccessCode;
 
-    public DisciplineTableDto(Integer id, String name, String disciplineProfessor, String professorEmail, String disciplineDescription, String disciplineAccessCode) {
-        this.id = id;
+    public UserDisciplinesDTO(Integer id, String name, String disciplineProfessor, String professorEmail, String disciplineDescription, String disciplineAccessCode) {
+        this.id_discipline = id;
         this.name = name;
         this.disciplineProfessor = disciplineProfessor;
         this.professorEmail = professorEmail;
@@ -17,8 +17,8 @@ public class DisciplineTableDto {
         this.disciplineAccessCode = disciplineAccessCode;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getId_discipline() {
+        return id_discipline;
     }
 
     public String getName() {

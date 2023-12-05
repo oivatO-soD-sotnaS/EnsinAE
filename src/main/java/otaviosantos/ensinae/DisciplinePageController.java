@@ -1,19 +1,51 @@
 package otaviosantos.ensinae;
 
-import javafx.event.ActionEvent;
+import dao.UserDao;
+import dto.DisciplineStudantDTO;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import org.w3c.dom.events.MouseEvent;
+import javafx.scene.control.cell.PropertyValueFactory;
 
-public class DisciplinePageController {
-    @FXML
-    private TableColumn<?, ?> cpf;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
+
+public class DisciplinePageController implements Initializable {
+
+    private Integer id_discipline;
+
+    private Integer tableCurrentIndex;
 
     @FXML
-    private TableColumn<?, ?> email;
+    private Label emailLabel;
 
     @FXML
-    private TableColumn<?, ?> name;
+    private Label nameLabel;
+
+    @FXML
+    private Label cpfLabel;
+
+    @FXML
+    private TableView<DisciplineStudantDTO> tableView;
+
+    @FXML
+    private TableColumn<DisciplineStudantDTO, String> surnameColumn;
+
+    @FXML
+    private TableColumn<DisciplineStudantDTO, Integer> id_userColumn;
+
+    @FXML
+    private TableColumn<DisciplineStudantDTO, String> nameColumn;
+
+    @FXML
+    private TableColumn<DisciplineStudantDTO, String> cpfColumn;
+
+    @FXML
+    private TableColumn<DisciplineStudantDTO, String> emailColumn;
 
     @FXML
     private Button removeStudantButton;
@@ -21,41 +53,59 @@ public class DisciplinePageController {
     @FXML
     private TextField searchBar;
 
-    @FXML
-    private Label studantCPF;
 
     @FXML
-    private Label studantEmail;
-
+    public void removeStudant() {
+        try {
+            int id_user = UserDao.searchUser(this.emailColumn.getCellData(this.tableCurrentIndex)).id_user();
+            UserDao.removeUserRegistration(
+                    id_user,
+                    this.id_discipline
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        updateTable(this.searchBar.getText());
+    }
     @FXML
-    private Label studantName;
-
+    public void searchStudant(){
+        updateTable(this.searchBar.getText());
+    }
     @FXML
-    private TableView<?> studantsTableView;
-
-    @FXML
-    private TableColumn<?, ?> surname;
-
-    @FXML
-    void getStudantInfo(MouseEvent event) {
-
+    public void updateTable(String pattern) {
+        try {
+            ObservableList<DisciplineStudantDTO> initialData =
+                    FXCollections.observableList(UserDao.getDisciplineStudants(this.id_discipline, pattern));
+            this.tableView.setItems(initialData);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    @FXML
-    void removeStudant(ActionEvent event) {
-
+    public void initDisciplinePage(Integer id_discipline, String professorEmail, String userEmail){
+        this.id_discipline = id_discipline;
+        if(professorEmail.equals(userEmail)){
+            this.removeStudantButton.setVisible(true);
+        }
+        updateTable("");
+    }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.id_userColumn.setCellValueFactory(new PropertyValueFactory<>("id_user"));
+        this.nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        this.emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        this.cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
     }
 
-    @FXML
-    void switchToHomePage(ActionEvent event) {
+    public void getStudantInfo() {
+        this.tableCurrentIndex = this.tableView.getSelectionModel().getSelectedIndex();
 
-    }
+        this.nameLabel.setText(this.nameColumn.getCellData(this.tableCurrentIndex)
+                + this.surnameColumn.getCellData(this.tableCurrentIndex));
+        this.emailLabel.setText(this.emailColumn.getCellData(this.tableCurrentIndex));
+        this.cpfLabel.setText(this.cpfColumn.getCellData(this.tableCurrentIndex));
 
-    @FXML
-    void updateTable(ActionEvent event) {
-
-    }
-
-    public void getStudantInfo(javafx.scene.input.MouseEvent mouseEvent) {
+        this.removeStudantButton.setDisable(false);
     }
 }

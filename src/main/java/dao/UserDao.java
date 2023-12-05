@@ -1,7 +1,8 @@
 package dao;
 
-import javafx.collections.ObservableList;
-import dto.DisciplineTableDto;
+import dto.DisciplineStudantDTO;
+import dto.InactiveUserDTO;
+import dto.UserDisciplinesDTO;
 import models.Discipline;
 import models.User;
 import util.Conexao;
@@ -32,6 +33,7 @@ public class UserDao {
 
         ps.execute();
         ps.close();
+        conn.close();
     }
     public static User searchUser(String email) throws SQLException{
         String sql = "SELECT * FROM user WHERE email LIKE ?";
@@ -55,6 +57,7 @@ public class UserDao {
             );
         }
         ps.close();
+        conn.close();
         return user;
     }
     public static User searchUser(Integer id_user) throws SQLException{
@@ -80,6 +83,7 @@ public class UserDao {
         }
 
         ps.close();
+        conn.close();
         return user;
     }
     public static void updateUser(User user) throws SQLException {
@@ -103,6 +107,39 @@ public class UserDao {
 
         ps.execute();
         ps.close();
+        conn.close();
+    }
+    public static void setUserActive(String email) throws SQLException {
+        String sql = "UPDATE user " +
+                "SET status = TRUE " +
+                "WHERE email LIKE ?";
+
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+
+        ps.execute();
+        ps.close();
+        conn.close();
+    }
+
+    public static List<InactiveUserDTO> getInactiveUsers() throws SQLException {
+        String sql = "SELECT * FROM user" +
+                " WHERE status = FALSE";
+
+        Connection conn = Conexao.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        List<InactiveUserDTO> users = new ArrayList<>();
+        while(rs.next()){
+            users.add(new InactiveUserDTO(rs.getInt("id_user"),
+                    rs.getString("name"),
+                    rs.getString("surname"),
+                    rs.getString("email"),
+                    rs.getString("cpf")));
+        }
+        return users;
     }
     public static void createDiscipline(Discipline discipline) throws SQLException {
         String sql = "INSERT INTO discipline " +
@@ -118,9 +155,10 @@ public class UserDao {
 
         ps.execute();
         ps.close();
+        conn.close();
     }
-    public static List<DisciplineTableDto> listDisciplinesUserIsIn(Integer id_user, String pattern) throws SQLException {
-        List<DisciplineTableDto> list = new ArrayList<>();
+    public static List<UserDisciplinesDTO> getUserDisciplines(Integer id_user, String pattern) throws SQLException {
+        List<UserDisciplinesDTO> list = new ArrayList<>();
 
         String sql = "SELECT d.* FROM discipline d " +
                 "JOIN registration r ON d.id_discipline = r.id_discipline " +
@@ -137,8 +175,8 @@ public class UserDao {
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
             User professor = searchUser(rs.getInt("id_professor"));
-            DisciplineTableDto discipline =
-                    new DisciplineTableDto(rs.getInt("id_discipline"),
+            UserDisciplinesDTO discipline =
+                    new UserDisciplinesDTO(rs.getInt("id_discipline"),
                     rs.getString("name"),
                             professor.name(),
                             professor.email(),
@@ -146,11 +184,14 @@ public class UserDao {
                             rs.getString("access_code"));
             list.add(discipline);
         }
+        ps.close();
+        conn.close();
         return list;
     }
     public static void removeUserRegistration(Integer id_user, Integer id_discipline) throws SQLException {
         String sql = "DELETE FROM registration r " +
-                "WHERE r.id_user = ? AND r.id_discipline = ?";
+                "WHERE r.id_user = ?" +
+                " AND r.id_discipline = ?";
 
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -159,6 +200,8 @@ public class UserDao {
         ps.setInt(2, id_discipline);
 
         ps.execute();
+        ps.close();
+        conn.close();
     }
     public static void addRegistration(Integer id_user, String access_code) throws SQLException {
         String sqlSelect = "SELECT id_discipline FROM discipline" +
@@ -178,29 +221,35 @@ public class UserDao {
             ps.setInt(2, id_discipline);
 
             ps.execute();
+            ps.close();
+            conn.close();
         }
     }
-
-
-
-
-    public static ObservableList<User> listUsersInDiscipline(Discipline discipline) throws SQLException {
+    public static List<DisciplineStudantDTO> getDisciplineStudants(Integer id_discipline, String pattern) throws SQLException {
         String sql = "SELECT u.* FROM user u " +
                 "JOIN registration r ON u.id_user = r.id_user " +
                 "JOIN discipline d ON d.id_discipline = r.id_discipline " +
-                "WHERE r.status = TRUE AND d.access_code= ?";
-
+                "WHERE r.status = TRUE" +
+                " AND d.id_discipline= ?" +
+                " AND r.id_user != d.id_professor" +
+                " AND u.name LIKE ?";
         Connection conn = Conexao.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1, discipline.access_code());
+        ps.setInt(1, id_discipline);
+        ps.setString(2, String.format("%s%s", pattern, "%"));
 
-        return null;
-    }
-    public static Discipline searchDiscipline(String accessCode) throws SQLException {
-        return null;
-    }
+        ResultSet rs = ps.executeQuery();
 
-    public static void removeUserFromDiscipline(Integer id){
-
+        List<DisciplineStudantDTO> studants = new ArrayList<>();
+        while(rs.next()){
+            studants.add(new DisciplineStudantDTO(rs.getInt("id_user"),
+                    rs.getString("name"),
+                    rs.getString("surname"),
+                    rs.getString("email"),
+                    rs.getString("cpf")));
+        }
+        ps.close();
+        conn.close();
+        return studants;
     }
 }
