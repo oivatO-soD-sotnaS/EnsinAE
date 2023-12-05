@@ -16,8 +16,8 @@ create table user
 );
 
 INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (1, 'Otávio', 'Santos Lima', 'otavio.santos.lima.tds.2022@gmail.com', '09090107908', 'f87b085c333e05cfeac01f265f7b1dc18d64467536bb74cdbd7497252618e0dd', 'ADM', 1);
-INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (2, 'Daniel', 'Di Domenico', 'daniel.domenico@ifpr.edu.br', '12345678909', '40923be773ae60398630b437ba59b8bae2a19da85d98f1ec0b2404dc50afc6c9', 'professor', 1);
-INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (3, 'Jefferson', 'Chaves', 'jefferson.chaves@ifpr.edu.br', '08864721215', '3957c91f4af095acbe19b53e27bfae9a60e3d6fb6af3c48a0bc84eebc2c8927b', 'professor', 1);
+INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (2, 'Daniel', 'Di Domenico', 'daniel@gmail.com', '12345678909', '40923be773ae60398630b437ba59b8bae2a19da85d98f1ec0b2404dc50afc6c9', 'professor', 1);
+INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (3, 'Jefferson', 'Chaves', 'jefferson@gmail.com', '08864721215', '3957c91f4af095acbe19b53e27bfae9a60e3d6fb6af3c48a0bc84eebc2c8927b', 'professor', 1);
 INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (4, 'John', 'Doe', 'john.doe@email.com', '12345678901', 'f87b085c333e05cfeac01f265f7b1dc18d64467536bb74cdbd7497252618e0dd', 'student', 1);
 INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (5, 'Jane', 'Smith', 'jane.smith@email.com', '23456789012', '1d4598d1949b47f7f211134b639ec32238ce73086a83c2f745713b3f12f817e5', 'student', 1);
 INSERT INTO db_ensinae.user (id_user, name, surname, email, cpf, password, access_level, status) VALUES (6, 'Alice', 'Johnson', 'alice.johnson@email.com', '34567890123', 'db98d0dea5183760a196479b1e76a4dde8b0a35f2acb20fcf3ee5454f03d6f3d', 'student', 1);
