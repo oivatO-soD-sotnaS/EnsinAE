@@ -8,7 +8,8 @@ create table registration
     constraint registration_ibfk_1
         foreign key (id_user) references user (id_user),
     constraint registration_ibfk_2
-        foreign key (id_discipline) references discipline (id_discipline)
+        foreign key (id_discipline) references discipline (id_discipline),
+    UNIQUE(id_user, id_discipline)
 );
 
 create index id_discipline
