@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="backgroundColor2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.HomePageController">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="backgroundColor2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.DisciplinePageController">
    <children>
       <VBox alignment="TOP_CENTER" prefHeight="598.0" prefWidth="235.0" styleClass="backgroundColor2" stylesheets="@styles.css">
          <children>
@@ -34,7 +34,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
+                  <Label fx:id="studantName" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -50,7 +50,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
+                  <Label fx:id="studantEmail" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -66,7 +66,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Label prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
+                  <Label fx:id="studantCPF" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -74,7 +74,7 @@
                         <Insets bottom="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="189.0" styleClass="redButton" stylesheets="@styles.css" text="Remover aluno">
+                  <Button fx:id="removeStudantButton" disable="true" mnemonicParsing="false" onAction="#removeStudant" prefHeight="52.0" prefWidth="189.0" styleClass="redButton" stylesheets="@styles.css" text="Remover aluno">
                      <VBox.margin>
                         <Insets top="30.0" />
                      </VBox.margin>
@@ -100,15 +100,15 @@
                               <Insets left="10.0" right="10.0" />
                            </padding>
                            <children>
-                              <TextField />
-                              <Button mnemonicParsing="false" styleClass="buttonGradient" stylesheets="@styles.css" text="Pesquisar">
+                              <TextField fx:id="searchBar" />
+                              <Button mnemonicParsing="false" onAction="#updateTable" styleClass="buttonGradient" stylesheets="@styles.css" text="Pesquisar">
                                  <HBox.margin>
                                     <Insets left="10.0" />
                                  </HBox.margin>
                               </Button>
                               <HBox alignment="CENTER_RIGHT" prefHeight="68.0" prefWidth="387.0">
                                  <children>
-                                    <Button mnemonicParsing="false" styleClass="buttonGradient" stylesheets="@styles.css" text="Voltar para a página inicial" />
+                                    <Button mnemonicParsing="false" onAction="#switchToHomePage" styleClass="buttonGradient" stylesheets="@styles.css" text="Voltar para a página inicial" />
                                  </children>
                               </HBox>
                            </children>
@@ -121,7 +121,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="353.0" prefWidth="668.0">
                                  <children>
-                                    <TableView layoutX="-9.0" layoutY="-3.0" prefHeight="505.0" prefWidth="680.0">
+                                    <TableView fx:id="studantsTableView" layoutX="-9.0" layoutY="-3.0" onMouseClicked="#getStudantInfo" prefHeight="505.0" prefWidth="680.0">
                                       <columns>
                                         <TableColumn fx:id="name" prefWidth="123.22502136230469" text="Nome" />
                                         <TableColumn fx:id="surname" prefWidth="174.3270263671875" text="Sobrenome" />
