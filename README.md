@@ -9,7 +9,7 @@ MySQL com um modelo relacional composto por três tabelas: User, Discipline e Re
 O objetivo principal do sistema é gerenciar usuários (studant, professor, ADM), disciplinas e registros de participação nas disciplinas.
 
 ## Estrutura do Banco de Dados
-
+<img width=500 height=600 src="imgs/DiagramaDB.png"/>
 ### Tabelas
 1. **User**
     - Armazena informações sobre os usuários do sistema.
@@ -88,3 +88,23 @@ Este documento fornece uma visão abrangente das
 funcionalidades do sistema JavaFX - EnsinAE, esclarecendo as diferentes ações que cada 
 tipo de usuário pode realizar. Certifique-se de seguir as diretrizes de segurança e 
 controle de acesso ao implementar e manter este sistema.
+
+# Imagens do Sistema
+- ## Página de Login
+    <img width=400 height=800 src="imgs/Página de Login.png"/>
+- ## Página de Cadastro de Estudante
+    <img width=400 height=800 src="imgs/Página de Cadastro de Estudante.png"/>
+- ## Página Inicial
+    <img src="imgs/Página Inicial.png"/>
+- ## Página de Modificação das Informações do Usuário
+    <img width=400 height=800 src="imgs/Página de Modificação das Informações do Usuário.png"/>
+- ## Página de Cadastro de Professor
+    <img width=400 height=800 src="imgs/Página de Cadastro de Novos Professores.png"/>
+- ## Página de Registro de Disciplina
+    <img width=400 height=600 src="imgs/Página de Registro de Nova Disciplina.png"/>
+- ## Página de Matricula em disciplina
+    <img width=400 height=600 src="imgs/Página de Cadastro em Disciplina.png"/>
+- ## Página de Autorização de novos usuários
+    <img src="imgs/Página de Autorização de Novos Usuários.png"/>
+ - ## Página da Disciplina
+    <img src="imgs/Página de disciplina.png"/>
