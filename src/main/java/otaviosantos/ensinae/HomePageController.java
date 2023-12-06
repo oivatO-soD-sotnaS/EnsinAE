@@ -1,7 +1,7 @@
 package otaviosantos.ensinae;
 
 
-import dao.UserDao;
+import dao.DisciplineDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -163,7 +163,7 @@ public class HomePageController implements Initializable{
     public void removeRegistration() {
         int id_discipline = this.disciplineId.getCellData(this.tableCurrentIndex);
         try {
-            UserDao.removeUserRegistration(this.activeUser.id_user(), id_discipline);
+            DisciplineDAO.removeUserRegistration(this.activeUser.id_user(), id_discipline);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -209,7 +209,7 @@ public class HomePageController implements Initializable{
         String pattern = String.format("%s%s",this.searchBar.getText(),"%");
         assert this.activeUser != null;
         try {
-            List<UserDisciplinesDTO> disciplines = UserDao.getUserDisciplines(this.activeUser.id_user(), pattern);
+            List<UserDisciplinesDTO> disciplines = DisciplineDAO.getUserDisciplines(this.activeUser.id_user(), pattern);
             ObservableList<UserDisciplinesDTO> innitialData = FXCollections.observableList(disciplines);
             this.tableView.setItems(innitialData);
         } catch (SQLException e) {

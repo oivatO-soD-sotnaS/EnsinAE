@@ -1,6 +1,6 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.RegistrationDAO;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -126,7 +126,7 @@ public class RegisterProfessorController {
     public void checkInfo() {
         if(checkName() && checkSurname() && checkEmail() && checkCPF() && checkPassword()){
             try {
-                UserDao.insertUser(createProfessor());
+                RegistrationDAO.insertUser(createProfessor());
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Aviso");
                 alert.setHeaderText("Conta de professor cadastrada no sistema.");

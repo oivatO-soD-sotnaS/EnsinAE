@@ -12,74 +12,71 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-      prefWidth="900.0" styleClass="backgroundColor2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.DisciplinePageController">
-   <VBox alignment="TOP_CENTER" prefHeight="598.0" prefWidth="235.0" styleClass="backgroundColor2"
-         stylesheets="@styles.css">
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" styleClass="backgroundColor2" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otaviosantos.ensinae.DisciplinePageController">
+   <VBox alignment="TOP_CENTER" prefHeight="598.0" prefWidth="235.0" styleClass="backgroundColor2" stylesheets="@styles.css">
       <ImageView fitHeight="114.0" fitWidth="130.0" pickOnBounds="true" preserveRatio="true">
-         <Image url="@logo2.png"/>
+         <Image url="@logo2.png" />
       </ImageView>
       <VBox prefHeight="509.0" prefWidth="229.0">
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </padding>
          <Label styleClass="Label" stylesheets="@styles.css" text="Nome">
             <font>
-               <Font size="18.0"/>
+               <Font size="18.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="10.0" top="10.0"/>
+               <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
          </Label>
-         <Label fx:id="nameLabel" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css"
-                text="..." textFill="#0000007f">
+         <Label fx:id="nameLabel" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
             <font>
-               <Font size="14.0"/>
+               <Font size="14.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="10.0" top="10.0"/>
+               <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
          </Label>
          <Label styleClass="Label" stylesheets="@styles.css" text="Email">
             <font>
-               <Font size="18.0"/>
+               <Font size="18.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="10.0" top="10.0"/>
+               <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
          </Label>
-         <Label fx:id="emailLabel" prefHeight="18.0" prefWidth="296.0" styleClass="Label"
-                stylesheets="@styles.css" text="..." textFill="#0000007f">
+         <Label fx:id="emailLabel" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
             <font>
-               <Font size="14.0"/>
+               <Font size="14.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="10.0" top="10.0"/>
+               <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
          </Label>
          <Label styleClass="Label" stylesheets="@styles.css" text="CPF">
             <font>
-               <Font size="18.0"/>
+               <Font size="18.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="10.0" top="10.0"/>
+               <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
          </Label>
-         <Label fx:id="cpfLabel" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css"
-                text="..." textFill="#0000007f">
+         <Label fx:id="cpfLabel" prefHeight="18.0" prefWidth="296.0" styleClass="Label" stylesheets="@styles.css" text="..." textFill="#0000007f">
             <font>
-               <Font size="14.0"/>
+               <Font size="14.0" />
             </font>
             <VBox.margin>
-               <Insets bottom="10.0" top="10.0"/>
+               <Insets bottom="10.0" top="10.0" />
             </VBox.margin>
          </Label>
-         <Button fx:id="removeStudantButton" disable="true" mnemonicParsing="false" onAction="#removeStudant"
-                 prefHeight="52.0" prefWidth="189.0" styleClass="redButton" stylesheets="@styles.css"
-                 text="Remover aluno" visible="false">
+         <Button fx:id="removeStudantButton" disable="true" mnemonicParsing="false" onAction="#removeStudant" prefHeight="52.0" prefWidth="189.0" styleClass="redButton" stylesheets="@styles.css" text="Remover aluno">
             <VBox.margin>
-               <Insets top="30.0"/>
+               <Insets top="30.0" />
+            </VBox.margin>
+         </Button>
+         <Button fx:id="addStudantsButton" disable="true" mnemonicParsing="false" onAction="#updatePendingRegistration" prefHeight="52.0" prefWidth="189.0" styleClass="buttonGradient3" stylesheets="@styles.css" text="Aceitar aluno">
+            <VBox.margin>
+               <Insets top="20.0" />
             </VBox.margin>
          </Button>
       </VBox>
@@ -88,29 +85,30 @@
       <VBox prefHeight="63.0" prefWidth="667.0" styleClass="backgroundColor2" stylesheets="@styles.css">
          <HBox alignment="CENTER_LEFT" prefHeight="85.0" prefWidth="665.0">
             <opaqueInsets>
-               <Insets/>
+               <Insets />
             </opaqueInsets>
             <HBox alignment="CENTER_LEFT" prefHeight="69.0" prefWidth="676.0">
                <padding>
-                  <Insets left="10.0" right="10.0"/>
+                  <Insets left="10.0" right="10.0" />
                </padding>
-               <TextField fx:id="searchBar"/>
-               <Button mnemonicParsing="false" onAction="#searchStudant" styleClass="buttonGradient"
-                       stylesheets="@styles.css" text="Pesquisar">
+               <TextField fx:id="searchBar" />
+               <Button mnemonicParsing="false" onAction="#searchStudant" styleClass="buttonGradient" stylesheets="@styles.css" text="Pesquisar">
                   <HBox.margin>
-                     <Insets left="10.0"/>
+                     <Insets left="10.0" />
                   </HBox.margin>
                </Button>
+               <Button fx:id="showActiveRegistrationButton" mnemonicParsing="false" onAction="#showActiveRegistration" styleClass="buttonGradient" stylesheets="@styles.css" text="Mostrar cadastros verificados" />
+               <Button fx:id="showPendingRegistrationsButton" mnemonicParsing="false" onAction="#showPendingRegistrations" styleClass="buttonGradient" stylesheets="@styles.css" text="Mostar cadastros pendentes" />
             </HBox>
          </HBox>
       </VBox>
       <TableView fx:id="tableView" onMouseClicked="#getStudantInfo" prefHeight="538.0" prefWidth="667.0">
          <columns>
-            <TableColumn fx:id="id_userColumn" prefWidth="52.0" text="ID"/>
-            <TableColumn fx:id="nameColumn" prefWidth="118.0" text="Nome"/>
-            <TableColumn fx:id="surnameColumn" prefWidth="174.3270263671875" text="Sobrenome"/>
-            <TableColumn fx:id="emailColumn" prefWidth="192.207763671875" text="Email"/>
-            <TableColumn fx:id="cpfColumn" minWidth="0.0" prefWidth="138.0" text="CPF"/>
+            <TableColumn fx:id="id_userColumn" prefWidth="52.0" text="ID" />
+            <TableColumn fx:id="nameColumn" prefWidth="118.0" text="Nome" />
+            <TableColumn fx:id="surnameColumn" prefWidth="174.3270263671875" text="Sobrenome" />
+            <TableColumn fx:id="emailColumn" prefWidth="192.207763671875" text="Email" />
+            <TableColumn fx:id="cpfColumn" minWidth="0.0" prefWidth="138.0" text="CPF" />
          </columns>
       </TableView>
    </VBox>

@@ -1,6 +1,7 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.DisciplineDAO;
+import dao.RegistrationDAO;
 import dto.DisciplineStudantDTO;
 
 import javafx.collections.FXCollections;
@@ -15,10 +16,13 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class DisciplinePageController implements Initializable {
+    //            this.showPendingRegistrationsButton.setVisible(true);
 
     private Integer id_discipline;
 
     private Integer tableCurrentIndex;
+
+    private Boolean currentStudantsStatusSearch;
 
     @FXML
     private Label emailLabel;
@@ -51,31 +55,63 @@ public class DisciplinePageController implements Initializable {
     private Button removeStudantButton;
 
     @FXML
+    private Button addStudantsButton;
+
+    @FXML
+    private Button showActiveRegistrationButton;
+
+    @FXML
+    private Button showPendingRegistrationsButton;
+
+    @FXML
     private TextField searchBar;
 
+    public void showPendingRegistrations(){
+        this.removeStudantButton.setVisible(false);
+        this.addStudantsButton.setVisible(true);
+        this.currentStudantsStatusSearch = false;
+        updateTable(this.searchBar.getText(), this.currentStudantsStatusSearch);
+    }
+
+    public void showActiveRegistration() {
+        this.addStudantsButton.setVisible(false);
+        this.removeStudantButton.setVisible(true);
+        this.currentStudantsStatusSearch = true;
+        updateTable(this.searchBar.getText(), this.currentStudantsStatusSearch);
+    }
 
     @FXML
     public void removeStudant() {
         try {
-            int id_user = UserDao.searchUser(this.emailColumn.getCellData(this.tableCurrentIndex)).id_user();
-            UserDao.removeUserRegistration(
+            int id_user = RegistrationDAO.searchUser(this.emailColumn.getCellData(this.tableCurrentIndex)).id_user();
+            DisciplineDAO.removeUserRegistration(
                     id_user,
                     this.id_discipline
             );
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        updateTable(this.searchBar.getText());
+        updateTable(this.searchBar.getText(), this.currentStudantsStatusSearch);
+    }
+
+    @FXML
+    public void updatePendingRegistration(){
+        try {
+            DisciplineDAO.updateRegistration(this.emailLabel.getText());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        updateTable(this.searchBar.getText(), this.currentStudantsStatusSearch);
     }
     @FXML
     public void searchStudant(){
-        updateTable(this.searchBar.getText());
+        updateTable(this.searchBar.getText(), this.currentStudantsStatusSearch);
     }
     @FXML
-    public void updateTable(String pattern) {
+    public void updateTable(String pattern, Boolean status) {
         try {
             ObservableList<DisciplineStudantDTO> initialData =
-                    FXCollections.observableList(UserDao.getDisciplineStudants(this.id_discipline, pattern));
+                    FXCollections.observableList(DisciplineDAO.getDisciplineStudants(status, this.id_discipline, pattern));
             this.tableView.setItems(initialData);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -83,19 +119,15 @@ public class DisciplinePageController implements Initializable {
     }
 
     public void initDisciplinePage(Integer id_discipline, String professorEmail, String userEmail){
+        this.currentStudantsStatusSearch = true;
         this.id_discipline = id_discipline;
         if(professorEmail.equals(userEmail)){
             this.removeStudantButton.setVisible(true);
+            this.addStudantsButton.setVisible(true);
+            this.showActiveRegistrationButton.setVisible(true);
+            this.showPendingRegistrationsButton.setVisible(true);
         }
-        updateTable("");
-    }
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        this.id_userColumn.setCellValueFactory(new PropertyValueFactory<>("id_user"));
-        this.nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-        this.surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
-        this.emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
-        this.cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
+        updateTable("", this.currentStudantsStatusSearch);
     }
 
     public void getStudantInfo() {
@@ -107,5 +139,15 @@ public class DisciplinePageController implements Initializable {
         this.cpfLabel.setText(this.cpfColumn.getCellData(this.tableCurrentIndex));
 
         this.removeStudantButton.setDisable(false);
+        this.addStudantsButton.setDisable(false);
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        this.id_userColumn.setCellValueFactory(new PropertyValueFactory<>("id_user"));
+        this.nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        this.surnameColumn.setCellValueFactory(new PropertyValueFactory<>("surname"));
+        this.emailColumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        this.cpfColumn.setCellValueFactory(new PropertyValueFactory<>("cpf"));
     }
 }

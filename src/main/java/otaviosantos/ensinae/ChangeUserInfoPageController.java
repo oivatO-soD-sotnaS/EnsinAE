@@ -1,6 +1,6 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.RegistrationDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -157,7 +157,7 @@ public class ChangeUserInfoPageController {
     public void updateUser(ActionEvent event){
         if(checkName() && checkSurname() && checkCPF() && checkEmail() && checkOldPassword() && checkNewPassword()){
             try {
-                UserDao.updateUser(createUpdatedUser());
+                RegistrationDAO.updateUser(createUpdatedUser());
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Sucesso");

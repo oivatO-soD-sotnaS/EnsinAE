@@ -1,6 +1,6 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.RegistrationDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +49,7 @@ public class LoginController {
             return null;
         }
         removeError(this.emailError);
-        User user = UserDao.searchUser(email);
+        User user = RegistrationDAO.searchUser(email);
         if(user == null){
             generateError(this.emailError, "Error: Email não cadastrado.");
             this.emailTextField.requestFocus();

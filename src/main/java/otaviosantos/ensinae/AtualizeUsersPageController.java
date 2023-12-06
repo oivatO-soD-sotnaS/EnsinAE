@@ -1,6 +1,6 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.RegistrationDAO;
 import dto.InactiveUserDTO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,7 +72,7 @@ public class AtualizeUsersPageController implements Initializable {
     public void setUserActive(){
 
         try {
-            UserDao.setUserActive(this.emailLabel.getText());
+            RegistrationDAO.setUserActive(this.emailLabel.getText());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -81,7 +81,7 @@ public class AtualizeUsersPageController implements Initializable {
 
     private void updateTable(){
         try {
-            List<InactiveUserDTO> inactiveUsers = UserDao.getInactiveUsers();
+            List<InactiveUserDTO> inactiveUsers = RegistrationDAO.getInactiveUsers();
             ObservableList<InactiveUserDTO> initialData = FXCollections.observableList(inactiveUsers);
             this.tableView.setItems(initialData);
         } catch (SQLException e) {

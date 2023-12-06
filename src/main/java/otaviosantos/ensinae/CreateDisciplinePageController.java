@@ -1,6 +1,6 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.DisciplineDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -109,7 +109,7 @@ public class CreateDisciplinePageController {
     void checkDisciplineInfo(ActionEvent event) {
         if(checkName() && checkDescription() && checkAccessCode()){
             try {
-                UserDao.createDiscipline(createDisciplineObject());
+                DisciplineDAO.createDiscipline(createDisciplineObject());
 
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Sucesso");

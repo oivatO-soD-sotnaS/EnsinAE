@@ -1,6 +1,6 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.RegistrationDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -127,7 +127,7 @@ public class RegisterStudantController {
     public void checkInfo(ActionEvent event){
         if(checkName() && checkSurname() && checkEmail() && checkCPF() && checkPassword()){
             try {
-                UserDao.insertUser(createStudant());
+                RegistrationDAO.insertUser(createStudant());
                 switchToLoginPage(event);
             } catch (NoSuchAlgorithmException | IOException e) {
                 throw new RuntimeException(e);

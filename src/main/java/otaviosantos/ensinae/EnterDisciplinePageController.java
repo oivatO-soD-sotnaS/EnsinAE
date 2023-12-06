@@ -1,6 +1,7 @@
 package otaviosantos.ensinae;
 
-import dao.UserDao;
+import dao.DisciplineDAO;
+import dao.RegistrationDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -28,7 +29,7 @@ public class EnterDisciplinePageController {
     @FXML
     public void addPendingRegistration(ActionEvent event) {
         try {
-            if(UserDao.addRegistration(this.activeUser.id_user(), this.accessCodeTextField.getText(), false)){
+            if(DisciplineDAO.addRegistration(this.activeUser.id_user(), this.accessCodeTextField.getText(), false)){
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Sucesso");
                 alert.setHeaderText(null);
