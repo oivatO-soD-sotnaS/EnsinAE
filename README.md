@@ -10,6 +10,7 @@ O objetivo principal do sistema é gerenciar usuários (studant, professor, ADM)
 
 ## Estrutura do Banco de Dados
 <img width=500 height=600 src="imgs/DiagramaDB.png"/>
+
 ### Tabelas
 1. **User**
     - Armazena informações sobre os usuários do sistema.
